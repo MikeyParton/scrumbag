@@ -6,10 +6,10 @@ import styled from 'styled-components'
 const grid = 8
 
 const Container = styled.div`
+  margin-bottom: ${grid}px;
   padding: ${grid * 2}px;
   background-color: ${({ isDragging }) => (isDragging ? 'lightgreen' : 'grey')};
   user-select: none;
-  margin: 0 0 ${grid}px 0;
 `
 
 class ListCard extends Component {

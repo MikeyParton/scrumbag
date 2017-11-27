@@ -4,6 +4,7 @@ import { listSelectors } from '../state/ducks/list'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import List from './List'
 import { cardActions } from '../state/ducks/card'
+import { listActions } from '../state/ducks/list'
 import styled from 'styled-components'
 
 const grid = 8
@@ -28,6 +29,14 @@ class Board extends Component {
         endIndex: result.destination.index
       })
     }
+
+    if (result.type === 'COLUMN') {
+      this.props.moveList({
+        id: result.draggableId,
+        startIndex: result.source.index,
+        endIndex: result.destination.index
+      })
+    }
   }
 
   render() {
@@ -38,28 +47,18 @@ class Board extends Component {
         onDragStart={this.onDragStart}
         onDragEnd={this.onDragEnd}
       >
-        <Container
-          // ref={provided.innerRef}
-        >
-
-        {/* <Droppable
+        <Droppable
           droppableId="board"
           type="COLUMN"
           direction="horizontal"
         >
-          {(provided, snapshot) => ( */}
-              {lists.map(list => {
-                return (
-                  <List
-                    key={list.id}
-                    list={list}
-                  />
-                )
-              })}
-              {/* {provided.placeholder} */}
-          {/* )}
-        </Droppable> */}
-        </Container>
+          {(provided, snapshot) => (
+            <Container innerRef={provided.innerRef}>
+              {lists.map(list => <List key={list.id} list={list} />)}
+              {provided.placeholder}
+            </Container>
+          )}
+        </Droppable>
       </DragDropContext>
     )
   }
@@ -73,5 +72,6 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { moveCard: cardActions.moveCard }
+  { moveCard: cardActions.moveCard,
+    moveList: listActions.moveList }
 )(Board)

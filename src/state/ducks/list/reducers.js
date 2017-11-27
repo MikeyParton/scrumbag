@@ -1,3 +1,4 @@
+import types from './types'
 import { cardTypes } from '../card'
 import { combineReducers } from 'redux'
 
@@ -7,14 +8,6 @@ const initialState = {
     "2": { id: "2", title: "List number 2", cards: ["3", "4"] }
   },
   allIds: ["1", "2"]
-}
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
 }
 
 const removeFromList = (list, index) => {
@@ -55,6 +48,9 @@ const byId = (state = initialState.byId, action) => {
 
 const allIds = (state = initialState.allIds, action) => {
   switch (action.type) {
+    case types.MOVE_LIST:
+      let newOrder = removeFromList(state, action.startIndex)
+      return addToList(newOrder, action.id, action.endIndex)
     default:
       return state
   }

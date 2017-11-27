@@ -1,4 +1,3 @@
-// import types from './types'
 import { combineReducers } from 'redux'
 
 const initialState = {

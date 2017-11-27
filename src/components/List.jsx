@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { cardSelectors } from '../state/ducks/card'
-import { Droppable } from 'react-beautiful-dnd'
+import { Droppable, Draggable } from 'react-beautiful-dnd'
 import ListCard from './ListCard'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -12,8 +12,7 @@ const Wrapper = styled.div`
   background-color: ${({ isDraggingOver }) => (isDraggingOver ? 'lightblue' : 'lightgrey')};
   display: flex;
   flex-direction: column;
-  padding: ${grid}px;
-  padding-bottom: 0;
+  padding: ${grid}px ${grid}px 0 ${grid}px;
   margin: 0 ${2 * grid}px 0 0;
   transition: background-color 0.1s ease, opacity 0.1s ease;
   user-select: none;
@@ -27,7 +26,6 @@ const Title = styled.div`
 
 const Dropzone = styled.div`
   min-height: 58px;
-  margin: 0 0 ${grid}px 0;
 `
 
 class List extends Component {
@@ -36,20 +34,34 @@ class List extends Component {
     const { id, title } = list
 
     return (
-        <Droppable droppableId={id} type='CARD'>
-          {(provided, snapshot) => (
-            <Wrapper isDraggingOver={snapshot.isDraggingOver}>
-              <Title>{title}</Title>
-              <Dropzone innerRef={provided.innerRef}>
-                {cards.map(card => (
-                  <ListCard key={card.id} card={card} />
-                ))}
-                {provided.placeholder}
-              </Dropzone>
-              <div>Add a card</div>
-            </Wrapper>
-          )}
-        </Droppable>
+      <Draggable draggableId={id} type='COLUMN'>
+        {(provided, snapshot) => (
+          <div>
+            <div
+              ref={provided.innerRef}
+              isDragging={snapshot.isDragging}
+              style={provided.draggableStyle}
+              {...provided.dragHandleProps}
+            >
+              <Droppable droppableId={id} type='CARD'>
+                {(provided, snapshot) => (
+                  <Wrapper isDraggingOver={snapshot.isDraggingOver}>
+                    <Title>{title}</Title>
+                    <Dropzone innerRef={provided.innerRef}>
+                      {cards.map(card => (
+                        <ListCard key={card.id} card={card} />
+                      ))}
+                      {provided.placeholder}
+                    </Dropzone>
+                    <div>Add a card</div>
+                  </Wrapper>
+                )}
+              </Droppable>
+            </div>
+            {provided.placeholder}
+          </div>
+        )}
+      </Draggable>
     )
   }
 }
