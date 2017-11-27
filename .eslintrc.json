@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "plugins": [
+    "class-property"
+  ],
+  "rules": {
+    "semi": "off",
+    "react/prefer-stateless-function": "off"
+  }
+}
