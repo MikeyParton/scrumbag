@@ -1,6 +1,6 @@
-const getAllLists = ({ list }) => {
-  return list.allIds.map(id => list.byId[id])
-}
+const getAllLists = ({ list }) => (
+  list.allIds.map(id => list.byId[id])
+)
 
 export default {
   getAllLists

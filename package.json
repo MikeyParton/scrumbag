@@ -9,6 +9,7 @@
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-devtools-extension": "^2.13.2",
     "styled-components": "^2.2.3"
   },
   "devDependencies": {
@@ -19,8 +20,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
-    "react-scripts": "1.0.17",
-    "redux-devtools-extension": "^2.13.2"
+    "react-scripts": "1.0.17"
   },
   "scripts": {
     "lint": "eslint --ext=js --ext=jsx --fix .",

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { listSelectors } from '../state/ducks/list'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import styled from 'styled-components'
+import { listSelectors, listActions } from '../state/ducks/list'
 import List from './List'
 import { cardActions } from '../state/ducks/card'
-import { listActions } from '../state/ducks/list'
-import styled from 'styled-components'
 
 const grid = 8
 
@@ -53,7 +53,7 @@ class Board extends Component {
           direction="horizontal"
         >
           {(provided, snapshot) => (
-            <Container innerRef={provided.innerRef}>
+            <Container innerRef={provided.innerRef} isDragging={snapshot.isDragging}>
               {lists.map(list => <List key={list.id} list={list} />)}
               {provided.placeholder}
             </Container>
@@ -64,14 +64,20 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    lists: listSelectors.getAllLists(state)
-  }
-}
+Board.propTypes = ({
+  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  moveCard: PropTypes.func.isRequired,
+  moveList: PropTypes.func.isRequired
+})
+
+const mapStateToProps = state => ({
+  lists: listSelectors.getAllLists(state)
+})
 
 export default connect(
   mapStateToProps,
-  { moveCard: cardActions.moveCard,
-    moveList: listActions.moveList }
+  {
+    moveCard: cardActions.moveCard,
+    moveList: listActions.moveList
+  }
 )(Board)

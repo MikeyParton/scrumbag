@@ -1,4 +1,4 @@
-import types from "./types"
+import types from './types'
 
 const moveList = ({ id, startIndex, endIndex }) => ({
   type: types.MOVE_LIST,

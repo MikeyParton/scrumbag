@@ -2,10 +2,10 @@ import { combineReducers } from 'redux'
 
 const initialState = {
   byId: {
-    '1': { id: '1', title: 'Do some stuff' },
-    '2': { id: '2', title: 'Feed the cat' },
-    '3': { id: '3', title: 'Go to the Gym' },
-    '4': { id: '4', title: 'Eat some cheese' }
+    1: { id: '1', title: 'Do some stuff' },
+    2: { id: '2', title: 'Feed the cat' },
+    3: { id: '3', title: 'Go to the Gym' },
+    4: { id: '4', title: 'Eat some cheese' }
   },
   allIds: ['1', '2', '3', '4']
 }

@@ -1,6 +1,6 @@
-const getCards = ({ card }, arrayOfIds) => {
-  return arrayOfIds.map(id => card.byId[id])
-}
+const getCards = ({ card }, arrayOfIds) => (
+  arrayOfIds.map(id => card.byId[id])
+)
 
 export default {
   getCards

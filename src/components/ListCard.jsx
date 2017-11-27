@@ -17,7 +17,7 @@ class ListCard extends Component {
     const { card } = this.props
 
     return (
-      <Draggable draggableId={card.id} type='CARD'>
+      <Draggable draggableId={card.id} type="CARD">
         {(provided, snapshot) => (
           <div>
             <Container
