@@ -1,11 +1,12 @@
+/* @flow */
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import { listSelectors, listActions } from '../state/ducks/list'
 import List from './List'
 import { cardActions } from '../state/ducks/card'
+import type { ListType } from '../types'
 
 const grid = 8
 
@@ -16,7 +17,13 @@ const Container = styled.div`
   padding: ${2 * grid}px;
 `
 
-class Board extends Component {
+type Props = {
+  lists: ListType[],
+  moveCard: Function,
+  moveList: Function
+}
+
+class Board extends Component<Props> {
   onDragEnd = (result) => {
     if (!result.destination) return
 
@@ -43,10 +50,7 @@ class Board extends Component {
     const { lists } = this.props
 
     return (
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragEnd={this.onDragEnd}
-      >
+      <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable
           droppableId="board"
           type="COLUMN"
@@ -63,12 +67,6 @@ class Board extends Component {
     )
   }
 }
-
-Board.propTypes = ({
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  moveCard: PropTypes.func.isRequired,
-  moveList: PropTypes.func.isRequired
-})
 
 const mapStateToProps = state => ({
   lists: listSelectors.getAllLists(state)

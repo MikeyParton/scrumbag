@@ -1,10 +1,11 @@
+/* @flow */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { cardSelectors } from '../state/ducks/card'
 import ListCard from './ListCard'
+import type { ListType, CardType, State } from '../types'
 
 const grid = 8
 
@@ -28,7 +29,20 @@ const Dropzone = styled.div`
   min-height: 58px;
 `
 
-class List extends Component {
+type StateProps = {
+  cards: CardType[]
+}
+
+type OwnProps = {
+  list: ListType
+}
+
+type Props = {
+  cards: CardType[],
+  list: ListType
+}
+
+class List extends Component<Props> {
   render() {
     const { cards, list } = this.props
     const { id, title } = list
@@ -66,15 +80,7 @@ class List extends Component {
   }
 }
 
-List.propTypes = {
-  list: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
-  }).isRequired,
-  cards: PropTypes.arrayOf(PropTypes.object).isRequired
-}
-
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: State, ownProps: OwnProps):StateProps => ({
   cards: cardSelectors.getCards(state, ownProps.list.cards)
 })
 

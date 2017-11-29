@@ -13,16 +13,20 @@
     "styled-components": "^2.2.3"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.2",
+    "babel-preset-flow": "^6.23.0",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-class-property": "^1.0.6",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
+    "flow-bin": "^0.59.0",
     "react-scripts": "1.0.17"
   },
   "scripts": {
+    "flow": "node_modules/.bin/flow",
     "lint": "eslint --ext=js --ext=jsx --fix .",
     "start": "react-scripts start",
     "build": "react-scripts build",

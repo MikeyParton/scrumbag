@@ -1,7 +1,8 @@
+/* @flow */
 import React, { Component } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import type { CardType } from '../types'
 
 const grid = 8
 
@@ -12,7 +13,11 @@ const Container = styled.div`
   user-select: none;
 `
 
-class ListCard extends Component {
+type Props = {
+  card: CardType
+}
+
+class ListCard extends Component<Props> {
   render() {
     const { card } = this.props
 
@@ -34,13 +39,6 @@ class ListCard extends Component {
       </Draggable>
     );
   }
-}
-
-ListCard.propTypes = {
-  card: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
-  }).isRequired
 }
 
 export default ListCard
