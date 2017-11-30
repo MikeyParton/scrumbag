@@ -1,5 +1,6 @@
 /* @flow */
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { Draggable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import type { CardType } from '../types'
@@ -24,17 +25,19 @@ class ListCard extends Component<Props> {
     return (
       <Draggable draggableId={card.id} type="CARD">
         {(provided, snapshot) => (
-          <div>
-            <Container
-              innerRef={provided.innerRef}
-              isDragging={snapshot.isDragging}
-              style={provided.draggableStyle}
-              {...provided.dragHandleProps}
-            >
-              {card.title}
-            </Container>
-            {provided.placeholder}
-          </div>
+          <Link to={`/card/${card.id}`}>
+            <div>
+              <Container
+                innerRef={provided.innerRef}
+                isDragging={snapshot.isDragging}
+                style={provided.draggableStyle}
+                {...provided.dragHandleProps}
+              >
+                {card.title}
+              </Container>
+              {provided.placeholder}
+            </div>
+          </Link>
         )}
       </Draggable>
     );
