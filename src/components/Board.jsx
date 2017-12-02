@@ -12,9 +12,11 @@ const grid = 8
 
 const Container = styled.div`
   width: 100vw;
-  display: inline-flex;
+  height: calc(100vh - 32px);
+  display: flex;
   align-items: flex-start;
   padding: ${2 * grid}px;
+  position: relative;
 `
 
 type Props = {
@@ -23,7 +25,15 @@ type Props = {
   moveList: Function
 }
 
-class Board extends Component<Props> {
+type State = {
+  dragging: boolean
+}
+
+class Board extends Component<Props, State> {
+  state = {
+    dragging: false
+  }
+
   onDragEnd = (result) => {
     if (!result.destination) return
 
@@ -46,11 +56,18 @@ class Board extends Component<Props> {
     }
   }
 
+  onDragStart = () => {
+    this.setState({ dragging: true })
+  }
+
   render() {
     const { lists } = this.props
 
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
+      <DragDropContext
+        onDragStart={this.onDragStart}
+        onDragEnd={this.onDragEnd}
+      >
         <Droppable
           droppableId="board"
           type="COLUMN"
@@ -58,7 +75,7 @@ class Board extends Component<Props> {
         >
           {(provided, snapshot) => (
             <Container innerRef={provided.innerRef} isDragging={snapshot.isDragging}>
-              {lists.map(list => <List key={list.id} list={list} />)}
+              {lists.map(list => <List dragging={this.state.dragging} key={list.id} list={list} />)}
               {provided.placeholder}
             </Container>
           )}

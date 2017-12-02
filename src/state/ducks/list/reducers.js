@@ -4,7 +4,7 @@ import { cardTypes } from '../card'
 
 const initialState = {
   byId: {
-    1: { id: '1', title: 'List number 1', cards: ['1', '2'] },
+    1: { id: '1', title: 'List number 1', cards: ['1', '2', '5', '6', '7', '8', '9', '10', '11', '12'] },
     2: { id: '2', title: 'List number 2', cards: ['3', '4'] }
   },
   allIds: ['1', '2']
