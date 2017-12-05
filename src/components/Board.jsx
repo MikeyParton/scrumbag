@@ -11,12 +11,20 @@ import type { ListType } from '../types'
 const grid = 8
 
 const Container = styled.div`
-  width: 100vw;
-  height: calc(100vh - 32px);
+  box-sizing: border-box;
   display: flex;
   align-items: flex-start;
-  padding: ${2 * grid}px;
   position: relative;
+  height: 100%;
+  width: 100%;
+`
+
+const Full = styled.div`
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 `
 
 type Props = {
@@ -64,6 +72,7 @@ class Board extends Component<Props, State> {
     const { lists } = this.props
 
     return (
+      <Full>
       <DragDropContext
         onDragStart={this.onDragStart}
         onDragEnd={this.onDragEnd}
@@ -81,6 +90,7 @@ class Board extends Component<Props, State> {
           )}
         </Droppable>
       </DragDropContext>
+    </Full>
     )
   }
 }

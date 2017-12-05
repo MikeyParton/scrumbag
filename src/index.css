@@ -1,5 +1,15 @@
-body {
-  margin: 0;
-  padding: 0;
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html, body {
   font-family: sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }

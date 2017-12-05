@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   background-color: ${({ isDraggingOver }) => (isDraggingOver ? 'lightblue' : 'lightgrey')};
   display: flex;
   flex-direction: column;
-  padding: ${grid}px ${grid}px 0 ${grid}px;
+  padding: ${grid}px;
   margin: 0 ${2 * grid}px 0 0;
   transition: background-color 0.1s ease, opacity 0.1s ease;
   user-select: none;
@@ -34,11 +34,24 @@ const Dropzone = styled.div`
 const ScrollContainer = styled.div`
   flex: 1;
   overflow-y: scroll;
+
+  .card {
+    margin-bottom: ${grid}px
+  }
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+  }
 `
 
 const ScrollWrapper = styled.div`
   flex-grow: 1;
-  overflow-y: hidden;
   display: flex;
   position: relative;
 `
@@ -86,12 +99,11 @@ class List extends Component<Props> {
     return (
       <Draggable draggableId={id} type="COLUMN">
         {(provided, snapshot) => (
-          <div style={{ height: '100%' }}>
+          <div style={{ height: '100%', position: 'relative' }}>
             <div
               ref={provided.innerRef}
               isDragging={snapshot.isDragging}
-              style={provided.draggableStyle}
-              style={{ height: '100%' }}
+              style={{ ...provided.draggableStyle, height: '500px' }}
               {...provided.dragHandleProps}
             >
               <Droppable droppableId={id} type="CARD">
@@ -99,7 +111,7 @@ class List extends Component<Props> {
                   <Wrapper isDraggingOver={snapshot2.isDraggingOver}>
                     <Title>{title}</Title>
                     <ScrollWrapper>
-                      <ScrollZone top onMouseOver={() => this.scroll(-10)} onMouseLeave={this.stopScroll} />
+                      {/* <ScrollZone top onMouseOver={() => this.scroll(-10)} onMouseLeave={this.stopScroll} /> */}
                       <ScrollContainer innerRef={(scroll) => { this.scrollContainer = scroll }}>
                         <Dropzone innerRef={provided2.innerRef}>
                           {cards.map(card => (
@@ -108,12 +120,11 @@ class List extends Component<Props> {
                           {provided2.placeholder}
                         </Dropzone>
                       </ScrollContainer>
-                      <ScrollZone bottom onMouseOver={() => this.scroll(10)} onMouseLeave={this.stopScroll} />
+                      {/* <ScrollZone bottom onMouseOver={() => this.scroll(10)} onMouseLeave={this.stopScroll} /> */}
                     </ScrollWrapper>
                     <div>Add a card</div>
                   </Wrapper>
                 )}
-
               </Droppable>
             </div>
             {provided.placeholder}

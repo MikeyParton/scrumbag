@@ -24,18 +24,19 @@ class ListCard extends Component<Props> {
 
     return (
       <Draggable draggableId={card.id} type="CARD">
-        {(provided, snapshot) => (
+        {(provided3, snapshot3) => (
           <Link to={`/card/${card.id}`}>
             <div>
               <Container
-                innerRef={provided.innerRef}
-                isDragging={snapshot.isDragging}
-                style={provided.draggableStyle}
-                {...provided.dragHandleProps}
+                className="card"
+                innerRef={provided3.innerRef}
+                isDragging={snapshot3.isDragging}
+                style={provided3.draggableStyle}
+                {...provided3.dragHandleProps}
               >
                 {card.title}
               </Container>
-              {provided.placeholder}
+              {provided3.placeholder}
             </div>
           </Link>
         )}
