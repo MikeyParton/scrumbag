@@ -1,11 +1,11 @@
 /* @flow */
+import { cardActions } from 'state/ducks/card'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import { listSelectors, listActions } from '../state/ducks/list'
 import List from './List'
-import { cardActions } from '../state/ducks/card'
 import type { ListType } from '../types'
 
 const grid = 8
@@ -73,24 +73,24 @@ class Board extends Component<Props, State> {
 
     return (
       <Full>
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragEnd={this.onDragEnd}
-      >
-        <Droppable
-          droppableId="board"
-          type="COLUMN"
-          direction="horizontal"
+        <DragDropContext
+          onDragStart={this.onDragStart}
+          onDragEnd={this.onDragEnd}
         >
-          {(provided, snapshot) => (
-            <Container innerRef={provided.innerRef} isDragging={snapshot.isDragging}>
-              {lists.map(list => <List dragging={this.state.dragging} key={list.id} list={list} />)}
-              {provided.placeholder}
-            </Container>
+          <Droppable
+            droppableId="board"
+            type="COLUMN"
+            direction="horizontal"
+          >
+            {(provided, snapshot) => (
+              <Container innerRef={provided.innerRef} isDragging={snapshot.isDragging}>
+                {lists.map(list => <List dragging={this.state.dragging} key={list.id} list={list} />)}
+                {provided.placeholder}
+              </Container>
           )}
-        </Droppable>
-      </DragDropContext>
-    </Full>
+          </Droppable>
+        </DragDropContext>
+      </Full>
     )
   }
 }

@@ -8,6 +8,13 @@
   "plugins": [
     "class-property"
   ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
   "rules": {
     "semi": "off",
     "react/prefer-stateless-function": "off",
