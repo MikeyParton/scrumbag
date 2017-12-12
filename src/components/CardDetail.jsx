@@ -26,7 +26,7 @@ const Header = styled.div`
 
 class CardDetail extends Component {
   close = () => {
-    this.props.history.push('/')
+    this.props.history.push('/boards/1')
   }
 
   componentDidMount() {

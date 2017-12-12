@@ -25,7 +25,7 @@ class ListCard extends Component<Props> {
     return (
       <Draggable draggableId={card.id} type="CARD">
         {(provided3, snapshot3) => (
-          <Link to={`/card/${card.id}`}>
+          <Link to={`/boards/${1}/card/${card.id}`}>
             <div>
               <Container
                 className="card"

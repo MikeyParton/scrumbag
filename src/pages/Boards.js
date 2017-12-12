@@ -6,7 +6,7 @@ import CardDetail from '../components/CardDetail'
 const BoardPage = () => (
   <div>
     <Board />
-    <Route path="/card/:id" component={CardDetail} />
+    <Route path="card/:id" component={CardDetail} />
   </div>
 )
 
