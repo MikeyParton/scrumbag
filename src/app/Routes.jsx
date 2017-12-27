@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Home from 'features/Home/Home'
+import Boards from 'features/Boards/Boards'
 import NavBar from 'features/NavBar/NavBar'
 import Board from 'pages/BoardDetail'
 import styled from 'styled-components'
@@ -23,7 +23,7 @@ const Routes = () => (
       <NavBar />
       <Content>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Boards} />
           <Route path="/boards/:id" component={Board} />
         </Switch>
       </Content>

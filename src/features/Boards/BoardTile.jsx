@@ -18,12 +18,12 @@ const Tile = styled(BaseCard)`
 
 
 const BoardTile = (props) => {
-  const { id } = props
+  const { id, name } = props
   return (
     <Wrapper>
       <Link to={`/boards/${id}`}>
         <Tile>
-          <CardTitle>Foodle</CardTitle>
+          <CardTitle>{name}</CardTitle>
         </Tile>
       </Link>
     </Wrapper>
