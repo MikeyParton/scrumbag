@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import BaseCard from 'components/BaseCard'
-import CardTitle from 'components/CardTitle'
+import BaseCard from 'common/components/BaseCard'
+import CardTitle from 'common/components/CardTitle'
 
 const Wrapper = styled.div`
   margin-bottom: 30px;

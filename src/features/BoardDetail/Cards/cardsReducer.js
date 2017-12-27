@@ -1,3 +1,4 @@
+import { createReducer } from 'common/utils/reducerUtils'
 import { combineReducers } from 'redux'
 
 const initialState = {
@@ -18,19 +19,8 @@ const initialState = {
   allIds: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
 }
 
-const byId = (state = initialState.byId, action) => {
-  switch (action.type) {
-    default:
-      return state
-  }
-}
-
-const allIds = (state = initialState.allIds, action) => {
-  switch (action.type) {
-    default:
-      return state
-  }
-}
+const byId = createReducer(initialState.byId, {})
+const allIds = createReducer(initialState.allIds, {})
 
 export default combineReducers({
   byId,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import Board from '../components/Board'
-import CardDetail from '../components/CardDetail'
+import Board from 'features/BoardDetail/BoardDetail'
+import CardDetail from 'features/CardDetail/CardDetail'
 
 const BoardPage = ({ match }) => {
   return (

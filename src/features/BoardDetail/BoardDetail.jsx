@@ -1,47 +1,25 @@
-/* @flow */
-import { cardActions } from 'state/ducks/card'
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import styled from 'styled-components'
-import { listSelectors, listActions } from '../state/ducks/list'
-import List from './List'
-import type { ListType } from '../types'
 
-const grid = 8
+import { Container, Full } from './boardStyles'
+import List from './Lists/List'
 
-const Container = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  align-items: flex-start;
-  position: relative;
-  height: 100%;
-  width: 100%;
-`
+import { moveCard } from './Cards/cardsActions'
+import { moveList } from './Lists/listsActions'
+import { getAllLists } from './Lists/listsSelectors'
 
-const Full = styled.div`
-  height: 100vh;
-  width: 100vw;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-`
+const mapState = state => ({
+  lists: getAllLists(state)
+})
 
-type Props = {
-  lists: ListType[],
-  moveCard: Function,
-  moveList: Function
+const actions = {
+  moveCard,
+  moveList
 }
 
-type State = {
-  dragging: boolean
-}
-
-class Board extends Component<Props, State> {
-  state = {
-    dragging: false
-  }
-
+class BoardDetail extends Component {
   onDragEnd = (result) => {
     if (!result.destination) return
 
@@ -65,7 +43,7 @@ class Board extends Component<Props, State> {
   }
 
   onDragStart = () => {
-    this.setState({ dragging: true })
+    // this.props.publishDrag
   }
 
   render() {
@@ -84,10 +62,15 @@ class Board extends Component<Props, State> {
           >
             {(provided, snapshot) => (
               <Container innerRef={provided.innerRef} isDragging={snapshot.isDragging}>
-                {lists.map(list => <List dragging={this.state.dragging} key={list.id} list={list} />)}
+                {lists.map(list => (
+                  <List
+                    key={list.id}
+                    list={list}
+                  />
+                ))}
                 {provided.placeholder}
               </Container>
-          )}
+            )}
           </Droppable>
         </DragDropContext>
       </Full>
@@ -95,14 +78,14 @@ class Board extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => ({
-  lists: listSelectors.getAllLists(state)
-})
+BoardDetail.propTypes = {
+  lists: PropTypes.arrayOf(PropTypes.object),
+  moveCard: PropTypes.func.isRequired,
+  moveList: PropTypes.func.isRequired,
+}
 
-export default connect(
-  mapStateToProps,
-  {
-    moveCard: cardActions.moveCard,
-    moveList: listActions.moveList
-  }
-)(Board)
+BoardDetail.defaultProps = {
+  lists: []
+}
+
+export default connect(mapState, actions)(BoardDetail)

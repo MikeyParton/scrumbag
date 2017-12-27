@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from 'features/Home/Home'
 import NavBar from 'features/NavBar/NavBar'
 import Board from 'pages/BoardDetail'
-import CardDetail from 'components/CardDetail'
 import styled from 'styled-components'
 
 const FullPage = styled.div`
