@@ -1,16 +1,25 @@
 import axios from 'axios'
-import { BOARDS_URL } from 'config/api'
-import { normalize, schema } from 'normalizr'
 import humps from 'humps'
-
-const board = new schema.Entity('boards')
-const mySchema = { boards: [board] }
+import { normalize } from 'normalizr'
+import { BOARDS_URL } from 'config/api'
+import boardsSchema from './boardsSchema'
 
 export const boardsRequest = () => {
   return axios.get(BOARDS_URL)
     .then((response) => {
-      const { boards } = normalize(humps.camelizeKeys(response.data), mySchema).entities
+      const { boards } = normalize(humps.camelizeKeys(response.data), boardsSchema).entities
       return { boards }
+    })
+    .catch((error) => {
+      return { error }
+    })
+}
+
+export const createBoardRequest = (params) => {
+  return axios.post(BOARDS_URL, { board: params })
+    .then((response) => {
+      const { board } = humps.camelizeKeys(response.data)
+      return { board }
     })
     .catch((error) => {
       return { error }

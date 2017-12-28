@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import BoardForm from 'features/BoardForm/BoardForm'
 import BoardTile from './BoardTile'
 import Loading from 'common/components/Loading'
 import { boardsRequest } from './boardsActions'
@@ -26,6 +27,9 @@ class Boards extends React.Component {
       <Grid fluid>
         <Row>
           { loading && <Loading /> }
+          <Col key={'new-board'} xs={12} sm={6} md={4}>
+            <BoardForm />
+          </Col>
           { boards.map((board) => (
             <Col key={board.id} xs={12} sm={6} md={4}>
               <BoardTile {...board} />

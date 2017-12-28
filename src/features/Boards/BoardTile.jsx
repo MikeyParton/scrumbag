@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   }
 `
 
-const Tile = styled(BaseCard)`
+export const Tile = styled(BaseCard)`
   height: 100px;
 `
 

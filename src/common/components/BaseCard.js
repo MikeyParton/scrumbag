@@ -4,7 +4,7 @@ import { darken } from 'polished'
 const BaseCard = styled.div`
   background-color: lightgrey;
   border-radius: 10px;
-  color: white;
+  ${'' /* color: white; */}
   padding: 20px;
 
   -webkit-transition: background-color 0.25s;
