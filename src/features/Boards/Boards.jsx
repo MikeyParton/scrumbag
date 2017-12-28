@@ -2,8 +2,10 @@ import React from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import BoardForm from 'features/BoardForm/BoardForm'
+import { modalOpen } from 'features/ModalManager/modalManagerActions'
 import BoardTile from './BoardTile'
 import Loading from 'common/components/Loading'
+import { Tile } from 'features/Boards/BoardTile'
 import { boardsRequest } from './boardsActions'
 import { getAllBoards, loading } from './boardsSelectors'
 
@@ -13,12 +15,17 @@ const mapState = state => ({
 })
 
 const actions = {
-  boardsRequest
+  boardsRequest,
+  modalOpen
 }
 
 class Boards extends React.Component {
   componentDidMount() {
     this.props.boardsRequest()
+  }
+
+  openNewBoardModal = () => {
+    this.props.modalOpen('BoardForm')
   }
 
   render() {
@@ -28,7 +35,9 @@ class Boards extends React.Component {
         <Row>
           { loading && <Loading /> }
           <Col key={'new-board'} xs={12} sm={6} md={4}>
-            <BoardForm />
+            <Tile onClick={this.openNewBoardModal}>
+              <p>New Board</p>
+            </Tile>
           </Col>
           { boards.map((board) => (
             <Col key={board.id} xs={12} sm={6} md={4}>

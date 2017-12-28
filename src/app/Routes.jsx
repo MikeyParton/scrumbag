@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Boards from 'features/Boards/Boards'
+import ModalManager from 'features/ModalManager/ModalManager'
 import NavBar from 'features/NavBar/NavBar'
 import Board from 'pages/BoardDetail'
 import styled from 'styled-components'
@@ -22,6 +23,7 @@ const Routes = () => (
     <FullPage>
       <NavBar />
       <Content>
+        <ModalManager />
         <Switch>
           <Route exact path="/" component={Boards} />
           <Route path="/boards/:id" component={Board} />
