@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { withRouter } from 'react-router-dom'
 
 import { Container, Full } from './boardStyles'
 import List from './Lists/List'
@@ -9,6 +10,9 @@ import List from './Lists/List'
 import { moveCard } from './Cards/cardsActions'
 import { moveList } from './Lists/listsActions'
 import { getAllLists } from './Lists/listsSelectors'
+
+// To Delete
+import { boardDetailRequest } from './boardDetailAPI'
 
 const mapState = state => ({
   lists: getAllLists(state)
@@ -20,6 +24,11 @@ const actions = {
 }
 
 class BoardDetail extends Component {
+  componentDidMount() {
+    const boardId = this.props.match.params.boardId
+    boardDetailRequest(boardId)
+  }
+
   onDragEnd = (result) => {
     if (!result.destination) return
 
@@ -88,4 +97,4 @@ BoardDetail.defaultProps = {
   lists: []
 }
 
-export default connect(mapState, actions)(BoardDetail)
+export default connect(mapState, actions)(withRouter(BoardDetail))

@@ -26,7 +26,7 @@ const Routes = () => (
         <ModalManager />
         <Switch>
           <Route exact path="/" component={Boards} />
-          <Route path="/boards/:id" component={Board} />
+          <Route path="/boards/:boardId" component={Board} />
         </Switch>
       </Content>
     </FullPage>

@@ -6,7 +6,7 @@ import { getCardById } from 'features/BoardDetail/Cards/cardsSelectors'
 import { Modal, Header } from './cardDetailStyles'
 
 const mapState = (state, ownProps) => ({
-  card: getCardById(state, ownProps.match.params.id)
+  card: getCardById(state, ownProps.match.params.cardId)
 })
 
 class CardDetail extends Component {

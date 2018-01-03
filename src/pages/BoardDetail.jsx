@@ -7,7 +7,7 @@ const BoardPage = ({ match }) => {
   return (
     <div>
       <Board />
-      <Route path={`${match.url}/card/:id`} component={CardDetail} />
+      <Route path={`${match.url}/card/:cardId`} component={CardDetail} />
     </div>
   )
 }
