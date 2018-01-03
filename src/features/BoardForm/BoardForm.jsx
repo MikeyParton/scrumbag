@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Tile } from 'features/Boards/BoardTile'
+import { StatusButton } from 'common/components/Button'
+import { Label, Input } from 'common/components/Form'
 import { createBoardRequest } from 'features/Boards/boardsActions'
 import { updateForm } from './boardFormActions'
 import { getboardForm } from './boardFormSelectors'
@@ -15,6 +16,10 @@ const actions = {
 }
 
 class BoardForm extends React.Component {
+  componentDidMount() {
+    this.nameInput.focus()
+  }
+
   handleChange = (event) => {
     const { name, value } = event.target
     this.props.updateForm({
@@ -29,26 +34,27 @@ class BoardForm extends React.Component {
   }
 
   render() {
-    const { form } = this.props
+    const { form, submitStatus } = this.props
     const { name } = form
 
     return (
-      <Tile>
-        <p>Create new Board ...</p>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Name
-          </label>
-          <input
-            name="name"
-            value={name}
-            onChange={this.handleChange}
-          />
-          <button type="submit">
-            Submit
-          </button>
-        </form>
-      </Tile>
+      <form onSubmit={this.handleSubmit}>
+        <Label for="name">Name</Label>
+        <Input
+          innerRef={(input) => { this.nameInput = input }}
+          name="name"
+          value={name}
+          onChange={this.handleChange}
+          placeholder="Like Lodex..."
+        />
+        <StatusButton
+          buttonType="success"
+          type="submit"
+          status={submitStatus}
+        >
+          Create
+        </StatusButton>
+      </form>
     )
   }
 }

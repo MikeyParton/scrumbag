@@ -1,16 +1,13 @@
-import { MODAL_OPEN, MODAL_CLOSE, MODAL_CLOSE_ALL } from './modalManagerConstants'
+import { MODAL_OPEN, MODAL_CLOSE } from './modalManagerConstants'
 
-export const modalOpen = component => ({
+export const modalOpen = ({ title, type }) => ({
   type: MODAL_OPEN,
   payload: {
-    component
+    title,
+    type
   }
 })
 
 export const modalClose = () => ({
   type: MODAL_CLOSE
-})
-
-export const modalCloseAll = () => ({
-  type: MODAL_CLOSE_ALL
 })

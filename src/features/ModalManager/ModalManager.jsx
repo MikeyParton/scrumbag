@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Modal, Header } from './modalStyles'
+import BoardForm from 'features/BoardForm/BoardForm'
+import { Modal, Header, Title, CloseButton } from 'common/components/Modal'
 import { getModalManager } from './modalManagerSelectors'
-import { modalClose, modalCloseAll } from './modalManagerActions'
+import { modalClose } from './modalManagerActions'
+
+const lookupTable = {
+  BoardForm
+}
 
 const mapState = state => ({
   ...getModalManager(state)
 })
 
 const actions = {
-  modalClose,
-  modalCloseAll
+  modalClose
 }
 
 class ModalManager extends Component {
@@ -29,20 +33,22 @@ class ModalManager extends Component {
 
   hanldeClickOutside = (event) => {
     if (this.modal && !this.modal.contains(event.target)) {
-      this.props.modalCloseAll()
+      this.close()
     }
   }
 
   render() {
-    const { open, modals } = this.props
+    const { open, type, title } = this.props
     if (!open) return null
+    const SpecificComponent = lookupTable[type]
 
     return (
       <Modal innerRef={(modal) => { this.modal = modal }}>
         <Header>
-          <h3>Test Modal</h3>
-          <button onClick={this.close}>Close</button>
+          <Title>{title}</Title>
+          <CloseButton onClick={this.close} />
         </Header>
+        <SpecificComponent />
       </Modal>
     )
   }

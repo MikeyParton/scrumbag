@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { createReducer } from 'common/utils/reducerUtils'
 import { CREATE_BOARD_REQUEST, CREATE_BOARD_SUCCESS, CREATE_BOARD_ERROR } from 'features/Boards/boardsConstants'
-import { UPDATE_FORM } from './boardFormConstants'
+import { UPDATE_FORM, RESET_FORM } from './boardFormConstants'
 
 const initialState = {
   name: ''
@@ -12,17 +12,18 @@ export const updateForm = (state, payload) => {
 }
 
 const form = createReducer(initialState, {
-  [CREATE_BOARD_SUCCESS]: () => initialState,
-  [UPDATE_FORM]: updateForm
+  [UPDATE_FORM]: updateForm,
+  [RESET_FORM]: () => initialState
 })
 
-const loading = createReducer(false, {
-  [CREATE_BOARD_REQUEST]: () => true,
-  [CREATE_BOARD_SUCCESS]: () => false,
-  [CREATE_BOARD_ERROR]: () => false
+const submitStatus = createReducer(null, {
+  [CREATE_BOARD_REQUEST]: () => 'busy',
+  [CREATE_BOARD_SUCCESS]: () => 'done',
+  [CREATE_BOARD_ERROR]: () => null,
+  [RESET_FORM]: () => null
 })
 
 export default combineReducers({
   form,
-  loading
+  submitStatus
 })

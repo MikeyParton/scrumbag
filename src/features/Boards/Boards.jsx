@@ -25,7 +25,10 @@ class Boards extends React.Component {
   }
 
   openNewBoardModal = () => {
-    this.props.modalOpen('BoardForm')
+    this.props.modalOpen({
+      title: 'Create a Board',
+      type: 'BoardForm'
+    })
   }
 
   render() {
