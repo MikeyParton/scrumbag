@@ -4,7 +4,7 @@ import { normalize } from 'normalizr'
 import { boardDetailUrl } from 'config/api'
 import schema from './boardDetailSchema'
 
-export const boardDetailRequest = (id) => {
+export const getBoardDetailRequest = (id) => {
   const url = boardDetailUrl(id)
   return axios.get(url)
     .then((response) => {

@@ -7,25 +7,25 @@ import { withRouter } from 'react-router-dom'
 import { Container, Full } from './boardStyles'
 import List from './Lists/List'
 
+import { boardDetailRequest } from './boardDetailActions'
 import { moveCard } from './Cards/cardsActions'
 import { moveList } from './Lists/listsActions'
 import { getAllLists } from './Lists/listsSelectors'
-
-// To Delete
-import { boardDetailRequest } from './boardDetailAPI'
 
 const mapState = state => ({
   lists: getAllLists(state)
 })
 
 const actions = {
+  boardDetailRequest,
   moveCard,
   moveList
 }
 
 class BoardDetail extends Component {
   componentDidMount() {
-    const boardId = this.props.match.params.boardId
+    const { boardDetailRequest, match } = this.props
+    const { boardId } = match.params
     boardDetailRequest(boardId)
   }
 
