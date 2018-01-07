@@ -19,7 +19,7 @@ class CardDetail extends Component {
   }
 
   close = () => {
-    this.props.history.push('/boards/1')
+    this.props.history.push(`/boards/${this.props.card.boardId}`)
   }
 
   maybeClose = (event) => {
@@ -29,10 +29,15 @@ class CardDetail extends Component {
   }
 
   render() {
+    const { card } = this.props
+    if (!card) return null
+
+    const { name } = card
+
     return (
       <Modal innerRef={(modal) => { this.modal = modal }}>
         <Header>
-          <h3>{this.props.card.title}</h3>
+          <h3>{name}</h3>
           <button onClick={this.close}>Close</button>
         </Header>
       </Modal>
@@ -42,8 +47,12 @@ class CardDetail extends Component {
 
 CardDetail.propTypes = {
   card: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    name: PropTypes.string.isRequired,
+    boardId: PropTypes.number.isRequired
   }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func

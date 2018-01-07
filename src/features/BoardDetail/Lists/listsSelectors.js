@@ -1,4 +1,4 @@
-export const getLists = state => state.lists
+export const getLists = state => state.boardDetail.lists
 
 export const getAllLists = (state) => {
   const lists = getLists(state)

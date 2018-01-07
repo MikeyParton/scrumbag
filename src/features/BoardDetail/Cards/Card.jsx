@@ -7,11 +7,12 @@ import { Container } from './cardStyles'
 class Card extends Component {
   render() {
     const { card } = this.props
+    const { id, name, boardId } = card
 
     return (
-      <Draggable draggableId={card.id} type="CARD">
+      <Draggable draggableId={id} type="CARD">
         {(cardProvided, cardSnapshot) => (
-          <Link to={`/boards/${1}/card/${card.id}`}>
+          <Link to={`/boards/${boardId}/card/${id}`}>
             <div>
               <Container
                 className="card"
@@ -20,7 +21,7 @@ class Card extends Component {
                 style={cardProvided.draggableStyle}
                 {...cardProvided.dragHandleProps}
               >
-                {card.title}
+                {name}
               </Container>
               {cardProvided.placeholder}
             </div>
@@ -33,8 +34,12 @@ class Card extends Component {
 
 Card.propTypes = {
   card: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    name: PropTypes.string.isRequired,
+    boardId: PropTypes.number,
   }).isRequired
 }
 

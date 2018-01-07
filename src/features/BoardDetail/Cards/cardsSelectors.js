@@ -1,4 +1,4 @@
-export const getCards = state => state.cards
+export const getCards = state => state.boardDetail.cards
 
 export const getCardsById = (state, arrayOfIds) => {
   const cards = getCards(state)

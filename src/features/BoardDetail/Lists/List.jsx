@@ -24,23 +24,23 @@ class List extends Component {
   }
 
   render() {
-    const { cards, list } = this.props
-    const { id, title } = list
+    const { list, cards } = this.props
+    const { id, name } = list
 
     return (
-      <Draggable draggableId={id} type="COLUMN">
+      <Draggable draggableId={String(id)} type="COLUMN">
         {(provided, snapshot) => (
           <div style={{ height: '100%', position: 'relative' }}>
             <div
               ref={provided.innerRef}
-              isDragging={snapshot.isDragging}
+              // isDragging={snapshot.isDragging}
               style={{ ...provided.draggableStyle, height: '500px' }}
               {...provided.dragHandleProps}
             >
-              <Droppable droppableId={id} type="CARD">
+              <Droppable droppableId={String(id)} type="CARD">
                 {(provided2, snapshot2) => (
                   <Wrapper isDraggingOver={snapshot2.isDraggingOver}>
-                    <Title>{title}</Title>
+                    <Title>{name}</Title>
                     <ScrollWrapper>
                       {/* <ScrollZone
                         top
@@ -76,8 +76,11 @@ class List extends Component {
 
 List.propTypes = {
   list: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]).isRequired,
+    name: PropTypes.string.isRequired
   }).isRequired,
   cards: PropTypes.arrayOf(PropTypes.object).isRequired
 }

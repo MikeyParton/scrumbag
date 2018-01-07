@@ -3,13 +3,11 @@ import { combineReducers } from 'redux'
 import boards from 'features/Boards/boardsReducer'
 import modalManager from 'features/ModalManager/modalManagerReducer'
 import boardForm from 'features/BoardForm/boardFormReducer'
-import cards from 'features/BoardDetail/Cards/cardsReducer'
-import lists from 'features/BoardDetail/Lists/listsReducer'
+import boardDetail from 'features/BoardDetail/boardDetailReducer'
 
 export default combineReducers({
   boards,
+  boardDetail,
   modalManager,
-  boardForm,
-  lists,
-  cards
+  boardForm
 })

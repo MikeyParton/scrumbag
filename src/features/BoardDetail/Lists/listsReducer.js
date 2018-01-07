@@ -4,14 +4,7 @@ import { createReducer } from 'common/utils/reducerUtils'
 import { removeFromList, addToList } from './listUtils'
 import { MOVE_LIST } from './listsConstants'
 import { MOVE_CARD } from '../Cards/cardsConstants'
-
-const initialState = {
-  byId: {
-    1: { id: '1', title: 'List number 1', cards: ['1', '2', '5', '6', '7', '8', '9', '10', '11', '12'] },
-    2: { id: '2', title: 'List number 2', cards: ['3', '4'] }
-  },
-  allIds: ['1', '2']
-}
+import { BOARD_DETAIL_SUCCESS } from '../boardDetailConstants'
 
 export const moveCard = (state, payload) => {
   const { id, startListId, startIndex, endListId, endIndex } = payload
@@ -37,11 +30,13 @@ export const moveList = (state, payload) => {
   return addToList(newOrder, id, endIndex)
 }
 
-const byId = createReducer(initialState.byId, {
+const byId = createReducer({}, {
+  [BOARD_DETAIL_SUCCESS]: (state, payload) => payload.lists,
   [MOVE_CARD]: moveCard
 })
 
-const allIds = createReducer(initialState.allIds, {
+const allIds = createReducer([], {
+  [BOARD_DETAIL_SUCCESS]: (state, payload) => Object.keys(payload.lists),
   [MOVE_LIST]: moveList
 })
 

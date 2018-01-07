@@ -12,7 +12,7 @@ export const Container = styled.div`
 `
 
 export const Full = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   padding: 20px;
   display: flex;
