@@ -3,7 +3,7 @@ import CloseIcon from 'react-icons/lib/md/close'
 
 export const Modal = styled.div`
   border-radius: 10px;
-  position: absolute;
+  position: fixed;
   max-width: 600px;
   width: calc(100vw - 100px);
   top: 50%;
@@ -13,6 +13,17 @@ export const Modal = styled.div`
   padding: 10px;
   background-color: white;
   box-shadow: 0 0 30px 2px rgba(0, 0, 0, 0.25);
+`
+
+export const Overlay = styled.div`
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  z-index: 99;
+  opacity: 0.5;
 `
 
 export const Header = styled.div`

@@ -1,45 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { NavBar, Brand } from './navBarStyles'
 
-const NavBar = styled.div`
-  height: 40px;
-  background-color: #026aa7;
-  color: white;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-`
-
-const Brand = styled.a`
-  display: flex;
-  color: white;
-  font-size: 16px;
-  font-weight: 700;
-  text-decoration: none;
-  align-items: center;
-
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
-
-  .text {
-    margin-top: 5px;
-  }
-
-  .moneybags {
-    font-size: 28px;
-  }
-`
-
-const AppNavBar = (props) => {
+const AppNavBar = () => {
   return (
     <NavBar>
-      <Brand href="#">
-        <span aria-label="money-bag" role="img" className="moneybags">💰</span>
-        <span className="text">crumbag</span>
+      <Brand>
+        <Link to="/">
+          <span aria-label="money-bag" role="img" className="moneybags">💰</span>
+          <span className="text">crumbag</span>
+        </Link>
       </Brand>
     </NavBar>
   )

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import BoardForm from 'features/BoardForm/BoardForm'
-import { Modal, Header, Title, CloseButton } from 'common/components/Modal'
+import { Modal, Header, Title, CloseButton, Overlay } from 'common/components/Modal'
 import { getModalManager } from './modalManagerSelectors'
 import { modalClose } from './modalManagerActions'
 
@@ -42,7 +42,8 @@ class ModalManager extends Component {
     if (!open) return null
     const SpecificComponent = lookupTable[type]
 
-    return (
+    return ([
+      <Overlay />,
       <Modal innerRef={(modal) => { this.modal = modal }}>
         <Header>
           <Title>{title}</Title>
@@ -50,7 +51,7 @@ class ModalManager extends Component {
         </Header>
         <SpecificComponent />
       </Modal>
-    )
+    ])
   }
 }
 
