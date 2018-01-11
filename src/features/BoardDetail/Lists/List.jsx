@@ -2,17 +2,25 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
-
-import { Title, Wrapper, Dropzone, ScrollContainer, ScrollWrapper } from './listStyles'
+import ElipsisIcon from 'react-icons/lib/fa/ellipsis-h'
+import { OuterListWrapper, Wrapper, Dropzone, ScrollContainer, ScrollWrapper, ListHeader, ListButton } from './listStyles'
+import ListTitle from './ListTitle/ListTitle'
 
 import { getCardsById } from '../Cards/cardsSelectors'
+import { updateListRequest } from './listsActions'
 import Card from '../Cards/Card'
 
 const mapState = (state, ownProps) => ({
   cards: getCardsById(state, ownProps.list.cards)
 })
 
+const actions = { updateListRequest }
+
 class List extends Component {
+  state = {
+    editingTitle: false
+  }
+
   scroll = (val) => {
     this.interval = setInterval(() => {
       this.scrollContainer.scrollTop += val
@@ -24,23 +32,30 @@ class List extends Component {
   }
 
   render() {
-    const { list, cards } = this.props
+    const { list, cards, updateListRequest } = this.props
     const { id, name } = list
 
     return (
-      <Draggable draggableId={String(id)} type="COLUMN">
+      <Draggable disableInteractiveElementBlocking={true} draggableId={String(id)} type="COLUMN">
         {(provided, snapshot) => (
-          <div style={{ height: '100%', position: 'relative' }}>
+          <OuterListWrapper className="list-wrapper">
             <div
               ref={provided.innerRef}
               // isDragging={snapshot.isDragging}
-              style={{ ...provided.draggableStyle, height: '500px' }}
+              style={{ ...provided.draggableStyle, height: '100%', maxHeight: '100%' }}
               {...provided.dragHandleProps}
             >
               <Droppable droppableId={String(id)} type="CARD">
                 {(provided2, snapshot2) => (
                   <Wrapper isDraggingOver={snapshot2.isDraggingOver}>
-                    <Title>{name}</Title>
+                    <ListHeader>
+                      <ListTitle
+                        name={name}
+                        id={id}
+                        updateListRequest={updateListRequest}
+                      />
+                      <ListButton><ElipsisIcon /></ListButton>
+                    </ListHeader>
                     <ScrollWrapper>
                       {/* <ScrollZone
                         top
@@ -67,7 +82,7 @@ class List extends Component {
               </Droppable>
             </div>
             {provided.placeholder}
-          </div>
+          </OuterListWrapper>
         )}
       </Draggable>
     )
@@ -82,7 +97,8 @@ List.propTypes = {
     ]).isRequired,
     name: PropTypes.string.isRequired
   }).isRequired,
-  cards: PropTypes.arrayOf(PropTypes.object).isRequired
+  cards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateListRequest: PropTypes.func.isRequired
 }
 
-export default connect(mapState, null)(List)
+export default connect(mapState, actions)(List)

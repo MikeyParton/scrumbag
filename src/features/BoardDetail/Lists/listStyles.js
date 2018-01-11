@@ -1,9 +1,20 @@
 import styled from 'styled-components'
+import { darken } from 'polished'
 
 const grid = 8
+const listBackgroundColor = '#e2e4e6'
+
+export const OuterListWrapper = styled.div`
+  position: relative;
+  height: 100%;
+
+  &:first-child {
+    margin-left: ${2 * grid}px
+  }
+`
 
 export const Wrapper = styled.div`
-  background-color: ${({ isDraggingOver }) => (isDraggingOver ? 'lightblue' : 'lightgrey')};
+  background-color: ${({ isDraggingOver }) => (isDraggingOver ? 'lightblue' : listBackgroundColor)};
   display: flex;
   flex-direction: column;
   padding: ${grid}px;
@@ -13,11 +24,29 @@ export const Wrapper = styled.div`
   width: 250px;
   max-height: 100%;
   box-sizing: border-box;
+  border-radius: 3px;
 `
 
-export const Title = styled.div`
-  font-weight: bold;
-  margin-bottom: ${grid}px;
+export const ListHeader = styled.div`
+  display: flex;
+  align-items: flex-start;
+`
+
+export const ListButton = styled.div`
+  border-radius: 3px;
+  height: 20px;
+  width: 20px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-transition: background-color 0.25s;
+  transition: background-color 0.25s;
+
+  &:hover {
+    background-color: ${darken(0.10, listBackgroundColor)};
+  }
 `
 
 export const Dropzone = styled.div`

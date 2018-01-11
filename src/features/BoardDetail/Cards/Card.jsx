@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Draggable } from 'react-beautiful-dnd'
-import { Container } from './cardStyles'
+import { Container, OuterContainer } from './cardStyles'
 
 class Card extends Component {
   render() {
@@ -12,20 +12,22 @@ class Card extends Component {
     return (
       <Draggable draggableId={id} type="CARD">
         {(cardProvided, cardSnapshot) => (
-          <Link to={`/boards/${boardId}/card/${id}`}>
-            <div>
-              <Container
-                className="card"
-                innerRef={cardProvided.innerRef}
-                isDragging={cardSnapshot.isDragging}
-                style={cardProvided.draggableStyle}
-                {...cardProvided.dragHandleProps}
-              >
-                {name}
-              </Container>
-              {cardProvided.placeholder}
-            </div>
-          </Link>
+          <OuterContainer>
+            <Link to={`/boards/${boardId}/card/${id}`}>
+              <div>
+                <Container
+                  className="card"
+                  innerRef={cardProvided.innerRef}
+                  isDragging={cardSnapshot.isDragging}
+                  style={cardProvided.draggableStyle}
+                  {...cardProvided.dragHandleProps}
+                >
+                  {name}
+                </Container>
+                {cardProvided.placeholder}
+              </div>
+            </Link>
+          </OuterContainer>
         )}
       </Draggable>
     );
