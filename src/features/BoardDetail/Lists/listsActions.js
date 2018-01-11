@@ -22,10 +22,10 @@ export const updateListRequest = (id, changes) => ({
   }
 })
 
-export const updateListSuccess = list => ({
+export const updateListSuccess = lists => ({
   type: UPDATE_LIST_SUCCESS,
   payload: {
-    list
+    lists
   }
 })
 

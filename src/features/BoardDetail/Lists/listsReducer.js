@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { createReducer } from 'common/utils/reducerUtils'
 
 import { removeFromList, addToList } from './listUtils'
-import { MOVE_LIST } from './listsConstants'
+import { MOVE_LIST, UPDATE_LIST_SUCCESS } from './listsConstants'
 import { MOVE_CARD } from '../Cards/cardsConstants'
 import { BOARD_DETAIL_SUCCESS } from '../boardDetailConstants'
 
@@ -30,9 +30,17 @@ export const moveList = (state, payload) => {
   return addToList(newOrder, id, endIndex)
 }
 
+export const updateList = (state, payload) => {
+  return {
+    ...state,
+    ...payload.lists
+  }
+}
+
 const byId = createReducer({}, {
   [BOARD_DETAIL_SUCCESS]: (state, payload) => payload.lists,
-  [MOVE_CARD]: moveCard
+  [MOVE_CARD]: moveCard,
+  [UPDATE_LIST_SUCCESS]: updateList
 })
 
 const allIds = createReducer([], {

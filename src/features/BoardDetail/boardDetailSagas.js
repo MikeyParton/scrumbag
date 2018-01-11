@@ -21,9 +21,9 @@ function* boardDetailRequestSaga({ payload }) {
 
 function* updateListSaga({ payload }) {
   const board = yield select(getBoard)
-  const { error, list } = yield call(updateListRequest, payload.id, board.id, payload.changes)
+  const { error, lists } = yield call(updateListRequest, payload.id, board.id, payload.changes)
   if (!error) {
-    yield put(updateListSuccess(list))
+    yield put(updateListSuccess(lists))
   } else {
     yield put(updateListError(error))
   }

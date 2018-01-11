@@ -36,54 +36,77 @@ class List extends Component {
     const { id, name } = list
 
     return (
-      <Draggable disableInteractiveElementBlocking={true} draggableId={String(id)} type="COLUMN">
-        {(provided, snapshot) => (
-          <OuterListWrapper className="list-wrapper">
-            <div
-              ref={provided.innerRef}
-              // isDragging={snapshot.isDragging}
-              style={{ ...provided.draggableStyle, height: '100%', maxHeight: '100%' }}
-              {...provided.dragHandleProps}
-            >
-              <Droppable droppableId={String(id)} type="CARD">
-                {(provided2, snapshot2) => (
-                  <Wrapper isDraggingOver={snapshot2.isDraggingOver}>
-                    <ListHeader>
-                      <ListTitle
-                        name={name}
-                        id={id}
-                        updateListRequest={updateListRequest}
-                      />
-                      <ListButton><ElipsisIcon /></ListButton>
-                    </ListHeader>
-                    <ScrollWrapper>
-                      {/* <ScrollZone
-                        top
-                        onMouseOver={() => this.scroll(-10)}
-                        onMouseLeave={this.stopScroll} />
-                      */}
-                      <ScrollContainer innerRef={(scroll) => { this.scrollContainer = scroll }}>
-                        <Dropzone innerRef={provided2.innerRef}>
-                          {cards.map(card => (
-                            <Card key={card.id} card={card} />
-                          ))}
-                          {provided2.placeholder}
-                        </Dropzone>
-                      </ScrollContainer>
-                      {/* <ScrollZone
-                        bottom
-                        onMouseOver={() => this.scroll(10)}
-                        onMouseLeave={this.stopScroll} />
-                      */}
-                    </ScrollWrapper>
-                    <div>Add a card</div>
-                  </Wrapper>
-                )}
-              </Droppable>
-            </div>
-            {provided.placeholder}
-          </OuterListWrapper>
-        )}
+      <Draggable
+        disableInteractiveElementBlocking={true}
+        draggableId={String(id)}
+        type="COLUMN"
+      >
+        {(provided, snapshot) => {
+          const onMouseDown = (event) => {
+            if (event.target.nodeName === 'TEXTAREA') return
+            provided.dragHandleProps.onMouseDown(event)
+          }
+
+          const onKeyDown = (event) => {
+            if (event.target.nodeName === 'TEXTAREA') return
+            console.log('fuckme')
+            provided.dragHandleProps.onKeyDown(event)
+          }
+
+          const patched = {
+            onMouseDown,
+            onKeyDown
+          }
+
+          return (
+            <OuterListWrapper className="list-wrapper">
+              <div
+                ref={provided.innerRef}
+                // isDragging={snapshot.isDragging}
+                style={{ ...provided.draggableStyle, height: '100%', maxHeight: '100%' }}
+                {...provided.dragHandleProps}
+                {...patched}
+              >
+                <Droppable droppableId={String(id)} type="CARD">
+                  {(provided2, snapshot2) => (
+                    <Wrapper isDraggingOver={snapshot2.isDraggingOver}>
+                      <ListHeader>
+                        <ListTitle
+                          name={name}
+                          id={id}
+                          updateListRequest={updateListRequest}
+                        />
+                        <ListButton><ElipsisIcon /></ListButton>
+                      </ListHeader>
+                      <ScrollWrapper>
+                        {/* <ScrollZone
+                          top
+                          onMouseOver={() => this.scroll(-10)}
+                          onMouseLeave={this.stopScroll} />
+                        */}
+                        <ScrollContainer innerRef={(scroll) => { this.scrollContainer = scroll }}>
+                          <Dropzone innerRef={provided2.innerRef}>
+                            {cards.map(card => (
+                              <Card key={card.id} card={card} />
+                            ))}
+                            {provided2.placeholder}
+                          </Dropzone>
+                        </ScrollContainer>
+                        {/* <ScrollZone
+                          bottom
+                          onMouseOver={() => this.scroll(10)}
+                          onMouseLeave={this.stopScroll} />
+                        */}
+                      </ScrollWrapper>
+                      <div>Add a card</div>
+                    </Wrapper>
+                  )}
+                </Droppable>
+              </div>
+              {provided.placeholder}
+            </OuterListWrapper>
+          )
+        }}
       </Draggable>
     )
   }

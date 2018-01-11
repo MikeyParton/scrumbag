@@ -1,7 +1,5 @@
 import { schema } from 'normalizr'
 
-const card = new schema.Entity('cards')
-const list = new schema.Entity('lists', { cards: [card] })
-const board = { lists: [list] }
-
-export default board
+export const cardSchema = new schema.Entity('cards')
+export const listSchema = new schema.Entity('lists', { cards: [cardSchema] })
+export const boardSchema = { lists: [listSchema] }
