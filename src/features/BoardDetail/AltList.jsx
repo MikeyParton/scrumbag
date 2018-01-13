@@ -22,11 +22,6 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
   // styles we need to apply on draggables
   ...draggableStyle
-});
-
-const getListStyle = (isDraggingOver) => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
-  padding: grid
 })
 
 
@@ -35,9 +30,15 @@ const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   user-select: none;
-  width: 250px;
+  min-width: 250px;
   max-height: 100%;
   border-radius: 3px;
+
+  margin-right: 20px;
+
+  &:first-of-type {
+    margin-left: 20px;
+  }
 `
 
 export const ListHeader = styled.div`
@@ -50,6 +51,12 @@ export const ListFooter = styled.div`
   display: flex;
   align-items: flex-start;
   flex-shrink: 0;
+`
+
+const ListDropZone = styled.div`
+  min-height: 100px;
+  background: ${props => props.isDraggingOver ? 'lightblue' : 'lightgrey'};
+  padding: ${grid}px;
 `
 
 export const ScrollContainer = styled.div`
@@ -84,9 +91,9 @@ class List extends Component {
             type="CARD"
           >
             {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
+              <ListDropZone
+                innerRef={provided.innerRef}
+                isDraggingOver={snapshot.isDraggingOver}
               >
                 {cards.map((card, index) => (
                   <Draggable
@@ -113,7 +120,7 @@ class List extends Component {
                   </Draggable>
                 ))}
                 {provided.placeholder}
-              </div>
+              </ListDropZone>
             )}
           </Droppable>
         </ScrollContainer>

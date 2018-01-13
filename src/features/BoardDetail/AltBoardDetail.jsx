@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { DragDropContext } from 'react-beautiful-dnd'
 import { withRouter } from 'react-router-dom'
 
+import styled from 'styled-components'
 import List from './AltList'
 
 import { boardDetailRequest } from './boardDetailActions'
@@ -19,6 +20,15 @@ const actions = {
   moveCard,
   moveList
 }
+
+const BoardArea = styled.div`
+  display: flex;
+  padding: 20px 0;
+  align-items: flex-start;
+  height: 100%;
+  width: 100vw;
+  overflow-x: auto;
+`
 
 class BoardDetail extends Component {
   componentDidMount() {
@@ -45,11 +55,14 @@ class BoardDetail extends Component {
   render() {
     const { lists } = this.props
     if (lists.length === 0) return null
-    const list = lists[0]
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <List list={list} />
+        <BoardArea>
+          {lists.map((list, index) => (
+            <List key={list.id} list={list} index={index} />
+          ))}
+        </BoardArea>
       </DragDropContext>
     )
   }
