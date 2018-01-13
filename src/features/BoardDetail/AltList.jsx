@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import { getCardsById } from './Cards/cardsSelectors'
+import CardsList from './AltCardList'
 
 const mapState = (state, ownProps) => ({
   cards: getCardsById(state, ownProps.list.cards)
@@ -10,20 +11,6 @@ const mapState = (state, ownProps) => ({
 
 const listBackgroundColor = '#e2e4e6'
 const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
-
-  // styles we need to apply on draggables
-  ...draggableStyle
-})
-
 
 const ListWrapper = styled.div`
   background-color: ${listBackgroundColor};
@@ -54,7 +41,7 @@ export const ListFooter = styled.div`
 `
 
 const ListDropZone = styled.div`
-  min-height: 100px;
+  min-height: 58px;
   background: ${props => props.isDraggingOver ? 'lightblue' : 'lightgrey'};
   padding: ${grid}px;
 `
@@ -95,30 +82,7 @@ class List extends Component {
                 innerRef={provided.innerRef}
                 isDraggingOver={snapshot.isDraggingOver}
               >
-                {cards.map((card, index) => (
-                  <Draggable
-                    key={card.id}
-                    draggableId={card.id}
-                    index={index}
-                  >
-                    {(provided, snapshot) => (
-                      <div>
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          {card.name}
-                        </div>
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+                <CardsList cards={cards} />
                 {provided.placeholder}
               </ListDropZone>
             )}
