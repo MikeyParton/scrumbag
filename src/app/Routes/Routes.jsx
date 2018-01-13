@@ -5,8 +5,7 @@ import styled from 'styled-components'
 
 import ModalManager from 'features/ModalManager/ModalManager'
 import Boards from 'features/Boards/Boards'
-import BoardDetail from 'features/BoardDetail/BoardDetail'
-import CardDetail from 'features/CardDetail/CardDetail'
+import BoardDetail from './BoardDetailRoutes'
 
 const FullPage = styled.div`
   height: 100vh;
@@ -29,12 +28,7 @@ const Routes = () => (
         <ModalManager />
         <Switch>
           <Route exact path="/" component={Boards} />
-          <Route path="/boards/:boardId">
-            <div>
-              <BoardDetail />,
-              <Route path="card/:id" component={CardDetail} />
-            </div>
-          </Route>
+          <Route path="/boards/:boardId" component={BoardDetail} />
         </Switch>
       </Content>
     </FullPage>

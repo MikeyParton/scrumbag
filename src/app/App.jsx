@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import Routes from './Routes'
+import Routes from './Routes/Routes'
 import configureStore from './store'
 
 const store = configureStore()

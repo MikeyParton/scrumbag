@@ -7,10 +7,15 @@ export const OuterContainer = styled.div`
     text-decoration: none;
     color: black;
   }
+
+  margin-bottom: ${grid}px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `
 
 export const Container = styled.div`
-  margin-bottom: ${grid}px;
   padding: ${grid * 2}px;
   background-color: ${({ isDragging }) => (isDragging ? 'lightgreen' : 'white')};
   user-select: none;

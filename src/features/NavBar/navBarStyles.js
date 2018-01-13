@@ -11,7 +11,7 @@ export const NavBar = styled.div`
   flex-shrink: 0;
 `
 
-export const Brand = styled.a`
+export const Brand = styled.div`
   display: flex;
   font-size: 16px;
   font-weight: 700;

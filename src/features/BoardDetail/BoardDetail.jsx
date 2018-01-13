@@ -51,9 +51,7 @@ class BoardDetail extends Component {
     }
   }
 
-  onDragStart = () => {
-    // this.props.publishDrag
-  }
+  onDragStart = () => {}
 
   render() {
     const { lists } = this.props

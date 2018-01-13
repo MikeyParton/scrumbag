@@ -49,7 +49,6 @@ class List extends Component {
 
           const onKeyDown = (event) => {
             if (event.target.nodeName === 'TEXTAREA') return
-            console.log('fuckme')
             provided.dragHandleProps.onKeyDown(event)
           }
 

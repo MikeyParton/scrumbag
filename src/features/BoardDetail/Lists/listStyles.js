@@ -30,6 +30,7 @@ export const Wrapper = styled.div`
 export const ListHeader = styled.div`
   display: flex;
   align-items: flex-start;
+  flex-shrink: 0;
 `
 
 export const ListButton = styled.div`
