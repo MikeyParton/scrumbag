@@ -32,7 +32,7 @@ class List extends Component {
   }
 
   render() {
-    const { list, cards, updateListRequest } = this.props
+    const { list, cards, updateListRequest, index } = this.props
     const { id, name } = list
 
     return (
@@ -40,6 +40,7 @@ class List extends Component {
         disableInteractiveElementBlocking={true}
         draggableId={String(id)}
         type="COLUMN"
+        index={index}
       >
         {(provided, snapshot) => {
           const onMouseDown = (event) => {
@@ -49,7 +50,6 @@ class List extends Component {
 
           const onKeyDown = (event) => {
             if (event.target.nodeName === 'TEXTAREA') return
-            console.log('fuckme')
             provided.dragHandleProps.onKeyDown(event)
           }
 
@@ -63,9 +63,10 @@ class List extends Component {
               <div
                 ref={provided.innerRef}
                 // isDragging={snapshot.isDragging}
-                style={{ ...provided.draggableStyle, height: '100%', maxHeight: '100%' }}
+                {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 {...patched}
+                style={{ ...provided.draggableProps.style, height: '100%', maxHeight: '100%' }}
               >
                 <Droppable droppableId={String(id)} type="CARD">
                   {(provided2, snapshot2) => (
@@ -86,8 +87,12 @@ class List extends Component {
                         */}
                         <ScrollContainer innerRef={(scroll) => { this.scrollContainer = scroll }}>
                           <Dropzone innerRef={provided2.innerRef}>
-                            {cards.map(card => (
-                              <Card key={card.id} card={card} />
+                            {cards.map((card, index) => (
+                              <Card
+                                key={card.id}
+                                card={card}
+                                index={index}
+                              />
                             ))}
                             {provided2.placeholder}
                           </Dropzone>

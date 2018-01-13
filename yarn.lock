@@ -5514,7 +5514,7 @@ querystringify@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-1.0.0.tgz#6286242112c5b712fa654e526652bf6a13ff05cb"
 
-raf-schd@^2.0.2:
+raf-schd@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/raf-schd/-/raf-schd-2.1.0.tgz#64d645723380ec25cc1714e909b953ef1cf254bf"
 
@@ -5577,15 +5577,15 @@ react-autosize-textarea@^3.0.1:
     line-height "^0.3.1"
     prop-types "^15.5.6"
 
-react-beautiful-dnd@^2.6.4:
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-2.6.4.tgz#e1632696aeeec5b20720037c348834eb3e8e22cf"
+react-beautiful-dnd@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-beautiful-dnd/-/react-beautiful-dnd-4.0.0.tgz#adc87358a30b830430ae44574b2af8fd8c7dd0d6"
   dependencies:
     babel-runtime "^6.26.0"
     invariant "^2.2.2"
     memoize-one "^3.0.1"
     prop-types "^15.6.0"
-    raf-schd "^2.0.2"
+    raf-schd "^2.1.0"
     react-motion "^0.5.2"
     react-redux "^5.0.6"
     redux "^3.7.2"

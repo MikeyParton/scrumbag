@@ -6,11 +6,15 @@ import { Container, OuterContainer } from './cardStyles'
 
 class Card extends Component {
   render() {
-    const { card } = this.props
+    const { card, index } = this.props
     const { id, name, boardId } = card
 
     return (
-      <Draggable draggableId={id} type="CARD">
+      <Draggable
+        draggableId={id}
+        type="CARD"
+        index={index}
+      >
         {(cardProvided, cardSnapshot) => (
           <OuterContainer>
             <Link to={`/boards/${boardId}/card/${id}`}>
@@ -19,8 +23,9 @@ class Card extends Component {
                   className="card"
                   innerRef={cardProvided.innerRef}
                   isDragging={cardSnapshot.isDragging}
-                  style={cardProvided.draggableStyle}
+                  {...cardProvided.draggableProps}
                   {...cardProvided.dragHandleProps}
+                  style={cardProvided.draggableProps.style}
                 >
                   {name}
                 </Container>

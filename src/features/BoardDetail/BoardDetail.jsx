@@ -70,11 +70,15 @@ class BoardDetail extends Component {
             direction="horizontal"
           >
             {(provided, snapshot) => (
-              <Container innerRef={provided.innerRef} isDragging={snapshot.isDragging}>
-                {lists.map(list => (
+              <Container
+                innerRef={provided.innerRef}
+                isDragging={snapshot.isDragging}
+              >
+                {lists.map((list, index) => (
                   <List
                     key={list.id}
                     list={list}
+                    index={index}
                   />
                 ))}
                 {provided.placeholder}

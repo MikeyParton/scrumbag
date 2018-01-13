@@ -11,7 +11,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-autosize-textarea": "^3.0.1",
-    "react-beautiful-dnd": "^2.6.4",
+    "react-beautiful-dnd": "^4.0.0",
     "react-bootstrap": "^0.31.5",
     "react-contenteditable": "^2.0.5",
     "react-dom": "^16.1.1",
