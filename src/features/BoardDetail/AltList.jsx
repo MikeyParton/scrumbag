@@ -32,12 +32,14 @@ export const ListHeader = styled.div`
   display: flex;
   align-items: flex-start;
   flex-shrink: 0;
+  padding: ${grid}px;
 `
 
 export const ListFooter = styled.div`
   display: flex;
   align-items: flex-start;
   flex-shrink: 0;
+  padding: ${grid}px;
 `
 
 const ListDropZone = styled.div`
