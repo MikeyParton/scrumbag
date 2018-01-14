@@ -16,7 +16,7 @@ export const ListWrapper = styled.div`
   user-select: none;
   min-width: 250px;
   max-height: 100%;
-  border-radius: 3px;
+  border-radius: ${props => props.theme.borderRadius}px;
   padding: ${props => props.theme.grid}px;
   margin-right: ${props => 2 * props.theme.grid}px;
 `

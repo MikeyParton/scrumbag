@@ -7,4 +7,5 @@ export const BoardArea = styled.div`
   height: 100%;
   width: 100vw;
   overflow-x: auto;
+  background-color: ${props => props.theme.boardBackgroundColor};
 `

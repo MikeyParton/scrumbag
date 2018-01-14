@@ -70,7 +70,7 @@ class List extends Component {
                 </ListHeader>
                 <ScrollContainer>
                   <Droppable
-                    droppableId={id}
+                    droppableId={`list-${id}`}
                     type="CARD"
                   >
                     {(provided2, snapshot) => (

@@ -35,7 +35,7 @@ class ListTitle extends React.Component {
     return (
       <TitleWrapper>
         <AutoTextArea
-          spellcheck="false"
+          spellCheck="false"
           innerRef={(titleInput) => { this.titleInput = titleInput }}
           onMouseDown={e => e.stopPropagation()}
           onBlur={this.stopEditing}

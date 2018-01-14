@@ -11,5 +11,6 @@ export const CardWrapper = styled.div`
   user-select: none;
   padding: ${props => (props.theme.grid * 2)}px;
   margin: 0 0 ${props => props.theme.grid}px 0;
-  background-color: grey;
+  background-color: white;
+  border-radius: ${props => props.theme.borderRadius}px;
 `
