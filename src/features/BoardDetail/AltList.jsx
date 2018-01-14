@@ -9,6 +9,14 @@ const mapState = (state, ownProps) => ({
   cards: getCardsById(state, ownProps.list.cards)
 })
 
+const OuterListWrapper = styled.div`
+  height: 100%;
+
+  &:first-child {
+    margin-left: ${props => 2 * props.theme.grid}px;
+  }
+`
+
 const ListWrapper = styled.div`
   background-color: ${props => props.theme.listBackgroundColor};
   display: flex;
@@ -18,12 +26,7 @@ const ListWrapper = styled.div`
   max-height: 100%;
   border-radius: 3px;
   padding: ${props => props.theme.grid}px;
-
-  margin-right: 20px;
-
-  &:first-of-type {
-    margin-left: 20px;
-  }
+  margin-right: ${props => 2 * props.theme.grid}px;
 `
 
 export const ListHeader = styled.div`
@@ -87,7 +90,7 @@ class List extends Component {
       >
         {(provided, snapshot) => {
           return (
-            <div>
+            <OuterListWrapper>
               <ListWrapper
                 innerRef={provided.innerRef}
                 {...provided.draggableProps}
@@ -124,7 +127,7 @@ class List extends Component {
                 </ListFooter>
               </ListWrapper>
               {provided.placeholder}
-            </div>
+            </OuterListWrapper>
           )
         }}
       </Draggable>
