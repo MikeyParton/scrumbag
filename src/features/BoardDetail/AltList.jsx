@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import { getCardsById } from './Cards/cardsSelectors'
-import CardsList from './AltCardList'
+import Card from './AltCard'
 
 const mapState = (state, ownProps) => ({
   cards: getCardsById(state, ownProps.list.cards)
@@ -20,6 +20,7 @@ const ListWrapper = styled.div`
   min-width: 250px;
   max-height: 100%;
   border-radius: 3px;
+  padding: ${grid}px;
 
   margin-right: 20px;
 
@@ -43,9 +44,23 @@ export const ListFooter = styled.div`
 `
 
 const ListDropZone = styled.div`
+  /* FOLLOW THESE RULES AND EVERYONE WILL BE HAPPY
+
+  1. DO NOT put any padding or margin on the top or
+  left as it will affect the animation of a card
+  entering an empty list
+
+  2. Some margin or padding is needed at the bottom
+  to stop dropzone from collapsing when trying to
+  drop a card right at the end
+  */
+
   min-height: 58px;
   background: ${props => props.isDraggingOver ? 'lightblue' : 'lightgrey'};
-  padding: ${grid}px;
+
+  padding-right: ${grid}px;
+  /* RULE 2 */
+  margin-bottom: ${grid}px;
 `
 
 export const ScrollContainer = styled.div`
@@ -84,7 +99,13 @@ class List extends Component {
                 innerRef={provided.innerRef}
                 isDraggingOver={snapshot.isDraggingOver}
               >
-                <CardsList cards={cards} />
+                {cards.map((card, index) => (
+                  <Card
+                    key={card.id}
+                    card={card}
+                    index={index}
+                  />
+                ))}
                 {provided.placeholder}
               </ListDropZone>
             )}

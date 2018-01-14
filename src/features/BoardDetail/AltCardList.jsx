@@ -12,14 +12,11 @@ class CardsLists extends React.Component {
         index={index}
       >
         {(provided, snapshot) => (
-          <div>
-            <Card
-              card={card}
-              provided={provided}
-              snapshot={snapshot}
-            />
-            {provided.placeholder}
-          </div>
+          <Card
+            card={card}
+            provided={provided}
+            snapshot={snapshot}
+          />
         )}
       </Draggable>
     ))

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Draggable } from 'react-beautiful-dnd'
 
 const grid = 8
 
@@ -17,22 +18,29 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
 class Card extends React.Component {
   render() {
-    const { card, provided, snapshot } = this.props
+    const { card, index } = this.props
     return (
-      <div>
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          style={getItemStyle(
-            snapshot.isDragging,
-            provided.draggableProps.style
-          )}
-        >
-          {card.name}
-        </div>
-        {provided.placeholder}
-      </div>
+      <Draggable
+        draggableId={card.id}
+        index={index}
+      >
+        {(provided, snapshot) => (
+          <div>
+            <div
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              style={getItemStyle(
+                snapshot.isDragging,
+                provided.draggableProps.style
+              )}
+            >
+              <div>{card.name}</div>
+            </div>
+            {provided.placeholder}
+          </div>
+        )}
+      </Draggable>
     )
   }
 }
