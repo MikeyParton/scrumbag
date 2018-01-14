@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Droppable } from 'react-beautiful-dnd'
+import { Droppable, Draggable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import { getCardsById } from './Cards/cardsSelectors'
 import Card from './AltCard'
@@ -76,40 +76,58 @@ export const ScrollContainer = styled.div`
 
 class List extends Component {
   render() {
-    const { list, cards } = this.props
+    const { list, cards, index } = this.props
     const { id, name } = list
 
     return (
-      <ListWrapper>
-        <ListHeader>
-          {name}
-        </ListHeader>
-        <ScrollContainer>
-          <Droppable
-            droppableId={id}
-            type="CARD"
-          >
-            {(provided, snapshot) => (
-              <ListDropZone
+      <Draggable
+        draggableId={`list-${id}`}
+        type="LIST"
+        index={index}
+      >
+        {(provided, snapshot) => {
+          return (
+            <div>
+              <ListWrapper
                 innerRef={provided.innerRef}
-                isDraggingOver={snapshot.isDraggingOver}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                style={provided.draggableProps.style}
               >
-                {cards.map((card, index) => (
-                  <Card
-                    key={card.id}
-                    card={card}
-                    index={index}
-                  />
-                ))}
-                {provided.placeholder}
-              </ListDropZone>
-            )}
-          </Droppable>
-        </ScrollContainer>
-        <ListFooter>
-          Some Acition
-        </ListFooter>
-      </ListWrapper>
+                <ListHeader>
+                  {name}
+                </ListHeader>
+                <ScrollContainer>
+                  <Droppable
+                    droppableId={id}
+                    type="CARD"
+                  >
+                    {(provided2, snapshot) => (
+                      <ListDropZone
+                        innerRef={provided2.innerRef}
+                        isDraggingOver={snapshot.isDraggingOver}
+                      >
+                        {cards.map((card, index) => (
+                          <Card
+                            key={card.id}
+                            card={card}
+                            index={index}
+                          />
+                        ))}
+                        {provided2.placeholder}
+                      </ListDropZone>
+                    )}
+                  </Droppable>
+                </ScrollContainer>
+                <ListFooter>
+                  Some Acition
+                </ListFooter>
+              </ListWrapper>
+              {provided.placeholder}
+            </div>
+          )
+        }}
+      </Draggable>
     )
   }
 }

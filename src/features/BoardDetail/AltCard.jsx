@@ -14,7 +14,7 @@ class Card extends React.Component {
     const { card, index, theme } = this.props
     return (
       <Draggable
-        draggableId={card.id}
+        draggableId={`card-${card.id}`}
         index={index}
       >
         {(provided, snapshot) => (

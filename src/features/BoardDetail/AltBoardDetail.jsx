@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { withRouter } from 'react-router-dom'
 
 import styled from 'styled-components'
@@ -41,11 +41,21 @@ class BoardDetail extends Component {
     // dropped outside the list
     if (!result.destination) return
 
+    const id = result.draggableId.split('-')[1]
+
     if (result.type === 'CARD') {
       this.props.moveCard({
-        id: result.draggableId,
+        id,
         startListId: result.source.droppableId,
         endListId: result.destination.droppableId,
+        startIndex: result.source.index,
+        endIndex: result.destination.index
+      })
+    }
+
+    if (result.type === 'LIST') {
+      this.props.moveList({
+        id,
         startIndex: result.source.index,
         endIndex: result.destination.index
       })
@@ -54,15 +64,26 @@ class BoardDetail extends Component {
 
   render() {
     const { lists } = this.props
-    if (lists.length === 0) return null
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <BoardArea>
-          {lists.map((list, index) => (
-            <List key={list.id} list={list} index={index} />
-          ))}
-        </BoardArea>
+        <Droppable
+          droppableId="board"
+          type="LIST"
+          direction="horizontal"
+        >
+          {(provided, snapshot) => (
+            <BoardArea innerRef={provided.innerRef}>
+              {lists.map((list, index) => (
+                <List
+                  key={list.id}
+                  list={list}
+                  index={index}
+                />
+              ))}
+            </BoardArea>
+          )}
+        </Droppable>
       </DragDropContext>
     )
   }
