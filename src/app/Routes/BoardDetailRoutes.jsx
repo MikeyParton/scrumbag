@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import BoardDetail from 'features/BoardDetail/AltBoardDetail'
+import BoardDetail from 'features/BoardDetail/BoardDetail'
 import CardDetail from 'features/CardDetail/CardDetail'
 import PropTypes from 'prop-types'
 

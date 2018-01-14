@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { withRouter } from 'react-router-dom'
 
-import { Container, Full } from './boardStyles'
 import List from './Lists/List'
+import { BoardArea } from './boardStyledComponents'
 
 import { boardDetailRequest } from './boardDetailActions'
 import { moveCard } from './Cards/cardsActions'
@@ -30,11 +29,14 @@ class BoardDetail extends Component {
   }
 
   onDragEnd = (result) => {
+    // dropped outside the list
     if (!result.destination) return
+
+    const id = result.draggableId.split('-')[1]
 
     if (result.type === 'CARD') {
       this.props.moveCard({
-        id: result.draggableId,
+        id,
         startListId: result.source.droppableId,
         endListId: result.destination.droppableId,
         startIndex: result.source.index,
@@ -42,63 +44,40 @@ class BoardDetail extends Component {
       })
     }
 
-    if (result.type === 'COLUMN') {
+    if (result.type === 'LIST') {
       this.props.moveList({
-        id: result.draggableId,
+        id,
         startIndex: result.source.index,
         endIndex: result.destination.index
       })
     }
   }
 
-  onDragStart = () => {
-    // this.props.publishDrag
-  }
-
   render() {
     const { lists } = this.props
 
     return (
-      <Full>
-        <DragDropContext
-          onDragStart={this.onDragStart}
-          onDragEnd={this.onDragEnd}
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <Droppable
+          droppableId="board"
+          type="LIST"
+          direction="horizontal"
         >
-          <Droppable
-            droppableId="board"
-            type="COLUMN"
-            direction="horizontal"
-          >
-            {(provided, snapshot) => (
-              <Container
-                innerRef={provided.innerRef}
-                isDragging={snapshot.isDragging}
-              >
-                {lists.map((list, index) => (
-                  <List
-                    key={list.id}
-                    list={list}
-                    index={index}
-                  />
-                ))}
-                {provided.placeholder}
-              </Container>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </Full>
+          {(provided, snapshot) => (
+            <BoardArea innerRef={provided.innerRef}>
+              {lists.map((list, index) => (
+                <List
+                  key={list.id}
+                  list={list}
+                  index={index}
+                />
+              ))}
+            </BoardArea>
+          )}
+        </Droppable>
+      </DragDropContext>
     )
   }
-}
-
-BoardDetail.propTypes = {
-  lists: PropTypes.arrayOf(PropTypes.object),
-  moveCard: PropTypes.func.isRequired,
-  moveList: PropTypes.func.isRequired,
-}
-
-BoardDetail.defaultProps = {
-  lists: []
 }
 
 export default connect(mapState, actions)(withRouter(BoardDetail))
