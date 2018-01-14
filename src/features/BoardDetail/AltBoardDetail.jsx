@@ -23,7 +23,7 @@ const actions = {
 
 const BoardArea = styled.div`
   display: flex;
-  padding: 20px 0;
+  padding: ${props => props.theme.grid * 2}px 0;
   align-items: flex-start;
   height: 100%;
   width: 100vw;

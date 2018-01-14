@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Droppable, Draggable } from 'react-beautiful-dnd'
+import { Droppable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
 import { getCardsById } from './Cards/cardsSelectors'
 import Card from './AltCard'
@@ -9,18 +9,15 @@ const mapState = (state, ownProps) => ({
   cards: getCardsById(state, ownProps.list.cards)
 })
 
-const listBackgroundColor = '#e2e4e6'
-const grid = 8;
-
 const ListWrapper = styled.div`
-  background-color: ${listBackgroundColor};
+  background-color: ${props => props.theme.listBackgroundColor};
   display: flex;
   flex-direction: column;
   user-select: none;
   min-width: 250px;
   max-height: 100%;
   border-radius: 3px;
-  padding: ${grid}px;
+  padding: ${props => props.theme.grid}px;
 
   margin-right: 20px;
 
@@ -33,14 +30,14 @@ export const ListHeader = styled.div`
   display: flex;
   align-items: flex-start;
   flex-shrink: 0;
-  padding: ${grid}px;
+  padding: ${props => props.theme.grid}px;
 `
 
 export const ListFooter = styled.div`
   display: flex;
   align-items: flex-start;
   flex-shrink: 0;
-  padding: ${grid}px;
+  padding: ${props => props.theme.grid}px;
 `
 
 const ListDropZone = styled.div`
@@ -56,11 +53,10 @@ const ListDropZone = styled.div`
   */
 
   min-height: 58px;
-  background: ${props => props.isDraggingOver ? 'lightblue' : 'lightgrey'};
-
-  padding-right: ${grid}px;
+  background: ${({ isDraggingOver }) => isDraggingOver ? 'lightblue' : 'lightgrey'};
+  padding-right: ${props => props.theme.grid}px;
   /* RULE 2 */
-  margin-bottom: ${grid}px;
+  margin-bottom: ${props => props.theme.grid}px;
 `
 
 export const ScrollContainer = styled.div`
@@ -77,7 +73,6 @@ export const ScrollContainer = styled.div`
     -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
   }
 `
-
 
 class List extends Component {
   render() {
