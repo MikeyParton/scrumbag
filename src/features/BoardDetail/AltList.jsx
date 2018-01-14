@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
+
 import styled from 'styled-components'
+import { darken } from 'polished'
+
+import ElipsisIcon from 'react-icons/lib/fa/ellipsis-h'
+
+import ListTitle from './Lists/ListTitle/ListTitle'
+import { updateListRequest } from './Lists/listsActions'
 import { getCardsById } from './Cards/cardsSelectors'
 import Card from './AltCard'
 
 const mapState = (state, ownProps) => ({
   cards: getCardsById(state, ownProps.list.cards)
 })
+
+const actions = { updateListRequest }
 
 const OuterListWrapper = styled.div`
   height: 100%;
@@ -77,9 +86,26 @@ export const ScrollContainer = styled.div`
   }
 `
 
+export const ListButton = styled.div`
+  border-radius: 3px;
+  height: 20px;
+  width: 20px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  -webkit-transition: background-color 0.25s;
+  transition: background-color 0.25s;
+
+  &:hover {
+    background-color: ${props => darken(0.10, props.theme.listBackgroundColor)};
+  }
+`
+
 class List extends Component {
   render() {
-    const { list, cards, index } = this.props
+    const { list, cards, index, updateListRequest } = this.props
     const { id, name } = list
 
     return (
@@ -89,16 +115,37 @@ class List extends Component {
         index={index}
       >
         {(provided, snapshot) => {
+          const onMouseDown = (event) => {
+            if (event.target.nodeName === 'TEXTAREA') return
+            provided.dragHandleProps.onMouseDown(event)
+          }
+
+          const onKeyDown = (event) => {
+            if (event.target.nodeName === 'TEXTAREA') return
+            provided.dragHandleProps.onKeyDown(event)
+          }
+
+          const patched = {
+            onMouseDown,
+            onKeyDown
+          }
+
           return (
             <OuterListWrapper>
               <ListWrapper
                 innerRef={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
+                {...patched}
                 style={provided.draggableProps.style}
               >
                 <ListHeader>
-                  {name}
+                  <ListTitle
+                    name={name}
+                    id={id}
+                    updateListRequest={updateListRequest}
+                  />
+                  <ListButton><ElipsisIcon /></ListButton>
                 </ListHeader>
                 <ScrollContainer>
                   <Droppable
@@ -135,4 +182,4 @@ class List extends Component {
   }
 }
 
-export default connect(mapState, null)(List)
+export default connect(mapState, actions)(List)
