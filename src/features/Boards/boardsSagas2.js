@@ -24,11 +24,9 @@ function* createBoardRequestSaga({ payload }) {
   }
 }
 
-console.log(getBoardsRequest)
-
 export default function* rootSaga() {
   all([
-    getBoardsRequest.saga,
+    yield getBoardsRequest.saga(),
     yield takeEvery(CREATE_BOARD_REQUEST, createBoardRequestSaga)
   ])
 }

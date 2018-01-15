@@ -1,9 +1,14 @@
 import { createReducer } from 'common/utils/reducerUtils'
 import { combineReducers } from 'redux'
-import { BOARDS_SUCCESS, BOARDS_ERROR } from './boardsConstants'
 import { CREATE_BOARD_REQUEST, CREATE_BOARD_SUCCESS, CREATE_BOARD_ERROR } from './boardsConstants'
+import { getBoardsRequest } from './boardsRequests'
 
-export const byIdSucess = (state, payload) => payload.boards
+const { request, success, error } = getBoardsRequest.constants
+
+export const byIdSucess = (state, payload) => {
+  debugger
+  return payload.boards
+}
 
 export const byIdCreateSucess = (state, payload) => {
   const { board } = payload
@@ -22,19 +27,19 @@ export const allIdsCreateSuccess = (state, payload) => {
 }
 
 const byId = createReducer({}, {
-  [BOARDS_SUCCESS]: byIdSucess,
+  [success]: byIdSucess,
   [CREATE_BOARD_SUCCESS]: byIdCreateSucess
 })
 
 const allIds = createReducer([], {
-  [BOARDS_SUCCESS]: allIdsSuccess,
+  [success]: allIdsSuccess,
   [CREATE_BOARD_SUCCESS]: allIdsCreateSuccess
 })
 
 const loading = createReducer(false, {
-  // [BOARDS_REQUEST]: () => true,
-  [BOARDS_SUCCESS]: () => false,
-  [BOARDS_ERROR]: () => false
+  [request]: () => true,
+  [success]: () => false,
+  [error]: () => false
 })
 
 export default combineReducers({

@@ -1,9 +1,14 @@
 import CreateRequest from 'common/utils/CreateRequest'
-import { boardsRequest } from './boardsAPI'
+import boardsSchema from './boardsSchema'
+import { BOARDS_URL } from 'config/api'
 
 const getBoardsRequest = new CreateRequest({
   constantPrefix: 'GET_BOARDS',
-  request: boardsRequest
+  request: {
+    url: BOARDS_URL,
+    method: 'get',
+    responseSchema: boardsSchema
+  }
 })
 
 export {
