@@ -6,8 +6,8 @@ import { modalOpen } from 'features/ModalManager/modalManagerActions'
 import BoardTile from './BoardTile'
 import Loading from 'common/components/Loading'
 import { Tile } from 'features/Boards/BoardTile'
-import { boardsRequest } from './boardsActions'
 import { getAllBoards, loading } from './boardsSelectors'
+import { getBoardsRequest } from './boardsRequests'
 
 const mapState = state => ({
   boards: getAllBoards(state),
@@ -15,7 +15,7 @@ const mapState = state => ({
 })
 
 const actions = {
-  boardsRequest,
+  boardsRequest: getBoardsRequest.actions.request,
   modalOpen
 }
 
