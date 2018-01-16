@@ -1,14 +1,11 @@
 import { createReducer } from 'common/utils/reducerUtils'
 import { combineReducers } from 'redux'
-import { CREATE_BOARD_REQUEST, CREATE_BOARD_SUCCESS, CREATE_BOARD_ERROR } from './boardsConstants'
-import { getBoardsRequest } from './boardsRequests'
+import { getBoardsRequest, createBoardRequest } from './boardsRequests'
 
-const { request, success, error } = getBoardsRequest.constants
+const { constants: getBoardsConstants } = getBoardsRequest
+const { constants: createBoardConstants } = createBoardRequest
 
-export const byIdSucess = (state, payload) => {
-  debugger
-  return payload.boards
-}
+export const byIdSucess = (state, payload) => payload.boards
 
 export const byIdCreateSucess = (state, payload) => {
   const { board } = payload
@@ -27,19 +24,19 @@ export const allIdsCreateSuccess = (state, payload) => {
 }
 
 const byId = createReducer({}, {
-  [success]: byIdSucess,
-  [CREATE_BOARD_SUCCESS]: byIdCreateSucess
+  [getBoardsConstants.success]: byIdSucess,
+  [createBoardConstants.success]: byIdCreateSucess
 })
 
 const allIds = createReducer([], {
-  [success]: allIdsSuccess,
-  [CREATE_BOARD_SUCCESS]: allIdsCreateSuccess
+  [getBoardsConstants.success]: allIdsSuccess,
+  [createBoardConstants.success]: allIdsCreateSuccess
 })
 
 const loading = createReducer(false, {
-  [request]: () => true,
-  [success]: () => false,
-  [error]: () => false
+  [getBoardsConstants.request]: () => true,
+  [getBoardsConstants.success]: () => false,
+  [getBoardsConstants.error]: () => false
 })
 
 export default combineReducers({

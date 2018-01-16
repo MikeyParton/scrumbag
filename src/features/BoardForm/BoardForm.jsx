@@ -2,16 +2,20 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { StatusButton } from 'common/components/Button'
 import { Label, Input } from 'common/components/Form'
-import { createBoardRequest } from 'features/Boards/boardsActions'
+import { createBoardRequest } from 'features/Boards/boardsRequests'
 import { updateForm } from './boardFormActions'
 import { getboardForm } from './boardFormSelectors'
 
-const mapState = state => ({
-  ...getboardForm(state)
-})
+const mapState = (state) => {
+  const { form, submitStatus } = getboardForm(state)
+  return {
+    form,
+    submitStatus
+  }
+}
 
 const actions = {
-  createBoardRequest,
+  createBoard: createBoardRequest.actions.request,
   updateForm
 }
 
@@ -28,9 +32,9 @@ class BoardForm extends React.Component {
   }
 
   handleSubmit = (event) => {
-    const { form, createBoardRequest } = this.props
+    const { form, createBoard } = this.props
     event.preventDefault()
-    createBoardRequest(form)
+    createBoard(form)
   }
 
   render() {
