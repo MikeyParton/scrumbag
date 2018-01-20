@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import AbsolutePosition from './AbsolutePosition'
 import { hideMenu } from './contextMenuActions'
 
+import { MenuContainer, Header, Title, CloseButton } from './contextMenuStyles'
+
 const actions = { hideMenu }
 
 export class ContextMenu extends Component {
@@ -21,7 +23,7 @@ export class ContextMenu extends Component {
   }
 
   render() {
-    const { location } = this.props
+    const { location, hideMenu, title } = this.props
 
     return (
       <AbsolutePosition
@@ -30,7 +32,13 @@ export class ContextMenu extends Component {
         className="contextMenu"
         nodeRef={node => this.node = node}
       >
-        {this.props.children}
+        <MenuContainer>
+          <Header>
+            <Title>{title}</Title>
+            <CloseButton onClick={hideMenu} />
+          </Header>
+          {this.props.children}
+        </MenuContainer>
       </AbsolutePosition>
     )
   }

@@ -1,39 +1,53 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import AbsolutePosition from 'common/components/AbsolutePosition'
-import { hideContextMenu } from './contextMenuActions'
+import { Portal } from 'react-portal'
+import { getContextMenu } from './contextMenuSelectors'
+import ContextMenu from './ContextMenu'
+import BoardForm from 'features/BoardForm/BoardForm'
+import PropTypes from 'prop-types'
 
-const actions = { hideContextMenu }
+const mapState = state => ({
+  contextMenu: getContextMenu(state)
+})
 
-export class ContextMenu extends Component {
-  componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside, true);
+const menus = {
+  BoardForm: {
+    MenuComponent: BoardForm,
+    title: 'Create a Board'
   }
+}
 
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside, true);
-  }
-
-  handleClickOutside = (e) => {
-    if (!this.node || !this.node.contains(e.target) ) {
-      this.props.hideContextMenu()
-    }
-  }
-
+class ContextMenuManager extends Component {
   render() {
-    const { location } = this.props
+    const { contextMenu } = this.props
+    const { show, location, type, menuArgs } = contextMenu
+
+    const selectedMenu = menus[type]
+
+    if (!(show && selectedMenu)) return null
+
+    const { MenuComponent, title } = selectedMenu
 
     return (
-      <AbsolutePosition
-        left={location.x + 2}
-        top={location.y}
-        className="contextMenu"
-        nodeRef={node => this.node = node}
-      >
-        {this.props.children}
-      </AbsolutePosition>
+      <Portal isOpened>
+        <ContextMenu location={location} title={title}>
+          <MenuComponent menuArgs={menuArgs} />
+        </ContextMenu>
+      </Portal>
     )
   }
 }
 
-export default connect(null, actions)(ContextMenu);
+ContextMenuManager.propTypes = {
+  contextMenu: PropTypes.shape({
+    show: PropTypes.bool.isRequired,
+    location: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number
+    }).isRequired,
+    type: PropTypes.string.isRequired,
+    menuArgs: PropTypes.shape()
+  }).isRequired
+}
+
+export default connect(mapState, null)(ContextMenuManager)

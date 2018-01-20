@@ -4,6 +4,7 @@ import NavBar from 'features/NavBar/NavBar'
 import styled from 'styled-components'
 
 import ModalManager from 'features/ModalManager/ModalManager'
+import ContextMenuManager from 'features/ContextMenu/ContextMenuManager'
 import Boards from 'features/Boards/Boards'
 import BoardDetailRoutes from './BoardDetailRoutes'
 
@@ -26,6 +27,7 @@ const Routes = () => (
       <NavBar />
       <Content>
         <ModalManager />
+        <ContextMenuManager />
         <Switch>
           <Route exact path="/" component={Boards} />
           <Route path="/boards/:boardId" component={BoardDetailRoutes} />
