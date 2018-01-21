@@ -6,7 +6,10 @@ import styled from 'styled-components'
 import ModalManager from 'features/ModalManager/ModalManager'
 import ContextMenuManager from 'features/ContextMenu/ContextMenuManager'
 import Boards from 'features/Boards/Boards'
+import Login from 'features/Login/Login'
 import BoardDetailRoutes from './BoardDetailRoutes'
+
+import PrivateRoute from './PrivateRoute'
 
 const FullPage = styled.div`
   height: 100vh;
@@ -29,8 +32,9 @@ const Routes = () => (
         <ModalManager />
         <ContextMenuManager />
         <Switch>
-          <Route exact path="/" component={Boards} />
-          <Route path="/boards/:boardId" component={BoardDetailRoutes} />
+          <PrivateRoute exact path="/" component={Boards} />
+          <PrivateRoute path="/boards/:boardId" component={BoardDetailRoutes} />
+          <Route path="/login" component={Login} />
         </Switch>
       </Content>
     </FullPage>
