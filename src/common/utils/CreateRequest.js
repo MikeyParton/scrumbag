@@ -59,7 +59,7 @@ class CreateRequest {
     const error = err => ({
       type: constants.error,
       payload: {
-        err
+        ...err
       }
     })
 
@@ -90,7 +90,7 @@ class CreateRequest {
 
           return data
         })
-        .catch(error => error)
+        .catch(error => error.response.data)
     )
   }
 
