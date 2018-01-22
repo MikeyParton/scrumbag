@@ -37,8 +37,8 @@ class BoardDetail extends Component {
     if (result.type === 'CARD') {
       this.props.moveCard({
         id,
-        startListId: result.source.droppableId,
-        endListId: result.destination.droppableId,
+        startListId: result.source.droppableId.split('-')[1],
+        endListId: result.destination.droppableId.split('-')[1],
         startIndex: result.source.index,
         endIndex: result.destination.index
       })
