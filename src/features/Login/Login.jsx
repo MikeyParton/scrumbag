@@ -1,8 +1,16 @@
 import React from 'react'
+import { reduxForm, Field } from 'redux-form'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { Input } from 'common/components/Form'
 import { Button } from 'common/components/Button'
 import Title from 'common/components/CardTitle'
+import LoginForm from './LoginForm'
+import { loginRequest } from './loginRequest'
+
+const actions = {
+  loginRequest: loginRequest.actions.request
+}
 
 export const Page = styled.div`
   display: flex;
@@ -28,6 +36,11 @@ export const Container = styled.div`
 
 
 class Login extends React.Component {
+  onSubmit = (values) => {
+    const { loginRequest } = this.props
+    loginRequest(values)
+  }
+
   render() {
     return (
       <Page>
@@ -35,18 +48,11 @@ class Login extends React.Component {
           <Header>
             Login to Scrumbag
           </Header>
-          <label htmlFor="email" type="email">Email</label>
-          <Input name="email" />
-          <label htmlFor="password">Password</label>
-          <Input name="password" type="password" />
-          <hr />
-          <Button buttonType="success">
-            Login
-          </Button>
+          <LoginForm onSubmit={this.onSubmit} />
         </Container>
       </Page>
     )
   }
 }
 
-export default Login
+export default connect(null, actions)(Login)
