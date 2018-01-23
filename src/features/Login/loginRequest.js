@@ -1,4 +1,5 @@
-import CreateRequest from 'common/utils/CreateRequest'
+import CreateRequest, { RESPONSE } from 'common/utils/CreateRequest'
+import { stopSubmit } from 'redux-form'
 import { LOGIN_URL } from 'config/api'
 
 export const loginRequest = new CreateRequest({
@@ -6,5 +7,11 @@ export const loginRequest = new CreateRequest({
   request: {
     url: LOGIN_URL,
     method: 'post',
-  }
+  },
+  afterError: [
+    {
+      action: stopSubmit,
+      args: ['Login', RESPONSE]
+    }
+  ]
 })

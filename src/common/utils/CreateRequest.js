@@ -2,14 +2,24 @@ import axios from 'axios'
 import humps from 'humps'
 import { normalize } from 'normalizr'
 import { delay } from 'redux-saga'
-import { takeEvery, put, call, all } from 'redux-saga/effects'
+import { takeEvery, put, call } from 'redux-saga/effects'
 
-const processAfterAction = (action) => {
-  // Allow delaying (is sometimes useful)
-  if (typeof action === 'number') {
-    return delay(action)
+export const RESPONSE = '@@response'
+export const DELAY = '@@delay'
+
+const processAfterAction = (actionObject, response) => {
+  const { action, args = [] } = actionObject
+
+  // Include response into args if needed
+  const newArgs = args.map(arg => (arg === RESPONSE ? response : arg))
+
+  // handle delay action
+  if (action === DELAY) {
+    return delay(...newArgs)
   }
-  return put(action())
+
+  // dispatch regular action
+  return put(action(...newArgs))
 }
 
 class CreateRequest {
@@ -104,14 +114,20 @@ class CreateRequest {
       const { error, ...response } = yield call(api, params)
 
       if (error) {
+        // Main error action which is exported
         yield put(errorAction(error))
+
+        // Handle any optional actions after error
         for (let action of afterError) {
-          yield processAfterAction(action)
+          yield processAfterAction(action, error)
         }
       } else {
+        // Main success action which is exported
         yield put(successAction(response))
+
+        // Handle any optional actions after success
         for (let action of afterSuccess) {
-          yield processAfterAction(action)
+          yield processAfterAction(action, response)
         }
       }
     }
