@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import NavBar from 'features/NavBar/NavBar'
 import styled from 'styled-components'
 
@@ -10,6 +10,7 @@ import Login from 'features/Login/Login'
 import BoardDetailRoutes from './BoardDetailRoutes'
 
 import PrivateRoute from './PrivateRoute'
+import history from './history'
 
 const FullPage = styled.div`
   height: 100vh;
@@ -25,7 +26,7 @@ const Content = styled.div`
 `
 
 const Routes = () => (
-  <Router>
+  <Router history={history}>
     <FullPage>
       <NavBar />
       <Content>

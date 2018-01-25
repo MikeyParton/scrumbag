@@ -1,5 +1,4 @@
-import axios from 'axios'
-import humps from 'humps'
+import api from 'config/api'
 import { normalize } from 'normalizr'
 import { delay } from 'redux-saga'
 import { takeEvery, put, call } from 'redux-saga/effects'
@@ -83,7 +82,7 @@ class CreateRequest {
   createApi() {
     const { method, url, responseSchema } = this
     return (params = {}) => (
-      axios({
+      api({
         method,
         url,
         data: {
@@ -92,7 +91,6 @@ class CreateRequest {
       })
         .then((response) => {
           let { data } = response
-          data = humps.camelizeKeys(data)
 
           if (responseSchema) {
             data = normalize(data, responseSchema).entities

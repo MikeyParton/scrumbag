@@ -1,14 +1,13 @@
-import axios from 'axios'
-import humps from 'humps'
+import api from 'config/api'
 import { normalize } from 'normalizr'
 import { boardDetailUrl, listUrl } from 'config/api'
 import { boardSchema, listSchema } from './boardDetailSchema'
 
 export const getBoardDetailRequest = (id) => {
   const url = boardDetailUrl(id)
-  return axios.get(url)
+  return api.get(url)
     .then((response) => {
-      const board = humps.camelizeKeys(response.data.board)
+      const { board } = response.data
       const { entities } = normalize(board, boardSchema)
       return { board, ...entities }
     })
@@ -19,9 +18,9 @@ export const getBoardDetailRequest = (id) => {
 
 export const updateListRequest = (id, boardId, params) => {
   const url = listUrl(boardId, id)
-  return axios.put(url, params)
+  return api.put(url, params)
     .then((response) => {
-      const { list } = humps.camelizeKeys(response).data
+      const { list } = response.data
       const { lists } = normalize(list, listSchema).entities
       return { lists }
     })

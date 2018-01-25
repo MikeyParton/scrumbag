@@ -6,10 +6,10 @@ import { Input } from 'common/components/Form'
 import { Button } from 'common/components/Button'
 import Title from 'common/components/CardTitle'
 import LoginForm from './LoginForm'
-import { loginRequest } from './loginRequest'
+import { loginRequest } from './loginActions'
 
 const actions = {
-  loginRequest: loginRequest.actions.request
+  loginRequest
 }
 
 export const Page = styled.div`

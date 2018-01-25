@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const NavBar = styled.div`
+export const Bar = styled.div`
   height: 40px;
   background-color: #026aa7;
   color: white;
