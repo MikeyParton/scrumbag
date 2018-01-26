@@ -1,17 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Page, Header, Container } from 'common/components/login'
-import LoginForm from './LoginForm'
-import { loginRequest } from './loginActions'
+import SignupForm from './SignupForm'
+import { signupRequest } from './signupActions'
 
 const actions = {
-  loginRequest
+  signupRequest
 }
 
 class Login extends React.Component {
   onSubmit = (values) => {
-    const { loginRequest } = this.props
-    loginRequest(values)
+    const { signupRequest } = this.props
+    signupRequest(values)
   }
 
   render() {
@@ -19,9 +19,9 @@ class Login extends React.Component {
       <Page>
         <Container>
           <Header>
-            Login to Scrumbag
+            Sign Up to Scrumbag
           </Header>
-          <LoginForm onSubmit={this.onSubmit} />
+          <SignupForm onSubmit={this.onSubmit} />
         </Container>
       </Page>
     )

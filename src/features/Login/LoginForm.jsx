@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
 import { Input } from 'common/components/Form'
@@ -26,6 +27,9 @@ class LoginForm extends React.Component {
           type="password"
           component={this.renderInput}
         />
+        <Link to="/signup">
+          Don't have an account? Sign up now
+        </Link>
         <hr />
         <Button type="submit" buttonType="success">
           Login

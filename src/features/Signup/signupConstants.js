@@ -1,0 +1,2 @@
+export const SIGNUP_REQUEST = 'SIGNUP/REQUEST'
+export const SIGNUP_ERROR = 'SIGNUP/ERROR'

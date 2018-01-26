@@ -1,7 +1,10 @@
 import { race, fork, take, call, put } from 'redux-saga/effects'
 import { stopSubmit } from 'redux-form'
 import history from 'app/Routes/history'
-import { login, getUser } from './loginApi'
+// import { signupError } from 'features/Signup/signupActions'
+import { SIGNUP_REQUEST } from 'features/Signup/signupConstants'
+
+import { login, getUser, createAccount } from './loginApi'
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from './loginConstants'
 import { loginError, loginSuccess, logoutSuccess } from './loginActions'
 import { getToken, setToken, removeToken, setHeader } from './loginUtils'
@@ -44,11 +47,26 @@ function* vanillaLogin() {
   }
 }
 
-// function* register(params) {
-//   while(true) {
-//
-//   }
-// }
+function* signup() {
+  while (true) {
+    const { payload } = yield take(SIGNUP_REQUEST)
+
+    const { error, user, token } = yield call(createAccount, payload)
+
+    if (error) {
+      // yield put(signupError(error))
+      yield put(stopSubmit('Signup', error))
+    } else {
+      yield call(setToken, token)
+      yield call(setHeader, token)
+
+      return {
+        user,
+        redirectPath: '/'
+      }
+    }
+  }
+}
 
 function* logout() {
   yield take(LOGOUT_REQUEST)
@@ -62,7 +80,8 @@ function* loginFlow() {
     // These are the ways to login
     const raceResults = yield race({
       storedTokenLogin: call(storedTokenLogin),
-      vanillaLogin: call(vanillaLogin)
+      vanillaLogin: call(vanillaLogin),
+      signup: call(signup)
     })
 
     const { user, redirectPath } = Object.values(raceResults)[0]

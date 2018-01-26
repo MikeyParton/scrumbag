@@ -7,6 +7,7 @@ import ModalManager from 'features/ModalManager/ModalManager'
 import ContextMenuManager from 'features/ContextMenu/ContextMenuManager'
 import Boards from 'features/Boards/Boards'
 import Login from 'features/Login/Login'
+import Signup from 'features/Signup/Signup'
 import BoardDetailRoutes from './BoardDetailRoutes'
 
 import PrivateRoute from './PrivateRoute'
@@ -17,12 +18,12 @@ const FullPage = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 `
 
 const Content = styled.div`
   display: flex;
   flex-grow: 1;
+  overflow-y: scroll;
 `
 
 const Routes = () => (
@@ -36,6 +37,7 @@ const Routes = () => (
           <PrivateRoute exact path="/" component={Boards} />
           <PrivateRoute path="/boards/:boardId" component={BoardDetailRoutes} />
           <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
         </Switch>
       </Content>
     </FullPage>
