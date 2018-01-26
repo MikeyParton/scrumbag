@@ -1,42 +1,78 @@
-import { fork, take, call, put } from 'redux-saga/effects'
+import { race, fork, take, call, put } from 'redux-saga/effects'
 import { stopSubmit } from 'redux-form'
-import { storeToken } from 'config/api'
 import history from 'app/Routes/history'
-import { login } from './loginApi'
+import { login, getUser } from './loginApi'
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from './loginConstants'
 import { loginError, loginSuccess, logoutSuccess } from './loginActions'
+import { getToken, setToken, removeToken, setHeader } from './loginUtils'
 
-function* loginRequestSaga({ payload }) {
-  const { error, token, user } = yield call(login, payload.params)
-  if (error) {
-    yield put(loginError(error))
-    yield put(stopSubmit('Login', error))
-  } else {
+function* storedTokenLogin() {
+  while (true) {
+    let tried
+    while (!tried) {
+      const token = yield call(getToken)
 
+      if (token) {
+        yield call(setHeader, token)
+        const { user } = yield call(getUser, token)
+        return { user }
+      }
+
+      tried = true
+    }
   }
 }
 
-function* loginFlow() {
+function* vanillaLogin() {
   while (true) {
-    const request = yield take(LOGIN_REQUEST)
-    const { payload } = request
+    const { payload } = yield take(LOGIN_REQUEST)
 
     const { error, user, token } = yield call(login, payload)
 
     if (error) {
       yield put(loginError(error))
       yield put(stopSubmit('Login', error))
-      return
+    } else {
+      yield call(setToken, token)
+      yield call(setHeader, token)
+
+      return {
+        user,
+        redirectPath: '/'
+      }
+    }
+  }
+}
+
+// function* register(params) {
+//   while(true) {
+//
+//   }
+// }
+
+function* logout() {
+  yield take(LOGOUT_REQUEST)
+  yield call(removeToken, null)
+  yield put(logoutSuccess())
+  yield call(history.push, '/login')
+}
+
+function* loginFlow() {
+  while (true) {
+    // These are the ways to login
+    const raceResults = yield race({
+      storedTokenLogin: call(storedTokenLogin),
+      vanillaLogin: call(vanillaLogin)
+    })
+
+    const { user, redirectPath } = Object.values(raceResults)[0]
+    yield put(loginSuccess({ user }))
+
+    if (redirectPath) {
+      yield call(history.push, redirectPath)
     }
 
-    yield call(storeToken, token)
-    yield put(loginSuccess({ token, user }))
-    yield call(history.push, '/')
-
-    yield take(LOGOUT_REQUEST)
-    yield call(storeToken, null)
-    yield put(logoutSuccess())
-    yield call(history.push, '/login')
+    yield call(logout)
   }
 }
 
