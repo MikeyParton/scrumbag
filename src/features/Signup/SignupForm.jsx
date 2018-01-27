@@ -2,62 +2,42 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
-import { Input } from 'common/components/Form'
-import { Button } from 'common/components/Button'
+import { FormGroup, Button } from 'common/components'
 
 class SignupForm extends React.Component {
-  renderInput = (props) => {
-    return (
-      <div>
-        <Input
-          placeholder={props.placeholder}
-          type={props.type}
-          {...props.input}
-        />
-        <strong>{props.meta.error}</strong>
-      </div>
-    )
-  }
-
   render() {
     const { handleSubmit } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
-        <div>
-          <div>
-            <label>Name</label>
-            <Field
-              name="firstName"
-              placeholder="First"
-              component={this.renderInput}
-            />
-          </div>
-          <div>
-            <Field
-              placeholder="Last"
-              name="lastName"
-              component={this.renderInput}
-            />
-          </div>
-        </div>
+        <label>Name</label>
+        <Field
+          name="firstName"
+          placeholder="First"
+          component={FormGroup}
+        />
+        <Field
+          placeholder="Last"
+          name="lastName"
+          component={FormGroup}
+        />
         <label htmlFor="email">Email</label>
         <Field
           name="email"
           type="email"
-          component={this.renderInput}
+          component={FormGroup}
         />
         <label htmlFor="password">Password</label>
         <Field
           name="password"
           type="password"
-          component={this.renderInput}
+          component={FormGroup}
         />
         <label htmlFor="passwordConfirmation">Confirm Password</label>
         <Field
           name="passwordConfirmation"
           type="password"
-          component={this.renderInput}
+          component={FormGroup}
         />
         <Link to="/login">
           Already have an account? Log in now

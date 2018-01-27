@@ -3,9 +3,14 @@ import humps from 'humps'
 
 const api = axios.create({
   baseURL: 'http://localhost:3001/api',
-  transformResponse: axios.defaults.transformResponse.concat((data) => {
-    return humps.camelizeKeys(data)
-  })
+  transformResponse: [
+    ...axios.defaults.transformResponse,
+    data => humps.camelizeKeys(data)
+  ],
+  transformRequest: [
+    data => humps.decamelizeKeys(data),
+    ...axios.defaults.transformRequest
+  ]
 })
 
 export const LOGIN_URL = '/auth/login'
