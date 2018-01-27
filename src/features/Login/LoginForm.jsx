@@ -1,31 +1,37 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { reduxForm, Field } from 'redux-form'
-import { Input } from 'common/components/Form'
-import { Button } from 'common/components/Button'
+import { reduxForm, Field, getFormSubmitErrors } from 'redux-form'
+import { connect } from 'react-redux'
+import { FormGroup, Button, Message } from 'common/components'
+
+const mapState = state => ({
+  submitErrors: getFormSubmitErrors('Login')(state)
+})
 
 class LoginForm extends React.Component {
-  renderInput = (props) => {
-    return <Input type={props.type} {...props.input} />
-  }
-
   render() {
-    const { handleSubmit } = this.props
+    const { handleSubmit, submitErrors } = this.props
+    const { base } = submitErrors
 
     return (
       <form onSubmit={handleSubmit}>
+        { base && (
+          <Message type="error">
+            {base}
+          </Message>
+        )}
         <label htmlFor="email">Email</label>
         <Field
           name="email"
           type="email"
-          component={this.renderInput}
+          component={FormGroup}
         />
         <label htmlFor="password">Password</label>
         <Field
           name="password"
           type="password"
-          component={this.renderInput}
+          component={FormGroup}
         />
         <Link to="/signup">
           Don't have an account? Sign up now
@@ -43,6 +49,6 @@ LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired
 }
 
-export default reduxForm({
+export default connect(mapState, null)(reduxForm({
   form: 'Login'
-})(LoginForm)
+})(LoginForm))
