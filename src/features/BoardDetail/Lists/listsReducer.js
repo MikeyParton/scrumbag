@@ -37,14 +37,21 @@ export const updateList = (state, payload) => {
   }
 }
 
+const byIdSucess = (state, payload) => payload.lists || state
+
+const allIdsSuccess = (state, payload) => {
+  if (payload.lists) return Object.keys(payload.lists)
+  return state
+}
+
 const byId = createReducer({}, {
-  [BOARD_DETAIL_SUCCESS]: (state, payload) => payload.lists,
+  [BOARD_DETAIL_SUCCESS]: byIdSucess,
   [MOVE_CARD]: moveCard,
   [UPDATE_LIST_SUCCESS]: updateList
 })
 
 const allIds = createReducer([], {
-  [BOARD_DETAIL_SUCCESS]: (state, payload) => Object.keys(payload.lists),
+  [BOARD_DETAIL_SUCCESS]: allIdsSuccess,
   [MOVE_LIST]: moveList
 })
 
