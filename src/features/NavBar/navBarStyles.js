@@ -1,14 +1,21 @@
 import styled from 'styled-components'
 
 export const Bar = styled.div`
+  padding: 0 ${props => 2 * props.theme.grid}px;
   height: 40px;
-  background-color: #026aa7;
-  color: white;
+  background-color: ${props => props.theme.colors.navbar};
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
+`
+
+export const End = styled.div`
+  width: 200px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
 `
 
 export const Brand = styled.div`

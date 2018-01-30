@@ -11,7 +11,7 @@ const Button = styled.button`
       color: white;
       font-weight: 700;
       border-radius: 3px;
-      height: 36px;
+      height: 30px;
       border: none;
       background-color: ${backgroundColor};
 

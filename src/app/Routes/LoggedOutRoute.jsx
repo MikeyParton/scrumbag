@@ -9,34 +9,26 @@ const mapState = state => ({
   checkedStoredToken: getcheckedStoredToken(state)
 })
 
-const PrivateRoute = ({ component: Component, currentUser, checkedStoredToken, ...rest }) => (
+const LoggedOutRoute = ({ component: Component, currentUser, checkedStoredToken, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
       if (!checkedStoredToken) return null
-      if (currentUser) return <Component {...props} />
+      if (!currentUser) return <Component {...props} />
 
-      return (
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: props.location }
-          }}
-        />
-      )
+      return <Redirect to={{ pathname: '/' }} />
     }}
   />
 )
 
-PrivateRoute.propTypes = {
-  checkedStoredToken: PropTypes.bool.isRequired,
+LoggedOutRoute.propTypes = {
   component: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
   currentUser: PropTypes.object
 }
 
-PrivateRoute.defaultProps = {
+LoggedOutRoute.defaultProps = {
   currentUser: null
 }
 
-export default connect(mapState, null)(PrivateRoute)
+export default connect(mapState, null)(LoggedOutRoute)

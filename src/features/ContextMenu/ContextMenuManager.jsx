@@ -45,7 +45,7 @@ ContextMenuManager.propTypes = {
       x: PropTypes.number,
       y: PropTypes.number
     }).isRequired,
-    type: PropTypes.string.isRequired,
+    type: PropTypes.string,
     menuArgs: PropTypes.shape()
   }).isRequired
 }

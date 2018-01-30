@@ -1,4 +1,4 @@
-import { race, fork, take, call, put } from 'redux-saga/effects'
+import { race, fork, take, call, put, cancel } from 'redux-saga/effects'
 import { stopSubmit } from 'redux-form'
 import history from 'app/Routes/history'
 // import { signupError } from 'features/Signup/signupActions'
@@ -6,27 +6,35 @@ import { SIGNUP_REQUEST } from 'features/Signup/signupConstants'
 
 import { login, getUser, createAccount } from './loginApi'
 import { LOGIN_REQUEST, LOGOUT_REQUEST } from './loginConstants'
-import { loginError, loginSuccess, logoutSuccess } from './loginActions'
-import { getToken, setToken, removeToken, setHeader } from './loginUtils'
+import { checkedStoredToken, loginError, loginSuccess, logoutSuccess } from './loginActions'
+import { getToken, setToken, removeToken, setHeader, removeHeader } from './loginUtils'
 
 function* storedTokenLogin() {
-  while (true) {
-    let tried
-    while (!tried) {
-      const token = yield call(getToken)
+  const token = yield call(getToken)
 
-      if (token) {
-        yield call(setHeader, token)
-        const { user } = yield call(getUser, token)
-        return { user }
-      }
+  // If there is a token, try to get the user the server
+  if (token) {
+    yield call(setHeader, token)
+    const { user } = yield call(getUser, token)
 
-      tried = true
+    // Success if we get a user back
+    if (user) {
+      return { user }
     }
+
+    // Otherwise token must be bad
+    yield call(removeToken)
+    yield call(removeHeader)
   }
+
+  yield put(checkedStoredToken())
+
+  // And at this point we may as well opt of the race
+  yield cancel()
 }
 
 function* vanillaLogin() {
+  // Always listen for login requests
   while (true) {
     const { payload } = yield take(LOGIN_REQUEST)
 
@@ -48,6 +56,7 @@ function* vanillaLogin() {
 }
 
 function* signup() {
+  // Always listen for signup requests
   while (true) {
     const { payload } = yield take(SIGNUP_REQUEST)
 
@@ -70,7 +79,8 @@ function* signup() {
 
 function* logout() {
   yield take(LOGOUT_REQUEST)
-  yield call(removeToken, null)
+  yield call(removeToken)
+  yield call(removeHeader)
   yield put(logoutSuccess())
   yield call(history.push, '/login')
 }
@@ -84,8 +94,13 @@ function* loginFlow() {
       signup: call(signup)
     })
 
+    // Handle login with the result
     const { user, redirectPath } = Object.values(raceResults)[0]
     yield put(loginSuccess({ user }))
+
+    if (raceResults.storedTokenLogin) {
+      yield put(checkedStoredToken())
+    }
 
     if (redirectPath) {
       yield call(history.push, redirectPath)

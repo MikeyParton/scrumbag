@@ -1,10 +1,15 @@
 import {
+  CHECKED_STORED_TOKEN,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
 } from './loginConstants'
+
+export const checkedStoredToken = () => ({
+  type: CHECKED_STORED_TOKEN
+})
 
 export const loginRequest = params => ({
   type: LOGIN_REQUEST,

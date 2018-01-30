@@ -55,4 +55,11 @@ class ModalManager extends Component {
   }
 }
 
+ModalManager.propTypes = {
+  open: PropTypes.bool.isRequired,
+  type: PropTypes.string,
+  title: PropTypes.string,
+  modalClose: PropTypes.func.isRequired
+}
+
 export default connect(mapState, actions)(ModalManager)

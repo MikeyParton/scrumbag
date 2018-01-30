@@ -1,6 +1,5 @@
 import React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { Container, CardWrapper } from './cardStyledComponents'
 
@@ -23,7 +22,7 @@ class Card extends React.Component {
                 {...provided.dragHandleProps}
               >
 
-                <div>{card.name}</div>
+                <div>{name}</div>
               </CardWrapper>
               {provided.placeholder}
             </Link>

@@ -5,7 +5,7 @@ import { getBoardsRequest, createBoardRequest } from './boardsRequests'
 const { constants: getBoardsConstants } = getBoardsRequest
 const { constants: createBoardConstants } = createBoardRequest
 
-export const byIdSucess = (state, payload) => payload.boards
+export const byIdSucess = (state, payload) => payload.boards || state
 
 export const byIdCreateSucess = (state, payload) => {
   const { board } = payload
@@ -16,7 +16,10 @@ export const byIdCreateSucess = (state, payload) => {
 }
 
 export const allIdsSuccess = (state, payload) => {
-  return Object.keys(payload.boards)
+  if (payload.boards) {
+    return Object.keys(payload.boards)
+  }
+  return state
 }
 
 export const allIdsCreateSuccess = (state, payload) => {

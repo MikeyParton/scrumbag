@@ -15,3 +15,7 @@ export const setHeader = (token) => {
 export const removeToken = () => {
   localStorage.removeItem(TOKEN_NAME)
 }
+
+export const removeHeader = () => {
+  api.defaults.headers.common.Authorization = null
+}

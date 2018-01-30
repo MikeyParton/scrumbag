@@ -31,4 +31,9 @@ const Message = props => (
   </Container>
 )
 
+Message.propTypes = {
+  type: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired
+}
+
 export default Message

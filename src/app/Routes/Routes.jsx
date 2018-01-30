@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch } from 'react-router-dom'
 import NavBar from 'features/NavBar/NavBar'
 import styled from 'styled-components'
 
@@ -11,6 +11,7 @@ import Signup from 'features/Signup/Signup'
 import BoardDetailRoutes from './BoardDetailRoutes'
 
 import PrivateRoute from './PrivateRoute'
+import LoggedOutRoute from './LoggedOutRoute'
 import history from './history'
 
 const FullPage = styled.div`
@@ -36,8 +37,8 @@ const Routes = () => (
         <Switch>
           <PrivateRoute exact path="/" component={Boards} />
           <PrivateRoute path="/boards/:boardId" component={BoardDetailRoutes} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
+          <LoggedOutRoute path="/login" component={Login} />
+          <LoggedOutRoute path="/signup" component={Signup} />
         </Switch>
       </Content>
     </FullPage>
