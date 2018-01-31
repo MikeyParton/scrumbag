@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getCardById } from 'features/BoardDetail/Cards/cardsSelectors'
+import { getCardBySlug } from 'features/BoardDetail/Cards/cardsSelectors'
 import { Modal, Header } from './cardDetailStyles'
 
 const mapState = (state, ownProps) => ({
-  card: getCardById(state, ownProps.match.params.cardId)
+  card: getCardBySlug(state, ownProps.match.params.cardId)
 })
 
 class CardDetail extends Component {
@@ -19,7 +19,7 @@ class CardDetail extends Component {
   }
 
   close = () => {
-    this.props.history.push(`/boards/${this.props.card.boardId}`)
+    this.props.history.push(`/boards/${this.props.card.boardSlug}`)
   }
 
   maybeClose = (event) => {
@@ -52,11 +52,15 @@ CardDetail.propTypes = {
       PropTypes.number
     ]).isRequired,
     name: PropTypes.string.isRequired,
-    boardId: PropTypes.number.isRequired
-  }).isRequired,
+    boardSlug: PropTypes.string.isRequired
+  }),
   history: PropTypes.shape({
     push: PropTypes.func
   }).isRequired
+}
+
+CardDetail.defaultProps = {
+  card: null
 }
 
 const withState = connect(mapState, null)(CardDetail)

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import BaseCard from 'common/components/BaseCard'
@@ -18,16 +19,21 @@ export const Tile = styled(BaseCard)`
 
 
 const BoardTile = (props) => {
-  const { id, name } = props
+  const { name, slug } = props
   return (
     <Wrapper>
-      <Link to={`/boards/${id}`}>
+      <Link to={`/boards/${slug}`}>
         <Tile>
           <CardTitle>{name}</CardTitle>
         </Tile>
       </Link>
     </Wrapper>
   )
+}
+
+BoardTile.propTypes = {
+  name: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired
 }
 
 export default BoardTile
