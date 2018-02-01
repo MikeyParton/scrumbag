@@ -25,15 +25,11 @@ const Error = styled.div`
 `
 
 const FormGroup = (props) => {
-  const { meta, placeholder, type, input } = props
+  const { meta, ...inputProps } = props
   const { error } = meta
   return (
     <Container className={error ? 'has-error' : null}>
-      <Input
-        placeholder={placeholder}
-        type={type}
-        {...input}
-      />
+      <Input {...inputProps} />
       <ErrorContainer>
         { error && (
           <Error>

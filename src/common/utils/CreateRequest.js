@@ -110,7 +110,6 @@ class CreateRequest {
     function* requestSaga({ payload }) {
       const { params = {} } = payload
       const { requestUrl } = params
-      debugger
       const { error, ...response } = yield call(api, requestUrl, params)
 
       if (error) {

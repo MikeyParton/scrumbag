@@ -8,8 +8,6 @@ import { UPDATE_LIST_REQUEST } from './Lists/listsConstants'
 import { updateListRequest } from './boardDetailAPI'
 import { updateListSuccess, updateListError } from './Lists/listsActions'
 
-// import newListSagas from './NewList/newListSagas'
-
 import { getBoard } from './boardDetailSelectors'
 
 function* boardDetailRequestSaga({ payload }) {
@@ -32,9 +30,8 @@ function* updateListSaga({ payload }) {
 }
 
 export default function* rootSaga() {
-  debugger
   all([
-    // yield takeEvery(BOARD_DETAIL_REQUEST, boardDetailRequestSaga),
-    // yield takeEvery(UPDATE_LIST_REQUEST, updateListSaga),
+    yield takeEvery(BOARD_DETAIL_REQUEST, boardDetailRequestSaga),
+    yield takeEvery(UPDATE_LIST_REQUEST, updateListSaga)
   ])
 }
