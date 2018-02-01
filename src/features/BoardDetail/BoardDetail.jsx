@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { withRouter } from 'react-router-dom'
 
+import NewList from './NewList/NewList'
 import List from './Lists/List'
-import { BoardArea } from './boardStyledComponents'
+import { BoardArea, InnerContainer } from './boardStyledComponents'
 
 import { boardDetailRequest } from './boardDetailActions'
 import { moveCard } from './Cards/cardsActions'
@@ -54,10 +55,12 @@ class BoardDetail extends Component {
   }
 
   render() {
-    const { lists } = this.props
+    const { lists, match } = this.props
+    const { boardId } = match.params
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
+        <InnerContainer>
         <Droppable
           droppableId="board"
           type="LIST"
@@ -72,9 +75,11 @@ class BoardDetail extends Component {
                   index={index}
                 />
               ))}
+              <NewList boardId={boardId} />
             </BoardArea>
           )}
         </Droppable>
+        </InnerContainer>
       </DragDropContext>
     )
   }

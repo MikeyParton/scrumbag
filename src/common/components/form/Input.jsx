@@ -1,3 +1,5 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const Input = styled.input`
@@ -16,4 +18,27 @@ const Input = styled.input`
   }
 `
 
-export default Input
+const FormInput = (props) => {
+  const { placeholder, type, input } = props
+  return (
+    <Input
+      placeholder={placeholder}
+      type={type}
+      {...input}
+    />
+  )
+}
+
+FormInput.propTypes = {
+  placeholder: PropTypes.string,
+  type: PropTypes.string,
+  input: PropTypes.object
+}
+
+FormInput.defaultProps = {
+  placeholder: '',
+  type: '',
+  input: {}
+}
+
+export default FormInput

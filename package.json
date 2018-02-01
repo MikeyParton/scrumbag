@@ -26,6 +26,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-form": "^7.2.1",
     "redux-saga": "^0.16.0",
+    "reflexbox": "^3.0.1",
     "styled-components": "^2.2.3"
   },
   "devDependencies": {

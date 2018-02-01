@@ -28,7 +28,7 @@ class CreateRequest {
     this.constantPrefix = constantPrefix
 
     this.method = request.method
-    this.url = request.url
+    this.predefinedUrl = request.url
     this.responseSchema = request.responseSchema
 
     this.afterError = afterError || []
@@ -80,11 +80,11 @@ class CreateRequest {
   }
 
   createApi() {
-    const { method, url, responseSchema } = this
-    return (params = {}) => (
+    const { method, predefinedUrl, responseSchema } = this
+    return (url, params = {}) => (
       api({
         method,
-        url,
+        url: url || predefinedUrl,
         data: {
           ...params
         }
@@ -108,8 +108,10 @@ class CreateRequest {
     const { success: successAction, error: errorAction } = actions
 
     function* requestSaga({ payload }) {
-      const { params } = payload
-      const { error, ...response } = yield call(api, params)
+      const { params = {} } = payload
+      const { requestUrl } = params
+      debugger
+      const { error, ...response } = yield call(api, requestUrl, params)
 
       if (error) {
         // Main error action which is exported
