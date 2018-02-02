@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import AutoTextArea from './AutoTextArea'
 
 const Input = styled.input`
   width: 100%;
@@ -20,8 +21,11 @@ const Input = styled.input`
 
 const FormInput = (props) => {
   const { autoFocus, placeholder, type, input } = props
+
+  const Component = type === 'autoTextArea' ? AutoTextArea : Input
+
   return (
-    <Input
+    <Component
       autoFocus={autoFocus}
       placeholder={placeholder}
       type={type}

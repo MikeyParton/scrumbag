@@ -3,30 +3,48 @@ import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
 import { updateListRequest } from './listsActions'
+import { showNewCard, hideNewCard } from '../NewCard/newCardActions'
 import { getCardsById } from '../Cards/cardsSelectors'
+import { getNewCardListId } from '../NewCard/newCardSelectors'
 
 import ElipsisIcon from 'react-icons/lib/fa/ellipsis-h'
 import Card from '../Cards/Card'
+import NewCardButton from '../NewCard/NewCardButton'
 import ListTitle from './ListTitle/ListTitle'
+import NewCardForm from '../NewCard/NewCardForm'
+
+
 import {
   OuterListWrapper,
   ListWrapper,
   ListHeader,
-  ListFooter,
   ListDropZone,
   ScrollContainer,
   ListButton
 } from './listsStyledComponents'
 
 const mapState = (state, ownProps) => ({
-  cards: getCardsById(state, ownProps.list.cards)
+  cards: getCardsById(state, ownProps.list.cards),
+  newCardListId: getNewCardListId(state)
 })
 
-const actions = { updateListRequest }
+const actions = {
+  updateListRequest,
+  showNewCard,
+  hideNewCard
+}
 
 class List extends Component {
   render() {
-    const { list, cards, index, updateListRequest } = this.props
+    const {
+      list,
+      cards,
+      index,
+      updateListRequest,
+      showNewCard,
+      hideNewCard,
+      newCardListId
+    } = this.props
     const { id, name } = list
 
     return (
@@ -89,10 +107,16 @@ class List extends Component {
                       </ListDropZone>
                     )}
                   </Droppable>
+                  {newCardListId === id && (
+                    <NewCardForm
+                      listId={id}
+                      handleCancel={hideNewCard}
+                    />
+                  )}
                 </ScrollContainer>
-                <ListFooter>
-                  Some Acition
-                </ListFooter>
+                {newCardListId !== id && (
+                  <NewCardButton handleClick={() => showNewCard(id)} />
+                )}
               </ListWrapper>
               {provided.placeholder}
             </OuterListWrapper>
