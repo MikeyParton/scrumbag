@@ -11,7 +11,7 @@ import ElipsisIcon from 'react-icons/lib/fa/ellipsis-h'
 import Card from '../Cards/Card'
 import NewCardButton from '../NewCard/NewCardButton'
 import ListTitle from './ListTitle/ListTitle'
-import NewCardForm from '../NewCard/NewCardForm'
+import NewCardFormContainer from '../NewCard/NewCardFormContainer'
 
 
 import {
@@ -45,7 +45,7 @@ class List extends Component {
       hideNewCard,
       newCardListId
     } = this.props
-    const { id, name } = list
+    const { id, name, boardId } = list
 
     return (
       <Draggable
@@ -108,7 +108,8 @@ class List extends Component {
                     )}
                   </Droppable>
                   {newCardListId === id && (
-                    <NewCardForm
+                    <NewCardFormContainer
+                      boardId={boardId}
                       listId={id}
                       handleCancel={hideNewCard}
                     />

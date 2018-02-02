@@ -19,6 +19,7 @@ export const BOARDS_URL = '/boards'
 export const boardDetailUrl = id => `/boards/${id}`
 export const listsUrl = boardId => `${boardDetailUrl(boardId)}/lists`
 export const listUrl = (boardId, id) => `${boardDetailUrl(boardId)}/lists/${id}`
-export const cardsUrl = (boardId, id) => `${boardDetailUrl(boardId)}/cards/${id}`
+export const cardsUrl = boardId => `${boardDetailUrl(boardId)}/cards`
+export const cardUrl = (boardId, id) => `${boardDetailUrl(boardId)}/cards/${id}`
 
 export default api
