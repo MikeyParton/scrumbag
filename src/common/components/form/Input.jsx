@@ -19,9 +19,10 @@ const Input = styled.input`
 `
 
 const FormInput = (props) => {
-  const { placeholder, type, input } = props
+  const { autoFocus, placeholder, type, input } = props
   return (
     <Input
+      autoFocus={autoFocus}
       placeholder={placeholder}
       type={type}
       {...input}

@@ -1,28 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { listsUrl } from 'config/api'
+
+import CashMeOutside from 'common/components/CashMeOutside'
 import NewListButton from './NewListButton'
 import NewListForm from './NewListForm'
 import { OuterContainer } from './newListFormStyles'
+
 import { createListRequest } from './newListRequest'
-import { listsUrl } from 'config/api'
+import { getNewListShow } from './newListSelectors'
+import { showNewList, hideNewList } from './newListActions'
+
+const mapState = state => ({
+  show: getNewListShow(state)
+})
 
 const actions = {
-  createList: createListRequest.actions.request
+  createList: createListRequest.actions.request,
+  activate: showNewList,
+  deactivate: hideNewList
 }
 
 class NewList extends React.Component {
-  state = {
-    active: false
-  }
-
-  activate = () => {
-    this.setState({ active: true })
-  }
-
-  deactivate = () => {
-    this.setState({ active: false })
-  }
-
   onSubmit = (values) => {
     const { boardId, createList } = this.props
     createList({
@@ -32,22 +32,37 @@ class NewList extends React.Component {
   }
 
   render() {
-    const { active } = this.state
+    const { show, activate, deactivate } = this.props
     return (
       <OuterContainer>
-        { !active && (
-          <NewListButton handleClick={this.activate} />
-        )}
+        <CashMeOutside
+          onClickOutside={deactivate}
+          render={setRef => (
+            <div ref={setRef}>
+              { !show && (
+                <NewListButton handleClick={activate} />
+              )}
 
-        { active && (
-          <NewListForm
-            handleCancel={this.deactivate}
-            onSubmit={this.onSubmit}
-          />
-        )}
+              { show && (
+                <NewListForm
+                  handleCancel={deactivate}
+                  onSubmit={this.onSubmit}
+                />
+              )}
+            </div>
+          )}
+        />
       </OuterContainer>
     )
   }
 }
 
-export default connect(null, actions)(NewList)
+NewList.propTypes = {
+  show: PropTypes.bool.isRequired,
+  activate: PropTypes.func.isRequired,
+  deactivate: PropTypes.func.isRequired,
+  createList: PropTypes.func.isRequired,
+  boardId: PropTypes.string.isRequired
+}
+
+export default connect(mapState, actions)(NewList)

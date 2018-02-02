@@ -6,7 +6,7 @@ const NewListButton = (props) => {
   const { handleClick } = props
   return (
     <InnerContainer onClick={handleClick}>
-      NewList
+      Add a List ...
     </InnerContainer>
   )
 }

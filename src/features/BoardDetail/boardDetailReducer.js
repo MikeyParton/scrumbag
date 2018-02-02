@@ -3,6 +3,7 @@ import { combineReducers } from 'redux'
 import { BOARD_DETAIL_SUCCESS } from './boardDetailConstants'
 import cards from './Cards/cardsReducer'
 import lists from './Lists/listsReducer'
+import newList from './NewList/newListReducer'
 
 export const boardDetailSuccess = (state, payload) => payload.board
 
@@ -13,5 +14,6 @@ const board = createReducer({}, {
 export default combineReducers({
   board,
   cards,
-  lists
+  lists,
+  newList
 })

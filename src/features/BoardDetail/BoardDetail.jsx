@@ -60,7 +60,6 @@ class BoardDetail extends Component {
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <InnerContainer>
         <Droppable
           droppableId="board"
           type="LIST"
@@ -79,7 +78,6 @@ class BoardDetail extends Component {
             </BoardArea>
           )}
         </Droppable>
-        </InnerContainer>
       </DragDropContext>
     )
   }
