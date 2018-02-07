@@ -20,7 +20,13 @@ const Input = styled.input`
 `
 
 const FormInput = (props) => {
-  const { autoFocus, placeholder, type, input } = props
+  const {
+    autoFocus,
+    placeholder,
+    type,
+    input,
+    onResize
+  } = props
 
   const Component = type === 'autoTextArea' ? AutoTextArea : Input
 
@@ -29,21 +35,26 @@ const FormInput = (props) => {
       autoFocus={autoFocus}
       placeholder={placeholder}
       type={type}
+      onResize={onResize}
       {...input}
     />
   )
 }
 
 FormInput.propTypes = {
+  autoFocus: PropTypes.bool,
   placeholder: PropTypes.string,
   type: PropTypes.string,
-  input: PropTypes.object
+  input: PropTypes.object,
+  onResize: PropTypes.func,
 }
 
 FormInput.defaultProps = {
+  autoFocus: false,
   placeholder: '',
   type: '',
-  input: {}
+  input: {},
+  onResize: () => {}
 }
 
 export default FormInput

@@ -35,6 +35,15 @@ const actions = {
 }
 
 class List extends Component {
+  setRef = (node) => {
+    this.newCardForm = node
+  }
+
+  scrollToNewCardForm = () => {
+    if (!this.newCardForm) return
+    this.newCardForm.scrollIntoView()
+  }
+
   render() {
     const {
       list,
@@ -109,6 +118,8 @@ class List extends Component {
                   </Droppable>
                   {newCardListId === id && (
                     <NewCardFormContainer
+                      setRef={this.setRef}
+                      scrollTo={this.scrollToNewCardForm}
                       boardId={boardId}
                       listId={id}
                       handleCancel={hideNewCard}

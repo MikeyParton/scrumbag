@@ -39,7 +39,14 @@ export const updateList = (state, payload) => {
   }
 }
 
-const byIdSucess = (state, payload) => payload.lists || state
+const byIdSucess = (state, payload) => {
+  if (!payload.lists) return state
+
+  return {
+    ...payload.lists,
+    scroll: 0
+  }
+}
 
 const allIdsSuccess = (state, payload) => {
   if (payload.lists) return Object.keys(payload.lists)
