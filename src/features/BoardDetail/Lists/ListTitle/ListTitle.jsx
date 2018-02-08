@@ -1,4 +1,5 @@
 import React from 'react'
+import shallowCompare from 'react-addons-shallow-compare'
 import PropTypes from 'prop-types'
 import AutoTextArea from 'react-autosize-textarea'
 import { TitleWrapper, TitleOverlay } from './listTitleStyles'
@@ -8,6 +9,10 @@ class ListTitle extends React.Component {
     editing: false,
     oldName: this.props.name,
     newName: this.props.name
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState)
   }
 
   update = (event) => {

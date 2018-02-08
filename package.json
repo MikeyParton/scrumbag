@@ -12,6 +12,7 @@
     "polished": "^1.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
+    "react-addons-shallow-compare": "^15.6.2",
     "react-animations": "^1.0.0",
     "react-autosize-textarea": "^3.0.1",
     "react-beautiful-dnd": "^4.0.0",
@@ -27,7 +28,9 @@
     "redux-form": "^7.2.1",
     "redux-saga": "^0.16.0",
     "reflexbox": "^3.0.1",
-    "styled-components": "^2.2.3"
+    "reselect": "^3.0.1",
+    "styled-components": "^2.2.3",
+    "why-did-you-update": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

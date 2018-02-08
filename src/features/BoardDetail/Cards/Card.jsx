@@ -1,13 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Draggable } from 'react-beautiful-dnd'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Container, CardWrapper } from './cardStyledComponents'
+import { makeGetCardById } from './cardsSelectors'
+
+const mapState = (state, ownProps) => {
+  const getCardById = makeGetCardById(ownProps.id)
+  return {
+    card: getCardById(state)
+  }
+}
 
 class Card extends React.Component {
   render() {
-    const { card, index } = this.props
-    const { id, slug, name, boardSlug } = card
+    const { id, index, card } = this.props
+    const { slug, name, boardSlug } = card
 
     return (
       <Draggable
@@ -22,7 +31,6 @@ class Card extends React.Component {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
               >
-
                 <div>{name}</div>
               </CardWrapper>
               {provided.placeholder}
@@ -35,8 +43,8 @@ class Card extends React.Component {
 }
 
 Card.propTypes = {
+  id: PropTypes.string.isRequired,
   card: PropTypes.shape({
-    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     boardSlug: PropTypes.string.isRequired
@@ -44,4 +52,4 @@ Card.propTypes = {
   index: PropTypes.number.isRequired
 }
 
-export default Card
+export default connect(mapState, null)(Card)

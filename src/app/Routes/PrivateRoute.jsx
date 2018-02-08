@@ -9,24 +9,33 @@ const mapState = state => ({
   checkedStoredToken: getcheckedStoredToken(state)
 })
 
-const PrivateRoute = ({ component: Component, currentUser, checkedStoredToken, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      if (!checkedStoredToken) return null
-      if (currentUser) return <Component {...props} />
+class PrivateRoute extends React.Component {
+  renderProps = (props) => {
+    const { component: Component, currentUser, checkedStoredToken, ...rest } = this.props
 
-      return (
-        <Redirect
-          to={{
-            pathname: '/login',
-            state: { from: props.location }
-          }}
-        />
-      )
-    }}
-  />
-)
+    if (!checkedStoredToken) return null
+    if (currentUser) return <Component {...props} />
+
+    return (
+      <Redirect
+        to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }}
+      />
+    )
+  }
+
+  render() {
+    const { component: Component, currentUser, checkedStoredToken, ...rest } = this.props
+    return (
+      <Route
+        {...rest}
+        render={this.renderProps}
+      />
+    )
+  }
+}
 
 PrivateRoute.propTypes = {
   checkedStoredToken: PropTypes.bool.isRequired,

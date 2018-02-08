@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getCurrentUser, getcheckedStoredToken } from 'features/Login/loginSelectors'
 
+
 const mapState = state => ({
   currentUser: getCurrentUser(state),
   checkedStoredToken: getcheckedStoredToken(state)

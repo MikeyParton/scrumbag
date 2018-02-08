@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Switch } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import NavBar from 'features/NavBar/NavBar'
 import styled from 'styled-components'
 

@@ -10,10 +10,10 @@ import { BoardArea, InnerContainer } from './boardStyledComponents'
 import { boardDetailRequest } from './boardDetailActions'
 import { moveCard } from './Cards/cardsActions'
 import { moveList } from './Lists/listsActions'
-import { getAllLists } from './Lists/listsSelectors'
+import { getListIds } from './Lists/listsSelectors'
 
 const mapState = state => ({
-  lists: getAllLists(state)
+  listIds: getListIds(state)
 })
 
 const actions = {
@@ -55,7 +55,7 @@ class BoardDetail extends Component {
   }
 
   render() {
-    const { lists, match } = this.props
+    const { listIds, match } = this.props
     const { boardId } = match.params
 
     return (
@@ -67,10 +67,10 @@ class BoardDetail extends Component {
         >
           {(provided, snapshot) => (
             <BoardArea innerRef={provided.innerRef}>
-              {lists.map((list, index) => (
+              {listIds.map((listId, index) => (
                 <List
-                  key={list.id}
-                  list={list}
+                  key={listId}
+                  id={listId}
                   index={index}
                 />
               ))}

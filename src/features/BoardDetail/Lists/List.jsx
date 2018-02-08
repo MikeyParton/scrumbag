@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
 import { updateListRequest } from './listsActions'
+import { makeGetListById } from './listsSelectors'
 import { showNewCard, hideNewCard } from '../NewCard/newCardActions'
-import { getCardsById } from '../Cards/cardsSelectors'
-import { getNewCardListId } from '../NewCard/newCardSelectors'
+import { makeIsShowCardVisible } from '../NewCard/newCardSelectors'
 
 import ElipsisIcon from 'react-icons/lib/fa/ellipsis-h'
 import Card from '../Cards/Card'
@@ -23,10 +23,15 @@ import {
   ListButton
 } from './listsStyledComponents'
 
-const mapState = (state, ownProps) => ({
-  cards: getCardsById(state, ownProps.list.cards),
-  newCardListId: getNewCardListId(state)
-})
+const mapState = (state, ownProps) => {
+  const getListById = makeGetListById(ownProps.id)
+  const isShowCardVisible = makeIsShowCardVisible(ownProps.id)
+
+  return {
+    list: getListById(state),
+    isShowCardVisible: isShowCardVisible(state)
+  }
+}
 
 const actions = {
   updateListRequest,
@@ -45,16 +50,23 @@ class List extends Component {
   }
 
   render() {
+
     const {
       list,
-      cards,
       index,
       updateListRequest,
       showNewCard,
       hideNewCard,
-      newCardListId
+      newCardListId,
+      isShowCardVisible
     } = this.props
-    const { id, name, boardId } = list
+
+    const {
+      id,
+      name,
+      boardId,
+      cards
+    } = list
 
     return (
       <Draggable
@@ -105,10 +117,10 @@ class List extends Component {
                         innerRef={provided2.innerRef}
                         isDraggingOver={snapshot.isDraggingOver}
                       >
-                        {cards.map((card, index) => (
+                        {cards.map((cardId, index) => (
                           <Card
-                            key={card.id}
-                            card={card}
+                            key={cardId}
+                            id={cardId}
                             index={index}
                           />
                         ))}
@@ -116,7 +128,7 @@ class List extends Component {
                       </ListDropZone>
                     )}
                   </Droppable>
-                  {newCardListId === id && (
+                  { isShowCardVisible && (
                     <NewCardFormContainer
                       setRef={this.setRef}
                       scrollTo={this.scrollToNewCardForm}
@@ -126,7 +138,7 @@ class List extends Component {
                     />
                   )}
                 </ScrollContainer>
-                {newCardListId !== id && (
+                { !isShowCardVisible && (
                   <NewCardButton handleClick={() => showNewCard(id)} />
                 )}
               </ListWrapper>
