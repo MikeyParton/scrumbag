@@ -5,7 +5,8 @@ import { withRouter } from 'react-router-dom'
 
 import NewList from './NewList/NewList'
 import List from './Lists/List'
-import { BoardArea, InnerContainer } from './boardStyledComponents'
+
+import { OuterContainer, BoardArea } from './boardStyledComponents'
 
 import { boardDetailRequest } from './boardDetailActions'
 import { moveCard } from './Cards/cardsActions'
@@ -66,16 +67,18 @@ class BoardDetail extends Component {
           direction="horizontal"
         >
           {(provided, snapshot) => (
-            <BoardArea innerRef={provided.innerRef}>
-              {listIds.map((listId, index) => (
-                <List
-                  key={listId}
-                  id={listId}
-                  index={index}
-                />
-              ))}
-              <NewList boardId={boardId} />
-            </BoardArea>
+            <OuterContainer>
+              <BoardArea innerRef={provided.innerRef}>
+                {listIds.map((listId, index) => (
+                  <List
+                    key={listId}
+                    id={listId}
+                    index={index}
+                  />
+                ))}
+                <NewList boardId={boardId} />
+              </BoardArea>
+            </OuterContainer>
           )}
         </Droppable>
       </DragDropContext>
