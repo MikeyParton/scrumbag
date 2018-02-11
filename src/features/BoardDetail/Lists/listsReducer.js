@@ -2,13 +2,16 @@ import { combineReducers } from 'redux'
 import { createReducer } from 'common/utils/reducerUtils'
 
 import { removeFromList, addToList } from './listUtils'
-import { MOVE_LIST, UPDATE_LIST_SUCCESS } from './listsConstants'
+import { MOVE_LIST } from './listsConstants'
 import { MOVE_CARD } from '../Cards/cardsConstants'
 
 import { createListRequest } from '../NewList/newListRequest'
 import createCardRequest from '../NewCard/newCardRequest'
 
-import { getBoardDetailRequest } from '../boardDetailRequests'
+import {
+  getBoardDetailRequest,
+  updateListRequest
+} from '../boardDetailRequests'
 
 export const moveCard = (state, payload) => {
   const { id, startListId, startIndex, endListId, endIndex } = payload
@@ -80,7 +83,7 @@ const allIdsCreateList = (state, payload) => [...state, payload.list.id]
 const byId = createReducer({}, {
   [getBoardDetailRequest.constants.success]: byIdSucess,
   [MOVE_CARD]: moveCard,
-  [UPDATE_LIST_SUCCESS]: updateList,
+  [updateListRequest.constants.success]: updateList,
   [createListRequest.constants.success]: byIdCreateList,
   [createCardRequest.constants.success]: byIdCreateCard
 })

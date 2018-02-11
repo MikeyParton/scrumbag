@@ -18,7 +18,7 @@ export const SIGNUP_URL = '/auth/signup'
 export const BOARDS_URL = '/boards'
 export const boardDetailUrl = id => `/boards/${id}`
 export const listsUrl = boardId => `${boardDetailUrl(boardId)}/lists`
-export const listUrl = (boardId, id) => `${boardDetailUrl(boardId)}/lists/${id}`
+export const listUrl = id => `/lists/${id}`
 export const cardsUrl = boardId => `${boardDetailUrl(boardId)}/cards`
 export const cardUrl = (boardId, id) => `${boardDetailUrl(boardId)}/cards/${id}`
 

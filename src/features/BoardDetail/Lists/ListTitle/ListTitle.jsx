@@ -1,4 +1,5 @@
 import React from 'react'
+import { listUrl } from 'config/api'
 import shallowCompare from 'react-addons-shallow-compare'
 import PropTypes from 'prop-types'
 import AutoTextArea from 'react-autosize-textarea'
@@ -26,11 +27,14 @@ class ListTitle extends React.Component {
   }
 
   stopEditing = () => {
-    const { updateListRequest, id } = this.props
+    const { updateList, id } = this.props
     const { newName, oldName } = this.state
     this.setState({ editing: false })
     if (newName !== oldName) {
-      updateListRequest(id, { name: newName })
+      updateList({
+        name: newName,
+        requestUrl: listUrl(id)
+      })
     }
   }
 
@@ -59,7 +63,7 @@ ListTitle.propTypes = {
     PropTypes.number
   ]).isRequired,
   name: PropTypes.string.isRequired,
-  updateListRequest: PropTypes.func.isRequired
+  updateList: PropTypes.func.isRequired
 }
 
 export default ListTitle

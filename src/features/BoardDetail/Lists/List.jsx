@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
-import { updateListRequest } from './listsActions'
+import { updateListRequest } from '../boardDetailRequests'
 import { makeGetListById } from './listsSelectors'
 import { showNewCard, hideNewCard } from '../NewCard/newCardActions'
 import { makeIsShowCardVisible } from '../NewCard/newCardSelectors'
@@ -34,7 +34,7 @@ const mapState = (state, ownProps) => {
 }
 
 const actions = {
-  updateListRequest,
+  updateList: updateListRequest.actions.request,
   showNewCard,
   hideNewCard
 }
@@ -54,7 +54,7 @@ class List extends Component {
     const {
       list,
       index,
-      updateListRequest,
+      updateList,
       showNewCard,
       hideNewCard,
       newCardListId,
@@ -74,7 +74,7 @@ class List extends Component {
         type="LIST"
         index={index}
       >
-        {(provided, snapshot) => {
+        {(provided) => {
           const onMouseDown = (event) => {
             if (event.target.nodeName === 'TEXTAREA') return
             provided.dragHandleProps.onMouseDown(event)
@@ -103,7 +103,7 @@ class List extends Component {
                   <ListTitle
                     name={name}
                     id={id}
-                    updateListRequest={updateListRequest}
+                    updateList={updateList}
                   />
                   <ListButton><ElipsisIcon /></ListButton>
                 </ListHeader>
