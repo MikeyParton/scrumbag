@@ -4,9 +4,11 @@ import { createReducer } from 'common/utils/reducerUtils'
 import { removeFromList, addToList } from './listUtils'
 import { MOVE_LIST, UPDATE_LIST_SUCCESS } from './listsConstants'
 import { MOVE_CARD } from '../Cards/cardsConstants'
-import { BOARD_DETAIL_SUCCESS } from '../boardDetailConstants'
+
 import { createListRequest } from '../NewList/newListRequest'
 import createCardRequest from '../NewCard/newCardRequest'
+
+import { getBoardDetailRequest } from '../boardDetailRequests'
 
 export const moveCard = (state, payload) => {
   const { id, startListId, startIndex, endListId, endIndex } = payload
@@ -76,7 +78,7 @@ const byIdCreateCard = (state, payload) => {
 const allIdsCreateList = (state, payload) => [...state, payload.list.id]
 
 const byId = createReducer({}, {
-  [BOARD_DETAIL_SUCCESS]: byIdSucess,
+  [getBoardDetailRequest.constants.success]: byIdSucess,
   [MOVE_CARD]: moveCard,
   [UPDATE_LIST_SUCCESS]: updateList,
   [createListRequest.constants.success]: byIdCreateList,
@@ -84,7 +86,7 @@ const byId = createReducer({}, {
 })
 
 const allIds = createReducer([], {
-  [BOARD_DETAIL_SUCCESS]: allIdsSuccess,
+  [getBoardDetailRequest.constants.success]: allIdsSuccess,
   [MOVE_LIST]: moveList,
   [createListRequest.constants.success]: allIdsCreateList
 })

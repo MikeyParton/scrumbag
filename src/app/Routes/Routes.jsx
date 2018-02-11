@@ -6,7 +6,7 @@ import Login from 'features/Login/Login'
 import Signup from 'features/Signup/Signup'
 
 import Layout from './Layout'
-import BoardDetailRoutes from './BoardDetailRoutes'
+import BoardDetail from 'features/BoardDetail/BoardDetail'
 
 import PrivateRoute from './PrivateRoute'
 import LoggedOutRoute from './LoggedOutRoute'
@@ -17,7 +17,7 @@ const Routes = () => (
     <Layout>
       <Switch>
         <PrivateRoute exact path="/" component={Boards} />
-        <PrivateRoute path="/boards/:boardId" component={BoardDetailRoutes} />
+        <PrivateRoute path="/(c|b)/:id" component={BoardDetail} />
         <LoggedOutRoute path="/login" component={Login} />
         <LoggedOutRoute path="/signup" component={Signup} />
       </Switch>

@@ -1,15 +1,17 @@
 import { createReducer } from 'common/utils/reducerUtils'
 import { combineReducers } from 'redux'
-import { BOARD_DETAIL_SUCCESS } from './boardDetailConstants'
+
+import { getBoardDetailRequest } from './boardDetailRequests'
+
 import cards from './Cards/cardsReducer'
 import lists from './Lists/listsReducer'
 import newList from './NewList/newListReducer'
 import newCard from './NewCard/newCardReducer'
 
-export const boardDetailSuccess = (state, payload) => payload.board
+export const boardDetailSuccess = (state, payload) => Object.values(payload.board)[0]
 
 const board = createReducer({}, {
-  [BOARD_DETAIL_SUCCESS]: boardDetailSuccess
+  [getBoardDetailRequest.constants.success]: boardDetailSuccess
 })
 
 export default combineReducers({

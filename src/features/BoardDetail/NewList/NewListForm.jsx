@@ -36,7 +36,8 @@ const NewListForm = (props) => {
 
 NewListForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
+  handleCancel: PropTypes.func.isRequired
 }
 
 export default reduxForm({

@@ -1,23 +1,12 @@
-import { all, select, takeEvery, put, call, fork } from 'redux-saga/effects'
+import { all, select, takeEvery, put, call } from 'redux-saga/effects'
 
-import { BOARD_DETAIL_REQUEST } from './boardDetailConstants'
-import { getBoardDetailRequest } from './boardDetailAPI'
-import { boardDetailSuccess, boardDetailError } from './boardDetailActions'
+import { getBoardDetailRequest } from './boardDetailRequests'
 
 import { UPDATE_LIST_REQUEST } from './Lists/listsConstants'
 import { updateListRequest } from './boardDetailAPI'
 import { updateListSuccess, updateListError } from './Lists/listsActions'
 
 import { getBoard } from './boardDetailSelectors'
-
-function* boardDetailRequestSaga({ payload }) {
-  const { error, ...entities } = yield call(getBoardDetailRequest, payload.id)
-  if (!error) {
-    yield put(boardDetailSuccess(entities))
-  } else {
-    yield put(boardDetailError(error))
-  }
-}
 
 function* updateListSaga({ payload }) {
   const board = yield select(getBoard)
@@ -30,8 +19,8 @@ function* updateListSaga({ payload }) {
 }
 
 export default function* rootSaga() {
-  all([
-    yield takeEvery(BOARD_DETAIL_REQUEST, boardDetailRequestSaga),
-    yield takeEvery(UPDATE_LIST_REQUEST, updateListSaga)
+  yield all([
+    getBoardDetailRequest.saga(),
+    takeEvery(UPDATE_LIST_REQUEST, updateListSaga)
   ])
 }

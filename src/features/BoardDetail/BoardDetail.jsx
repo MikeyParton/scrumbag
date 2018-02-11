@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { withRouter } from 'react-router-dom'
+import { boardDetailUrl } from 'config/api'
 
 import NewList from './NewList/NewList'
 import List from './Lists/List'
 
 import { OuterContainer, BoardArea } from './boardStyledComponents'
 
-import { boardDetailRequest } from './boardDetailActions'
+import { getBoardDetailRequest } from './boardDetailRequests'
 import { moveCard } from './Cards/cardsActions'
 import { moveList } from './Lists/listsActions'
 import { getListIds } from './Lists/listsSelectors'
@@ -18,16 +20,19 @@ const mapState = state => ({
 })
 
 const actions = {
-  boardDetailRequest,
+  getBoard: getBoardDetailRequest.actions.request,
   moveCard,
   moveList
 }
 
 class BoardDetail extends Component {
   componentDidMount() {
-    const { boardDetailRequest, match } = this.props
-    const { boardId } = match.params
-    boardDetailRequest(boardId)
+    const { match, getBoard } = this.props
+
+    const { id } = match.params
+    getBoard({
+      requestUrl: boardDetailUrl(id)
+    })
   }
 
   onDragEnd = (result) => {
@@ -57,7 +62,7 @@ class BoardDetail extends Component {
 
   render() {
     const { listIds, match } = this.props
-    const { boardId } = match.params
+    const { id } = match.params
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
@@ -66,7 +71,7 @@ class BoardDetail extends Component {
           type="LIST"
           direction="horizontal"
         >
-          {(provided, snapshot) => (
+          {provided => (
             <OuterContainer>
               <BoardArea innerRef={provided.innerRef}>
                 {listIds.map((listId, index) => (
@@ -76,7 +81,7 @@ class BoardDetail extends Component {
                     index={index}
                   />
                 ))}
-                <NewList boardId={boardId} />
+                <NewList boardId={id} />
               </BoardArea>
             </OuterContainer>
           )}
@@ -84,6 +89,14 @@ class BoardDetail extends Component {
       </DragDropContext>
     )
   }
+}
+
+BoardDetail.propTypes = {
+  listIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+  moveList: PropTypes.func.isRequired,
+  moveCard: PropTypes.func.isRequired,
+  getBoard: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired
 }
 
 export default connect(mapState, actions)(withRouter(BoardDetail))

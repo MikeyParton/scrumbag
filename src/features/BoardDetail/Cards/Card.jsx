@@ -23,7 +23,7 @@ class Card extends React.Component {
         draggableId={`card-${id}`}
         index={index}
       >
-        {(provided, snapshot) => (
+        {provided => (
           <Container>
             <Link to={`/boards/${boardSlug}/card/${slug}`}>
               <CardWrapper
@@ -43,7 +43,7 @@ class Card extends React.Component {
 }
 
 Card.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   card: PropTypes.shape({
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
