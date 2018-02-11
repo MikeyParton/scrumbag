@@ -1,13 +1,23 @@
-import { take, all } from 'redux-saga/effects'
+import { takeEvery, put, all, select } from 'redux-saga/effects'
+import { boardDetailUrl } from 'config/api'
+import { getCardDetailRequest } from 'features/CardDetail/cardDetailRequests'
+import { getBoard } from './boardDetailSelectors'
 import { getBoardDetailRequest, updateListRequest } from './boardDetailRequests'
 
-// export function* loadBoardFromCard() {
-//   yield take(getCardDetailRequest)
-// }
+export function* keepBoardSyncedWithCard({ payload }) {
+  const cardsBoardSlug = payload.card.boardSlug
+  const board = yield select(getBoard)
+  if (cardsBoardSlug !== board.slug) {
+    yield put(getBoardDetailRequest.actions.request({
+      requestUrl: boardDetailUrl(cardsBoardSlug)
+    }))
+  }
+}
 
 export default function* rootSaga() {
   yield all([
     getBoardDetailRequest.saga(),
-    updateListRequest.saga()
+    updateListRequest.saga(),
+    takeEvery(getCardDetailRequest.constants.success, keepBoardSyncedWithCard)
   ])
 }

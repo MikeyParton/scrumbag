@@ -9,6 +9,7 @@ export const TitleWrapper = styled.div`
   margin-bottom: ${grid}px;
   flex-grow: 1;
   margin-right: 5px;
+  cursor: text;
 
   textarea {
     width: 100%;

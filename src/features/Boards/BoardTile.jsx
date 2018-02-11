@@ -22,7 +22,7 @@ const BoardTile = (props) => {
   const { name, slug } = props
   return (
     <Wrapper>
-      <Link to={`/boards/${slug}`}>
+      <Link to={`/b/${slug}`}>
         <Tile>
           <CardTitle>{name}</CardTitle>
         </Tile>

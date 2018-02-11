@@ -4,14 +4,16 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
+import Loading from 'common/components/Loading'
 import { cardUrl } from 'config/api'
 import { getCardDetailRequest } from './cardDetailRequests'
 
-import { getCardDetail } from './cardDetailSelectors'
+import { getCardDetail, getLoading } from './cardDetailSelectors'
 import { Modal, Header, Overlay } from './cardDetailStyles'
 
 const mapState = state => ({
-  card: getCardDetail(state)
+  card: getCardDetail(state),
+  loading: getLoading(state)
 })
 
 const actions = {
@@ -35,7 +37,7 @@ class CardDetail extends Component {
   }
 
   close = () => {
-    this.props.history.push(`/boards/${this.props.card.boardSlug}`)
+    this.props.history.push(`/b/${this.props.card.boardSlug}`)
   }
 
   maybeClose = (event) => {
@@ -44,23 +46,28 @@ class CardDetail extends Component {
     }
   }
 
-  content = () => {
+  innerContent = () => {
     const { card } = this.props
-
-    console.log(card)
-
-    if (!card) return null
-
     const { name } = card
+
+    return (
+      <Header>
+        <h3>{name}</h3>
+        <button onClick={this.close}>Close</button>
+      </Header>
+    )
+  }
+
+  content = () => {
+    const { loading } = this.props
 
     return (
       <div>
         <Overlay />
         <Modal innerRef={(modal) => { this.modal = modal }}>
-          <Header>
-            <h3>{name}</h3>
-            <button onClick={this.close}>Close</button>
-          </Header>
+          { loading
+            ? <Loading />
+            : this.innerContent() }
         </Modal>
       </div>
     )
@@ -72,6 +79,7 @@ class CardDetail extends Component {
 }
 
 CardDetail.propTypes = {
+  loading: PropTypes.bool.isRequired,
   getCard: PropTypes.func.isRequired,
   card: PropTypes.shape({
     id: PropTypes.oneOfType([

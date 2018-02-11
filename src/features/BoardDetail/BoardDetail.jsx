@@ -5,6 +5,8 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { withRouter } from 'react-router-dom'
 import { boardDetailUrl } from 'config/api'
 
+import Loading from 'common/components/Loading'
+
 import CardDetail from 'features/CardDetail/CardDetail'
 import NewList from './NewList/NewList'
 import List from './Lists/List'
@@ -12,11 +14,13 @@ import List from './Lists/List'
 import { OuterContainer, BoardArea } from './boardStyledComponents'
 
 import { getBoardDetailRequest } from './boardDetailRequests'
+import { getLoading } from './boardDetailSelectors'
 import { moveCard } from './Cards/cardsActions'
 import { moveList } from './Lists/listsActions'
 import { getListIds } from './Lists/listsSelectors'
 
 const mapState = state => ({
+  loading: getLoading(state),
   listIds: getListIds(state)
 })
 
@@ -61,10 +65,28 @@ class BoardDetail extends Component {
     }
   }
 
-  render() {
+  renderLists = () => {
     const { listIds, match } = this.props
+    const { id } = match.params
 
-    const { 0: type, id } = match.params
+    return (
+      <React.Fragment>
+        {
+          listIds.map((listId, index) => (
+            <List
+              key={listId}
+              id={listId}
+              index={index}
+            />
+        ))}
+        <NewList boardId={id} />
+      </React.Fragment>
+    )
+  }
+
+  render() {
+    const { match, loading } = this.props
+    const { 0: type } = match.params
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
@@ -76,17 +98,11 @@ class BoardDetail extends Component {
           {provided => (
             <OuterContainer>
               <BoardArea innerRef={provided.innerRef}>
-                {listIds.map((listId, index) => (
-                  <List
-                    key={listId}
-                    id={listId}
-                    index={index}
-                  />
-                ))}
-                <NewList boardId={id} />
-                { type === 'c' && (
-                  <CardDetail />
-                )}
+                { loading
+                    ? <Loading color="white" />
+                    : this.renderLists()
+                }
+                { type === 'c' && <CardDetail /> }
               </BoardArea>
             </OuterContainer>
           )}
@@ -97,6 +113,7 @@ class BoardDetail extends Component {
 }
 
 BoardDetail.propTypes = {
+  loading: PropTypes.bool.isRequired,
   listIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   moveList: PropTypes.func.isRequired,
   moveCard: PropTypes.func.isRequired,
