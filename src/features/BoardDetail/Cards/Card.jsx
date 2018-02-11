@@ -25,7 +25,7 @@ class Card extends React.Component {
       >
         {provided => (
           <Container>
-            <Link to={`/boards/${boardSlug}/card/${slug}`}>
+            <Link to={`/c/${slug}`}>
               <CardWrapper
                 innerRef={provided.innerRef}
                 {...provided.draggableProps}

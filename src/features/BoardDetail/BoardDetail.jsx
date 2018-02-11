@@ -5,6 +5,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { withRouter } from 'react-router-dom'
 import { boardDetailUrl } from 'config/api'
 
+import CardDetail from 'features/CardDetail/CardDetail'
 import NewList from './NewList/NewList'
 import List from './Lists/List'
 
@@ -28,11 +29,11 @@ const actions = {
 class BoardDetail extends Component {
   componentDidMount() {
     const { match, getBoard } = this.props
+    const { 0: type, id } = match.params
 
-    const { id } = match.params
-    getBoard({
-      requestUrl: boardDetailUrl(id)
-    })
+    if (type === 'b') {
+      getBoard({ requestUrl: boardDetailUrl(id) })
+    }
   }
 
   onDragEnd = (result) => {
@@ -62,7 +63,8 @@ class BoardDetail extends Component {
 
   render() {
     const { listIds, match } = this.props
-    const { id } = match.params
+
+    const { 0: type, id } = match.params
 
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
@@ -82,6 +84,9 @@ class BoardDetail extends Component {
                   />
                 ))}
                 <NewList boardId={id} />
+                { type === 'c' && (
+                  <CardDetail />
+                )}
               </BoardArea>
             </OuterContainer>
           )}

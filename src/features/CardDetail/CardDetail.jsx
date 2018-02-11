@@ -3,15 +3,30 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { getCardBySlug } from 'features/BoardDetail/Cards/cardsSelectors'
+
+import { cardUrl } from 'config/api'
+import { getCardDetailRequest } from './cardDetailRequests'
+
+import { getCardDetail } from './cardDetailSelectors'
 import { Modal, Header, Overlay } from './cardDetailStyles'
 
-const mapState = (state, ownProps) => ({
-  card: getCardBySlug(state, ownProps.match.params.cardId)
+const mapState = state => ({
+  card: getCardDetail(state)
 })
+
+const actions = {
+  getCard: getCardDetailRequest.actions.request
+}
 
 class CardDetail extends Component {
   componentDidMount() {
+    const { match, getCard } = this.props
+    const { 0: type, id } = match.params
+
+    if (type === 'c') {
+      getCard({ requestUrl: cardUrl(id) })
+    }
+
     document.addEventListener('mousedown', this.maybeClose);
   }
 
@@ -31,6 +46,9 @@ class CardDetail extends Component {
 
   content = () => {
     const { card } = this.props
+
+    console.log(card)
+
     if (!card) return null
 
     const { name } = card
@@ -54,6 +72,7 @@ class CardDetail extends Component {
 }
 
 CardDetail.propTypes = {
+  getCard: PropTypes.func.isRequired,
   card: PropTypes.shape({
     id: PropTypes.oneOfType([
       PropTypes.string,
@@ -71,5 +90,5 @@ CardDetail.defaultProps = {
   card: null
 }
 
-const withState = connect(mapState, null)(CardDetail)
+const withState = connect(mapState, actions)(CardDetail)
 export default withRouter(withState)
