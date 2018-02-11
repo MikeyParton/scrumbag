@@ -14,6 +14,16 @@ export const Modal = styled.div`
   box-shadow: 0 0 30px 2px rgba(0, 0, 0, 0.25);
 `
 
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.5;
+`
+
 export const Header = styled.div`
   display: flex;
   align-items: center;

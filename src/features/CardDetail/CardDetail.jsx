@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { getCardBySlug } from 'features/BoardDetail/Cards/cardsSelectors'
-import { Modal, Header } from './cardDetailStyles'
+import { Modal, Header, Overlay } from './cardDetailStyles'
 
 const mapState = (state, ownProps) => ({
   card: getCardBySlug(state, ownProps.match.params.cardId)
@@ -28,20 +29,27 @@ class CardDetail extends Component {
     }
   }
 
-  render() {
+  content = () => {
     const { card } = this.props
     if (!card) return null
 
     const { name } = card
 
     return (
-      <Modal innerRef={(modal) => { this.modal = modal }}>
-        <Header>
-          <h3>{name}</h3>
-          <button onClick={this.close}>Close</button>
-        </Header>
-      </Modal>
+      <div>
+        <Overlay />
+        <Modal innerRef={(modal) => { this.modal = modal }}>
+          <Header>
+            <h3>{name}</h3>
+            <button onClick={this.close}>Close</button>
+          </Header>
+        </Modal>
+      </div>
     )
+  }
+
+  render() {
+    return ReactDOM.createPortal(this.content(), document.getElementById('page'))
   }
 }
 
