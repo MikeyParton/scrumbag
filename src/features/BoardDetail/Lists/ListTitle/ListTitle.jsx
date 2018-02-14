@@ -1,5 +1,4 @@
 import React from 'react'
-import { listUrl } from 'config/api'
 import shallowCompare from 'react-addons-shallow-compare'
 import PropTypes from 'prop-types'
 import AutoTextArea from 'react-autosize-textarea'
@@ -8,8 +7,8 @@ import { TitleWrapper, TitleOverlay } from './listTitleStyles'
 class ListTitle extends React.Component {
   state = {
     editing: false,
-    oldName: this.props.name,
-    newName: this.props.name
+    oldValue: this.props.value,
+    newValue: this.props.value
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -17,29 +16,29 @@ class ListTitle extends React.Component {
   }
 
   update = (event) => {
-    const newName = event.target.value
-    this.setState({ newName })
+    const newValue = event.target.value
+    this.setState({ newValue })
   }
 
   startEditing = () => {
-    this.setState({ editing: true, oldName: this.state.newName })
+    this.setState({ editing: true, oldValue: this.state.newValue })
     this.titleInput.focus()
   }
 
   stopEditing = () => {
-    const { updateList, id } = this.props
-    const { newName, oldName } = this.state
+    const { onBlur, requestUrl } = this.props
+    const { newValue, oldValue } = this.state
     this.setState({ editing: false })
-    if (newName !== oldName) {
-      updateList({
-        name: newName,
-        requestUrl: listUrl(id)
+    if (newValue !== oldValue) {
+      onBlur({
+        name: newValue,
+        requestUrl
       })
     }
   }
 
   render() {
-    const { editing, newName } = this.state
+    const { editing, newValue } = this.state
 
     return (
       <TitleWrapper>
@@ -49,7 +48,7 @@ class ListTitle extends React.Component {
           onMouseDown={e => e.stopPropagation()}
           onBlur={this.stopEditing}
           onChange={this.update}
-          value={newName}
+          value={newValue}
         />
         { !editing && <TitleOverlay onClick={this.startEditing} /> }
       </TitleWrapper>
@@ -58,12 +57,13 @@ class ListTitle extends React.Component {
 }
 
 ListTitle.propTypes = {
-  id: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]).isRequired,
-  name: PropTypes.string.isRequired,
-  updateList: PropTypes.func.isRequired
+  requestUrl: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onBlur: PropTypes.func.isRequired
+}
+
+ListTitle.defaultProps = {
+  requestUrl: null
 }
 
 export default ListTitle

@@ -35,23 +35,10 @@ class NewList extends React.Component {
     const { show, activate, deactivate } = this.props
     return (
       <OuterContainer>
-        <CashMeOutside
-          onClickOutside={deactivate}
-          render={setRef => (
-            <div ref={setRef}>
-              { !show && (
-                <NewListButton handleClick={activate} />
-              )}
-
-              { show && (
-                <NewListForm
-                  handleCancel={deactivate}
-                  onSubmit={this.onSubmit}
-                />
-              )}
-            </div>
-          )}
-        />
+        { show
+            ? <NewListForm handleCancel={deactivate} onSubmit={this.onSubmit} />
+            : <NewListButton handleClick={activate} />
+        }
       </OuterContainer>
     )
   }

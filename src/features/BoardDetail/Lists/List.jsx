@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
+import { listUrl } from 'config/api'
+
 import { updateListRequest } from '../boardDetailRequests'
 import { makeGetListById } from './listsSelectors'
 import { showNewCard, hideNewCard } from '../NewCard/newCardActions'
@@ -101,9 +103,9 @@ class List extends Component {
               >
                 <ListHeader>
                   <ListTitle
-                    name={name}
-                    id={id}
-                    updateList={updateList}
+                    value={name}
+                    requestUrl={listUrl(id)}
+                    onBlur={updateList}
                   />
                   <ListButton><ElipsisIcon /></ListButton>
                 </ListHeader>

@@ -1,4 +1,7 @@
+/* eslint react/no-find-dom-node: "off" */
+
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 class CashMeOutside extends React.Component {
@@ -17,7 +20,13 @@ class CashMeOutside extends React.Component {
   handleClickOutside = (event) => {
     const { wrapperRef } = this
     const { onClickOutside } = this.props
-    if (wrapperRef && !wrapperRef.contains(event.target)) {
+
+    // ReacDOM.findDOMNode is discouraged, but we need this
+    // because redux-form doesn't allow it's refs to be accessed
+    // from outside the form class :(
+    const outside = !ReactDOM.findDOMNode(wrapperRef).contains(event.target)
+
+    if (wrapperRef && outside) {
       onClickOutside()
     }
   }

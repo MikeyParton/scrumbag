@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-import Loading from 'common/components/Loading'
+import { CloseButton, Loading } from 'common/components'
 import { cardUrl } from 'config/api'
+import CardTitle from './Title/Title'
 import { getCardDetailRequest } from './cardDetailRequests'
 
 import { getCardDetail, getLoading } from './cardDetailSelectors'
@@ -52,8 +53,8 @@ class CardDetail extends Component {
 
     return (
       <Header>
-        <h3>{name}</h3>
-        <button onClick={this.close}>Close</button>
+        <CardTitle name={name} />
+        <CloseButton onClick={this.close} />
       </Header>
     )
   }

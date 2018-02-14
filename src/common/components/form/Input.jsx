@@ -19,26 +19,30 @@ const Input = styled.input`
   }
 `
 
-const FormInput = (props) => {
-  const {
-    autoFocus,
-    placeholder,
-    type,
-    input,
-    onResize
-  } = props
+class FormInput extends React.Component {
+  render() {
+    const {
+      innerRef,
+      autoFocus,
+      placeholder,
+      type,
+      input,
+      onResize
+    } = this.props
 
-  const Component = type === 'autoTextArea' ? AutoTextArea : Input
+    const Component = type === 'autoTextArea' ? AutoTextArea : Input
 
-  return (
-    <Component
-      autoFocus={autoFocus}
-      placeholder={placeholder}
-      type={type}
-      onResize={onResize}
-      {...input}
-    />
-  )
+    return (
+      <Component
+        innerRef={innerRef}
+        autoFocus={autoFocus}
+        placeholder={placeholder}
+        type={type}
+        onResize={onResize}
+        {...input}
+      />
+    )
+  }
 }
 
 FormInput.propTypes = {

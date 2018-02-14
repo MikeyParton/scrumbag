@@ -3,7 +3,9 @@ import { lighten } from 'polished'
 const mainColors = {
   navbar: '#026aa7',
   success: '#5aac44',
-  error: 'red'
+  error: 'red',
+  white: 'white',
+  listBackgroundColor: '#e2e4e6',
 }
 
 const extraColors = {
