@@ -1,6 +1,7 @@
 import { createReducer } from 'common/utils/reducerUtils'
 import { combineReducers } from 'redux'
 
+import { updateCardRequest } from 'features/CardDetail/cardDetailRequests'
 import { getBoardDetailRequest } from '../boardDetailRequests'
 import newCardRequest from '../NewCard/newCardRequest'
 
@@ -23,6 +24,7 @@ export const allIdsCreateCard = (state, payload) => ([
 
 const byId = createReducer({}, {
   [getBoardDetailRequest.constants.success]: boardDetailsSuccessById,
+  [updateCardRequest.constants.success]: byIdCreateCard,
   [newCardRequest.constants.success]: byIdCreateCard
 })
 

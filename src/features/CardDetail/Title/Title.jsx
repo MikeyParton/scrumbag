@@ -1,34 +1,51 @@
 import React from 'react'
-import EditNameForm from './EditNameForm'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { cardUrl } from 'config/api'
+import styled from 'styled-components'
+import EditNameForm from './EditNameForm'
+import { updateCardRequest } from '../cardDetailRequests'
+import { getName, getEditingTitle } from '../cardDetailSelectors'
+import { showEditTitle, hideEditTitle } from '../cardDetailActions'
+
+const mapState = state => ({
+  name: getName(state),
+  editing: getEditingTitle(state)
+})
+
+const actions = {
+  showForm: showEditTitle,
+  hideForm: hideEditTitle,
+  updateCard: updateCardRequest.actions.request
+}
 
 const Container = styled.div`
   flex-grow: 1;
 `
 
 class CardTitle extends React.Component {
-  state = {
-    editing: false
-  }
+  update = (values) => {
+    const { updateCard, id } = this.props
 
-  toggle = () => {
-    this.setState({ editing: !this.state.editing })
+    updateCard({
+      ...values,
+      requestUrl: cardUrl(id)
+    })
   }
 
   render() {
-    const { editing } = this.state
-    const { name } = this.props
+    const { name, editing, showForm, hideForm } = this.props
 
     return (
       <Container>
         {
           editing
             ? <EditNameForm
+                onSubmit={this.update}
                 initialValues={{ name }}
-                onCancel={this.toggle}
+                onCancel={hideForm}
               />
-            : <div onClick={this.toggle}>{name}</div>
+            : <div onClick={showForm}>{name}</div>
         }
       </Container>
     )
@@ -36,7 +53,12 @@ class CardTitle extends React.Component {
 }
 
 CardTitle.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  editing: PropTypes.bool.isRequired,
+  updateCard: PropTypes.func.isRequired,
+  showForm: PropTypes.func.isRequired,
+  hideForm: PropTypes.func.isRequired,
 }
 
-export default CardTitle
+export default connect(mapState, actions)(CardTitle)

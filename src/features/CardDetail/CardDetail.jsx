@@ -9,11 +9,11 @@ import { cardUrl } from 'config/api'
 import CardTitle from './Title/Title'
 import { getCardDetailRequest } from './cardDetailRequests'
 
-import { getCardDetail, getLoading } from './cardDetailSelectors'
+import { getCard, getLoading } from './cardDetailSelectors'
 import { Modal, Header, Overlay } from './cardDetailStyles'
 
 const mapState = state => ({
-  card: getCardDetail(state),
+  card: getCard(state),
   loading: getLoading(state)
 })
 
@@ -49,11 +49,11 @@ class CardDetail extends Component {
 
   innerContent = () => {
     const { card } = this.props
-    const { name } = card
+    const { id } = card
 
     return (
       <Header>
-        <CardTitle name={name} />
+        <CardTitle id={id} />
         <CloseButton onClick={this.close} />
       </Header>
     )

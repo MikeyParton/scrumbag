@@ -5,33 +5,36 @@ import { Input, Button, CashMeOutside } from 'common/components'
 
 class EditNameForm extends React.Component {
   render() {
-    const { onCancel } = this.props
+    const { onCancel, handleSubmit } = this.props
 
     return (
-      <form>
-        <CashMeOutside
-          onClickOutside={onCancel}
-          render={provided => (
+      <CashMeOutside
+        onClickOutside={onCancel}
+        render={provided => (
+          <form
+            onSubmit={handleSubmit}
+            ref={provided}
+          >
             <Field
               autoFocus
               withRef
-              ref={provided}
               name="name"
               type="autoTextArea"
               component={Input}
             />
-          )}
-        />
-        <Button type="submit" buttonType="success">
-          Save
-        </Button>
-      </form>
+            <Button type="submit" buttonType="success">
+              Save
+            </Button>
+          </form>
+        )}
+      />
     )
   }
 }
 
 EditNameForm.propTypes = {
-  onCancel: PropTypes.func.isRequired
+  onCancel: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 }
 
 export default reduxForm({

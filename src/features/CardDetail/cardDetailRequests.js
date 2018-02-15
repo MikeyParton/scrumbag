@@ -8,3 +8,11 @@ export const getCardDetailRequest = new CreateRequest({
   },
   responseSchema: singleCardSchema
 })
+
+export const updateCardRequest = new CreateRequest({
+  constantPrefix: 'CARD_DETAIL/UPDATE_CARD',
+  request: {
+    method: 'put'
+  },
+  responseSchema: singleCardSchema
+})
