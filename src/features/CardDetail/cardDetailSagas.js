@@ -3,8 +3,8 @@ import history from 'app/Routes/history'
 import { getCardDetailRequest, updateCardRequest } from './cardDetailRequests'
 
 export function* syncUrl({ payload }) {
-  const { slug } = payload.card
-  yield call(history.push, `/c/${slug}`)
+  const { url } = payload.card
+  yield call(history.push, url)
 }
 
 export default function* rootSaga() {

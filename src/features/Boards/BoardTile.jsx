@@ -19,10 +19,10 @@ export const Tile = styled(BaseCard)`
 
 
 const BoardTile = (props) => {
-  const { name, slug } = props
+  const { name, url } = props
   return (
     <Wrapper>
-      <Link to={`/b/${slug}`}>
+      <Link to={url}>
         <Tile>
           <CardTitle>{name}</CardTitle>
         </Tile>
@@ -33,7 +33,7 @@ const BoardTile = (props) => {
 
 BoardTile.propTypes = {
   name: PropTypes.string.isRequired,
-  slug: PropTypes.string.isRequired
+  url: PropTypes.string.isRequired
 }
 
 export default BoardTile

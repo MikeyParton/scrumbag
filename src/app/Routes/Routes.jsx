@@ -17,7 +17,7 @@ const Routes = () => (
     <Layout>
       <Switch>
         <PrivateRoute exact path="/" component={Boards} />
-        <PrivateRoute path="/(c|b)/:id" component={BoardDetail} />
+        <PrivateRoute path="/(c|b)/:id/*" component={BoardDetail} />
         <LoggedOutRoute path="/login" component={Login} />
         <LoggedOutRoute path="/signup" component={Signup} />
       </Switch>

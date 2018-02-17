@@ -16,7 +16,7 @@ const mapState = (state, ownProps) => {
 class Card extends React.Component {
   render() {
     const { id, index, card } = this.props
-    const { slug, name, boardSlug } = card
+    const { name, url } = card
 
     return (
       <Draggable
@@ -25,7 +25,7 @@ class Card extends React.Component {
       >
         {provided => (
           <Container>
-            <Link to={`/c/${slug}`}>
+            <Link to={url}>
               <CardWrapper
                 innerRef={provided.innerRef}
                 {...provided.draggableProps}

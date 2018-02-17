@@ -1,3 +1,18 @@
+import { createSelector } from 'reselect'
+
 export const getBoardDetail = state => state.boardDetail
-export const getBoard = state => getBoardDetail(state).board
-export const getLoading = state => getBoard(state).loading
+
+export const getBoard = createSelector(
+  getBoardDetail,
+  boardDetail => boardDetail.board
+)
+
+export const getLoading = createSelector(
+  getBoard,
+  board => board.loading
+)
+
+export const getBoardUrl = createSelector(
+  getBoard,
+  board => board.url
+)

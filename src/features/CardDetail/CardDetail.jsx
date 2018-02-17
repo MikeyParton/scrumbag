@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
+import { getBoardUrl } from 'features/BoardDetail/boardDetailSelectors'
+
 import { CloseButton, Loading } from 'common/components'
 import { cardUrl } from 'config/api'
 import CardTitle from './Title/Title'
@@ -13,6 +15,7 @@ import { getCard, getLoading } from './cardDetailSelectors'
 import { Modal, Header, Overlay } from './cardDetailStyles'
 
 const mapState = state => ({
+  boardUrl: getBoardUrl(state),
   card: getCard(state),
   loading: getLoading(state)
 })
@@ -38,7 +41,10 @@ class CardDetail extends Component {
   }
 
   close = () => {
-    this.props.history.push(`/b/${this.props.card.boardSlug}`)
+    const { boardUrl, history } = this.props
+    if (boardUrl) {
+      history.push(boardUrl)
+    }
   }
 
   maybeClose = (event) => {
@@ -80,6 +86,7 @@ class CardDetail extends Component {
 }
 
 CardDetail.propTypes = {
+  boardUrl: PropTypes.string.isRequired,
   loading: PropTypes.bool.isRequired,
   getCard: PropTypes.func.isRequired,
   card: PropTypes.shape({
