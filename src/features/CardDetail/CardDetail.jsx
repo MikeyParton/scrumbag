@@ -5,14 +5,19 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import { getBoardUrl } from 'features/BoardDetail/boardDetailSelectors'
+import CheckSquare from 'react-icons/lib/fa/check-square'
 
-import { CloseButton, Loading } from 'common/components'
+import { showMenu } from 'features/ContextMenu/contextMenuActions'
+
+import { CloseButton, Loading, Button } from 'common/components'
 import { cardUrl } from 'config/api'
 import CardTitle from './Title/Title'
 import { getCardDetailRequest } from './cardDetailRequests'
 
 import { getCard, getLoading } from './cardDetailSelectors'
-import { Modal, Header, Overlay } from './cardDetailStyles'
+import { Box } from 'grid-styled'
+import PopButton from 'common/components/PopButton'
+import { Modal, Header, Overlay, CardBody, Actions, Content } from './cardDetailStyles'
 
 const mapState = state => ({
   boardUrl: getBoardUrl(state),
@@ -21,6 +26,7 @@ const mapState = state => ({
 })
 
 const actions = {
+  showMenu,
   getCard: getCardDetailRequest.actions.request
 }
 
@@ -32,12 +38,6 @@ class CardDetail extends Component {
     if (type === 'c') {
       getCard({ requestUrl: cardUrl(id) })
     }
-
-    document.addEventListener('mousedown', this.maybeClose);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.maybeClose);
   }
 
   close = () => {
@@ -47,21 +47,40 @@ class CardDetail extends Component {
     }
   }
 
-  maybeClose = (event) => {
-    if (this.modal && !this.modal.contains(event.target)) {
-      this.close()
-    }
-  }
-
   innerContent = () => {
     const { card } = this.props
     const { id } = card
 
     return (
-      <Header>
-        <CardTitle id={id} />
-        <CloseButton onClick={this.close} />
-      </Header>
+      <div>
+        <Header>
+          <CardTitle id={id} />
+          <CloseButton onClick={this.close} />
+        </Header>
+        <CardBody>
+          <Content>
+            Content
+          </Content>
+          <Actions>
+            Actions
+            <PopButton
+              button={CheckSquare
+                // <Button dark block>
+                //   <Box mr={1}>
+                //     <CheckSquare />
+                //   </Box>
+                //   Checklist
+                // </Button>
+              }
+              content={CheckSquare
+                // <div>
+                //   Something goes here
+                // </div>
+              }
+            />
+          </Actions>
+        </CardBody>
+      </div>
     )
   }
 
@@ -70,7 +89,7 @@ class CardDetail extends Component {
 
     return (
       <div>
-        <Overlay />
+        <Overlay onClick={this.close} />
         <Modal innerRef={(modal) => { this.modal = modal }}>
           { loading
             ? <Loading />

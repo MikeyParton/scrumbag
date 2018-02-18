@@ -1,6 +1,7 @@
 import { lighten } from 'polished'
 
 const mainColors = {
+  default: '#b7c3c9',
   navbar: '#026aa7',
   success: '#5aac44',
   error: 'red',

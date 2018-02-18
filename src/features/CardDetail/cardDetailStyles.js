@@ -28,4 +28,18 @@ export const Header = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  margin-bottom: 20px;
+`
+
+export const CardBody = styled.div`
+  display: flex;
+`
+
+export const Content = styled.div`
+  flex-grow: 1;
+`
+
+export const Actions = styled.div`
+  width: 100px;
+  flex-shrink: 0;
 `
