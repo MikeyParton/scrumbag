@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import Toggle from './Toggle'
-import CashMeOutside from './CashMeOutside'
+import Toggle from '../Toggle'
+import CashMeOutside from '../CashMeOutside'
 
 export const PopupParent = styled.div`
   position: relative;
@@ -12,10 +12,11 @@ export const PopupContainer = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
+  margin-top: 10px;
 `
 
 const Popup = (props) => {
-  const { content: Content, active, deactivate } = props
+  const { content, active, deactivate } = props
   if (!active) return null
 
   return (
@@ -24,7 +25,7 @@ const Popup = (props) => {
       render={(provided) => {
       return (
         <PopupContainer innerRef={provided}>
-          <Content />
+          {content}
         </PopupContainer>
       )
       }}
@@ -33,13 +34,15 @@ const Popup = (props) => {
 }
 
 const PopButton = (props) => {
-  const { content, button: Button } = props
+  const { content, button } = props
 
   return (
     <Toggle render={(active, activate, deactivate) => {
       return (
         <PopupParent>
-          <Button onClick={activate} />
+          <div onClick={activate}>
+            {button}
+          </div>
           <Popup {...{ content, active, deactivate }} />
         </PopupParent>
       )

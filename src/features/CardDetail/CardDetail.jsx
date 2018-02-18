@@ -9,14 +9,12 @@ import CheckSquare from 'react-icons/lib/fa/check-square'
 
 import { showMenu } from 'features/ContextMenu/contextMenuActions'
 
-import { CloseButton, Loading, Button } from 'common/components'
+import { CloseButton, Loading } from 'common/components'
 import { cardUrl } from 'config/api'
 import CardTitle from './Title/Title'
 import { getCardDetailRequest } from './cardDetailRequests'
 
 import { getCard, getLoading } from './cardDetailSelectors'
-import { Box } from 'grid-styled'
-import PopButton from 'common/components/PopButton'
 import { Modal, Header, Overlay, CardBody, Actions, Content } from './cardDetailStyles'
 
 const mapState = state => ({
@@ -63,21 +61,17 @@ class CardDetail extends Component {
           </Content>
           <Actions>
             Actions
-            <PopButton
-              button={CheckSquare
-                // <Button dark block>
-                //   <Box mr={1}>
-                //     <CheckSquare />
-                //   </Box>
-                //   Checklist
-                // </Button>
+            {/* <PopButton
+              content={<div>Yew</div>}
+              button={
+                <IconButton
+                  dark
+                  block
+                  text="Checklist"
+                  icon={<CheckSquare />}
+                />
               }
-              content={CheckSquare
-                // <div>
-                //   Something goes here
-                // </div>
-              }
-            />
+            /> */}
           </Actions>
         </CardBody>
       </div>

@@ -22,7 +22,7 @@ const Button = styled.button`
       height: 30px;
       border: none;
       background-color: ${backgroundColor};
-      ${block && 'width: 100%;'}
+      ${block ? 'width: 100%;' : ''}
 
       &:hover {
         background-color: ${darken(0.10, backgroundColor)};

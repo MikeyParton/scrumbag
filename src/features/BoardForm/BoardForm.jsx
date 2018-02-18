@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { StatusButton } from 'common/components/Button'
+import { StatusButton } from 'common/components'
 import { Label, Input } from 'common/components/Form'
 import { createBoardRequest } from 'features/Boards/boardsRequests'
 import { updateForm } from './boardFormActions'

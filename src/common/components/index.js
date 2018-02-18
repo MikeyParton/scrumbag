@@ -5,6 +5,8 @@ export { default as Message } from './form/Message'
 export { default as CloseButton } from './button/CloseButton'
 export { default as Button } from './button/Button'
 export { default as StatusButton } from './button/StatusButton'
+export { default as IconButton } from './button/IconButton'
+export { default as PopButton } from './button/PopButton'
 
 export { default as CashMeOutside } from './CashMeOutside'
 
