@@ -18,17 +18,18 @@ export const PopupContainer = styled.div`
 const Popup = (props) => {
   const { content, active, deactivate } = props
   if (!active) return null
+  const newContent = React.cloneElement(content, {
+    deactivate
+  })
 
   return (
     <CashMeOutside
       onClickOutside={deactivate}
-      render={(provided) => {
-      return (
+      render={provided => (
         <PopupContainer innerRef={provided}>
-          {content}
+          {newContent}
         </PopupContainer>
-      )
-      }}
+      )}
     />
   )
 }
@@ -37,16 +38,15 @@ const PopButton = (props) => {
   const { content, button } = props
 
   return (
-    <Toggle render={(active, activate, deactivate) => {
-      return (
+    <Toggle
+      render={(active, activate, deactivate) => (
         <PopupParent>
           <div onClick={activate}>
             {button}
           </div>
           <Popup {...{ content, active, deactivate }} />
         </PopupParent>
-      )
-      }}
+      )}
     />
   )
 }

@@ -7,7 +7,8 @@ const Button = styled.button`
       theme,
       buttonType,
       dark,
-      block
+      block,
+      wide
     } = props
 
     const backgroundColor = theme.colors[buttonType] || theme.colors.default
@@ -23,6 +24,7 @@ const Button = styled.button`
       border: none;
       background-color: ${backgroundColor};
       ${block ? 'width: 100%;' : ''}
+      ${wide ? 'padding: 0 30px;' : ''}
 
       &:hover {
         background-color: ${darken(0.10, backgroundColor)};
