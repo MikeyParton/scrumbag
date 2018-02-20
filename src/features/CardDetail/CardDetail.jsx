@@ -17,6 +17,7 @@ import { getCardDetailRequest } from './cardDetailRequests'
 import { getCard, getLoading } from './cardDetailSelectors'
 import { Modal, Header, Overlay, CardBody, Actions, Content } from './cardDetailStyles'
 
+import Checklists from './Checklists/Checklists'
 import NewChecklist from './NewChecklist/NewChecklist'
 
 const mapState = state => ({
@@ -60,6 +61,7 @@ class CardDetail extends Component {
         <CardBody>
           <Content>
             Content
+            <Checklists />
           </Content>
           <Actions>
             Actions

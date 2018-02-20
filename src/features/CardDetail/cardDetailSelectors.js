@@ -1,20 +1,25 @@
 import { createSelector } from 'reselect'
 
-const base = state => state.cardDetail
+export const getCardDetail = state => state.cardDetail
 
 export const getCard = createSelector(
-  base,
+  getCardDetail,
   cardDetail => cardDetail.card
 )
 
 export const getLoading = createSelector(
-  base,
+  getCardDetail,
   cardDetail => cardDetail.loading
 )
 
 export const getEditingTitle = createSelector(
-  base,
+  getCardDetail,
   cardDetail => cardDetail.editingTitle
+)
+
+export const getCardId = createSelector(
+  getCard,
+  card => card.id
 )
 
 export const getName = createSelector(

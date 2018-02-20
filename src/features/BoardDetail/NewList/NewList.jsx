@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { listsUrl } from 'config/api'
 
-import CashMeOutside from 'common/components/CashMeOutside'
 import NewListButton from './NewListButton'
 import NewListForm from './NewListForm'
 import { OuterContainer } from './newListFormStyles'
