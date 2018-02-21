@@ -60,7 +60,6 @@ class CardDetail extends Component {
         </Header>
         <CardBody>
           <Content>
-            Content
             <Checklists />
           </Content>
           <Actions>

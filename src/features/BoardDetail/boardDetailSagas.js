@@ -5,7 +5,7 @@ import { getBoard } from './boardDetailSelectors'
 import { getBoardDetailRequest, updateListRequest } from './boardDetailRequests'
 
 export function* keepBoardSyncedWithCard({ payload }) {
-  const cardsBoardSlug = payload.card.boardSlug
+  const cardsBoardSlug = Object.values(payload.card)[0].boardSlug
   const board = yield select(getBoard)
   if (cardsBoardSlug !== board.slug) {
     yield put(getBoardDetailRequest.actions.request({

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { cardUrl } from 'config/api'
 import styled from 'styled-components'
+import { H1 } from 'common/components'
 import EditNameForm from './EditNameForm'
 import { updateCardRequest } from '../cardDetailRequests'
 import { getName, getEditingTitle } from '../cardDetailSelectors'
@@ -45,7 +46,7 @@ class CardTitle extends React.Component {
                 initialValues={{ name }}
                 onCancel={hideForm}
               />
-            : <div onClick={showForm}>{name}</div>
+            : <H1 onClick={showForm}>{name}</H1>
         }
       </Container>
     )

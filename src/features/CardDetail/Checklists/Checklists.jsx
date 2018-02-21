@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getChecklistIds } from './checklistSelectors'
+import Checklist from './Checklist'
 
 const mapState = state => ({
   checklistIds: getChecklistIds(state)
@@ -12,7 +13,7 @@ const Checklists = (props) => {
   return (
     <div>
       {checklistIds.map(id => (
-        <div>{id}</div>
+        <Checklist key={id} id={id} />
       ))}
     </div>
   )

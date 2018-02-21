@@ -17,3 +17,15 @@ export const makeGetChecklistById = id => (
     checklists => checklists.byId[id]
   )
 )
+
+export const getEditingTitleId = createSelector(
+  getChecklists,
+  checklists => checklists.editingTitleId
+)
+
+export const makeIsEditingTitle = id => (
+  createSelector(
+    getEditingTitleId,
+    editingTitleId => editingTitleId == id
+  )
+)

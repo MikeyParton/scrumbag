@@ -37,6 +37,7 @@ export const CardBody = styled.div`
 
 export const Content = styled.div`
   flex-grow: 1;
+  margin-right: 20px;
 `
 
 export const Actions = styled.div`

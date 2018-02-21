@@ -40,5 +40,5 @@ EditNameForm.propTypes = {
 }
 
 export default reduxForm({
-  form: 'CardName',
+  form: 'ChecklistName',
 })(EditNameForm)

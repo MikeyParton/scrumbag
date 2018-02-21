@@ -8,6 +8,11 @@ export { default as StatusButton } from './button/StatusButton'
 export { default as IconButton } from './button/IconButton'
 export { default as PopButton } from './button/PopButton'
 
+export {
+  H1,
+  h1Styles
+} from './text/Headings'
+
 export { default as CashMeOutside } from './CashMeOutside'
 
 export { default as Loading } from './Loading'
