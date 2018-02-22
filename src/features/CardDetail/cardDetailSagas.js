@@ -3,7 +3,8 @@ import history from 'app/Routes/history'
 import {
   getCardDetailRequest,
   updateCardRequest,
-  createChecklistRequest
+  createChecklistRequest,
+  updateChecklistRequest
 } from './cardDetailRequests'
 
 export function* syncUrl({ payload }) {
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     getCardDetailRequest.saga(),
     updateCardRequest.saga(),
     createChecklistRequest.saga(),
+    updateChecklistRequest.saga(),
     takeEvery(updateCardRequest.constants.success, syncUrl)
   ])
 }

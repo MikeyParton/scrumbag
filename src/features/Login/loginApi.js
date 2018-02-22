@@ -1,4 +1,4 @@
-import api, { LOGIN_URL, SIGNUP_URL } from 'config/api'
+import api, { loginUrl, signupUrl } from 'config/api'
 
 export const getUser = () => (
   api.get('/profile')
@@ -7,13 +7,13 @@ export const getUser = () => (
 )
 
 export const login = params => (
-  api.post(LOGIN_URL, params)
+  api.post(loginUrl(), params)
     .then(response => response.data)
     .catch(error => error.response.data)
 )
 
 export const createAccount = params => (
-  api.post(SIGNUP_URL, params)
+  api.post(signupUrl(), params)
     .then(response => response.data)
     .catch(error => error.response.data)
 )

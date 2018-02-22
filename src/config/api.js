@@ -13,14 +13,15 @@ const api = axios.create({
   ]
 })
 
-export const LOGIN_URL = '/auth/login'
-export const SIGNUP_URL = '/auth/signup'
-export const BOARDS_URL = '/boards'
+export const loginUrl = () => '/auth/login'
+export const signupUrl = () => '/auth/signup'
+export const boardsUrl = () => '/boards'
 export const boardDetailUrl = id => `/boards/${id}`
 export const listsUrl = boardId => `${boardDetailUrl(boardId)}/lists`
 export const listUrl = id => `/lists/${id}`
 export const cardsUrl = boardId => `${boardDetailUrl(boardId)}/cards`
 export const cardUrl = id => `/cards/${id}`
 export const checklistsUrl = id => `${cardUrl(id)}/checklists`
+export const checklistUrl = id => `/checklists/${id}`
 
 export default api

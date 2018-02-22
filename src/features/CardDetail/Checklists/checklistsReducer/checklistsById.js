@@ -1,11 +1,22 @@
 import { createReducer } from 'common/utils/reducerUtils'
-import { getCardDetailRequest } from 'features/CardDetail/cardDetailRequests'
+import {
+  getCardDetailRequest,
+  createChecklistRequest,
+  updateChecklistRequest
+} from 'features/CardDetail/cardDetailRequests'
 
-const loadChecklists = (state, payload) => {
+const reloadChecklists = (state, payload) => {
   if (!payload.checklists) return state
   return payload.checklists
 }
 
+const loadChecklists = (state, payload) => ({
+  ...state,
+  ...payload.checklists
+})
+
 export default createReducer([], {
-  [getCardDetailRequest.constants.success]: loadChecklists
+  [getCardDetailRequest.constants.success]: reloadChecklists,
+  [createChecklistRequest.constants.success]: loadChecklists,
+  [updateChecklistRequest.constants.success]: loadChecklists
 })

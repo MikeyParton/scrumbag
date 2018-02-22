@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 import { Flex, Box } from 'grid-styled'
 import CheckSquare from 'react-icons/lib/fa/check-square'
 import { H1 } from 'common/components'
+import { checklistUrl } from 'config/api'
 import ChecklistProgress from './ChecklistProgress'
 import { makeGetChecklistById, makeIsEditingTitle } from './checklistSelectors'
 import { showEditTitle, hideEditTitle } from './checklistsActions'
 import EditNameForm from './EditNameForm'
+import { updateChecklistRequest } from '../cardDetailRequests'
 
 const mapState = (state, ownProps) => ({
   checklist: makeGetChecklistById(ownProps.id)(state),
@@ -16,17 +18,28 @@ const mapState = (state, ownProps) => ({
 
 const actions = {
   hideEditTitle,
-  showEditTitle
+  showEditTitle,
+  updateChecklist: updateChecklistRequest.actions.request
 }
 
 const Checklist = (props) => {
   const { checklist, isEditingTitle, showEditTitle, hideEditTitle } = props
   const { id, name } = checklist
 
+  const onSubmit = (values) => {
+    debugger
+
+    const { id, updateChecklist } = props
+    updateChecklist({
+      ...values,
+      requestUrl: checklistUrl(id)
+    })
+  }
+
   return (
     <div>
-      <Flex align="center">
-        <Box mr={2}>
+      <Flex mb={2}>
+        <Box mt={1} mr={2}>
           <CheckSquare size="20" />
         </Box>
         <Box width={1}>
@@ -34,6 +47,7 @@ const Checklist = (props) => {
             ? <EditNameForm
                 initialValues={{ name }}
                 onCancel={hideEditTitle}
+                onSubmit={onSubmit}
               />
             : <H1 onClick={() => showEditTitle(id)}>{name}</H1>
           }
@@ -45,6 +59,7 @@ const Checklist = (props) => {
 }
 
 Checklist.propTypes = {
+  id: PropTypes.number.isRequired,
   checklist: PropTypes.shape({
     name: PropTypes.string.isRequired
   }).isRequired
