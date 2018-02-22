@@ -10,6 +10,7 @@ import { makeGetChecklistById, makeIsEditingTitle } from './checklistSelectors'
 import { showEditTitle, hideEditTitle } from './checklistsActions'
 import EditNameForm from './EditNameForm'
 import { updateChecklistRequest } from '../cardDetailRequests'
+import NewChecklistItem from '../NewChecklistItem/NewChecklistItem'
 
 const mapState = (state, ownProps) => ({
   checklist: makeGetChecklistById(ownProps.id)(state),
@@ -52,6 +53,7 @@ const Checklist = (props) => {
         </Box>
       </Flex>
       <ChecklistProgress />
+      <NewChecklistItem />
     </Box>
   )
 }

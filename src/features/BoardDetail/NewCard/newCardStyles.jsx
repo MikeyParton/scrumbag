@@ -13,6 +13,6 @@ export const ButtonContainer = styled.div`
   border-bottom-left-radius: ${props => props.theme.borderRadius}px;
 
   &:hover {
-    background-color: ${props => darken(0.1, props.theme.listBackgroundColor)}
+    background-color: ${props => darken(0.1, props.theme.colors.listBackground)}
   }
 `

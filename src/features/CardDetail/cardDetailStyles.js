@@ -19,7 +19,7 @@ export const Modal = styled.div`
   width: calc(100vw - 100px);
   z-index: 100;
   padding: ${props => 2 * props.theme.grid}px;
-  background-color: ${props => props.theme.colors.listBackgroundColor};
+  background-color: ${props => props.theme.colors.listBackground};
   box-shadow: 0 0 30px 2px rgba(0, 0, 0, 0.25);
 `
 

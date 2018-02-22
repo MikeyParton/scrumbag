@@ -1,19 +1,16 @@
 import styled from 'styled-components'
 
-const listBackgroundColor = '#e2e4e6'
-const grid = 8
-
 export const TitleWrapper = styled.div`
   position: relative;
   font-weight: bold;
-  margin-bottom: ${grid}px;
+  margin-bottom: ${props => props.theme.grid}px;
   flex-grow: 1;
   margin-right: 5px;
   cursor: text;
 
   textarea {
     width: 100%;
-    background-color: ${listBackgroundColor};
+    background-color: ${props => props.theme.colors.listBackground};
     border: none;
     resize: none;
 

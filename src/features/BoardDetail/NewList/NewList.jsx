@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { listsUrl } from 'config/api'
 
-import NewListButton from './NewListButton'
+import { HoverBlockButton } from 'common/components'
 import NewListForm from './NewListForm'
 import { OuterContainer } from './newListFormStyles'
 
@@ -36,7 +36,13 @@ class NewList extends React.Component {
       <OuterContainer>
         { show
             ? <NewListForm handleCancel={deactivate} onSubmit={this.onSubmit} />
-            : <NewListButton handleClick={activate} />
+            : <HoverBlockButton
+                text="offwhite"
+                background="boardBackgroundDark"
+                handleClick={activate}
+              >
+                Add a List ...
+              </HoverBlockButton>
         }
       </OuterContainer>
     )

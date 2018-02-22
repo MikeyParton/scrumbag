@@ -1,12 +1,16 @@
-import { lighten } from 'polished'
+import { lighten, darken } from 'polished'
 
 const mainColors = {
   default: '#b7c3c9',
   navbar: '#026aa7',
   success: '#5aac44',
   error: 'red',
+  black: 'black',
   white: 'white',
-  listBackgroundColor: '#e2e4e6',
+  offwhite: '#f2f2f2',
+  listBackground: '#e2e4e6',
+  boardBackground: '#127ABD',
+  boardBackgroundDark: darken(0.1, '#127ABD')
 }
 
 const extraColors = {

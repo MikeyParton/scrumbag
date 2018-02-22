@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import { darken } from 'polished'
 
 export const OuterContainer = styled.div`
+  width: 350px;
+  flex-shrink: 0;
   padding-right: 100px;
 `
 
@@ -27,7 +29,7 @@ export const InnerContainer = styled.div`
 
 export const FormContainer = styled.div`
   ${(props) => {
-    const background = props.theme.listBackgroundColor
+    const background = props.theme.colors.listBackground
 
     return `
       width: 250px;

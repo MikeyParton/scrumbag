@@ -10,7 +10,7 @@ export const OuterListWrapper = styled.div`
 `
 
 export const ListWrapper = styled.div`
-  background-color: ${props => props.theme.listBackgroundColor};
+  background-color: ${props => props.theme.colors.listBackground};
   display: flex;
   flex-direction: column;
   user-select: none;
@@ -82,6 +82,6 @@ export const ListButton = styled.div`
   transition: background-color 0.25s;
 
   &:hover {
-    background-color: ${props => darken(0.10, props.theme.listBackgroundColor)};
+    background-color: ${props => darken(0.10, props.theme.colors.listBackground)};
   }
 `
