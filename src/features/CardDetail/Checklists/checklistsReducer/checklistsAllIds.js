@@ -2,7 +2,7 @@ import { createReducer } from 'common/utils/reducerUtils'
 import { getCardDetailRequest, createChecklistRequest } from 'features/CardDetail/cardDetailRequests'
 
 const reloadChecklists = (state, payload) => {
-  if (!payload.checklists) return state
+  if (!payload.checklists) return []
   return Object.keys(payload.checklists)
 }
 

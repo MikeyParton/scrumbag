@@ -1,5 +1,10 @@
 import CreateRequest from 'common/utils/CreateRequest'
-import { singleCardSchema, singleChecklistSchema } from './cardDetailSchema'
+import {
+  singleCardSchema,
+  singleChecklistSchema,
+  checklistItemSchema,
+  checklistItemsListSchema
+} from './cardDetailSchema'
 
 export const getCardDetailRequest = new CreateRequest({
   constantPrefix: 'CARD_DETAIL/GET_CARD_DETAIL',
@@ -31,4 +36,12 @@ export const updateChecklistRequest = new CreateRequest({
     method: 'put',
     responseSchema: singleChecklistSchema
   },
+})
+
+export const createChecklistItemRequest = new CreateRequest({
+  constantPrefix: 'CARD_DETAIL/CREATE_CHECKLIST_ITEM',
+  request: {
+    method: 'post',
+    responseSchema: checklistItemsListSchema
+  }
 })

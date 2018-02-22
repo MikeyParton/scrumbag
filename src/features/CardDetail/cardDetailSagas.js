@@ -4,7 +4,8 @@ import {
   getCardDetailRequest,
   updateCardRequest,
   createChecklistRequest,
-  updateChecklistRequest
+  updateChecklistRequest,
+  createChecklistItemRequest
 } from './cardDetailRequests'
 
 export function* syncUrl({ payload }) {
@@ -18,6 +19,7 @@ export default function* rootSaga() {
     updateCardRequest.saga(),
     createChecklistRequest.saga(),
     updateChecklistRequest.saga(),
+    createChecklistItemRequest.saga(),
     takeEvery(updateCardRequest.constants.success, syncUrl)
   ])
 }

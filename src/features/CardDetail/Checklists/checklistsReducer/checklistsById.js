@@ -6,7 +6,7 @@ import {
 } from 'features/CardDetail/cardDetailRequests'
 
 const reloadChecklists = (state, payload) => {
-  if (!payload.checklists) return state
+  if (!payload.checklists) return {}
   return payload.checklists
 }
 

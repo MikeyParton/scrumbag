@@ -23,5 +23,6 @@ export const cardsUrl = boardId => `${boardDetailUrl(boardId)}/cards`
 export const cardUrl = id => `/cards/${id}`
 export const checklistsUrl = id => `${cardUrl(id)}/checklists`
 export const checklistUrl = id => `/checklists/${id}`
+export const checklistItemsUrl = id => `${checklistUrl(id)}/checklist_items`
 
 export default api

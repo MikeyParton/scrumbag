@@ -6,3 +6,5 @@ export const cardSchema = new schema.Entity('card', { checklists: [checklistSche
 
 export const singleChecklistSchema = { checklist: checklistSchema }
 export const singleCardSchema = { card: cardSchema }
+
+export const checklistItemsListSchema = { checklistItems: [checklistItemSchema] }
