@@ -9,13 +9,13 @@ import CheckSquare from 'react-icons/lib/fa/check-square'
 
 import { showMenu } from 'features/ContextMenu/contextMenuActions'
 
-import { CloseButton, Loading, PopButton, IconButton } from 'common/components'
+import { CashMeOutside, CloseButton, Loading, PopButton, IconButton } from 'common/components'
 import { cardUrl } from 'config/api'
 import CardTitle from './Title/Title'
 import { getCardDetailRequest } from './cardDetailRequests'
 
 import { getCard, getLoading } from './cardDetailSelectors'
-import { Modal, Header, Overlay, CardBody, Actions, Content } from './cardDetailStyles'
+import { Container, Modal, Header, CardBody, Actions, Content } from './cardDetailStyles'
 
 import Checklists from './Checklists/Checklists'
 import NewChecklist from './NewChecklist/NewChecklist'
@@ -85,14 +85,18 @@ class CardDetail extends Component {
     const { loading } = this.props
 
     return (
-      <div>
-        <Overlay onClick={this.close} />
-        <Modal innerRef={(modal) => { this.modal = modal }}>
-          { loading
-            ? <Loading />
-            : this.innerContent() }
-        </Modal>
-      </div>
+      <Container>
+        <CashMeOutside
+          onClickOutside={this.close}
+          render={provided => (
+            <Modal innerRef={provided}>
+              { loading
+                ? <Loading />
+                : this.innerContent() }
+            </Modal>
+          )}
+        />
+      </Container>
     )
   }
 

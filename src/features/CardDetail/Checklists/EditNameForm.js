@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
-import { H1, Input, Button, CashMeOutside } from 'common/components'
+import { Flex, Box } from 'grid-styled'
+import { H1, Input, Button, CloseButton, CashMeOutside } from 'common/components'
 
 class EditNameForm extends React.Component {
   render() {
@@ -24,9 +25,18 @@ class EditNameForm extends React.Component {
                 component={Input}
               />
             </H1>
-            <Button type="submit" buttonType="success">
-              Save
-            </Button>
+            <Flex align="center">
+              <Box mr={1}>
+                <Button
+                  type="submit"
+                  buttonType="success"
+                  wide
+                >
+                  Save
+                </Button>
+              </Box>
+              <CloseButton onClick={onCancel} />
+            </Flex>
           </form>
         )}
       />

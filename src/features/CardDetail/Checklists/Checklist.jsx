@@ -27,8 +27,6 @@ const Checklist = (props) => {
   const { id, name } = checklist
 
   const onSubmit = (values) => {
-    debugger
-
     const { id, updateChecklist } = props
     updateChecklist({
       ...values,
@@ -37,7 +35,7 @@ const Checklist = (props) => {
   }
 
   return (
-    <div>
+    <Box mb={3}>
       <Flex mb={2}>
         <Box mt={1} mr={2}>
           <CheckSquare size="20" />
@@ -54,7 +52,7 @@ const Checklist = (props) => {
         </Box>
       </Flex>
       <ChecklistProgress />
-    </div>
+    </Box>
   )
 }
 
