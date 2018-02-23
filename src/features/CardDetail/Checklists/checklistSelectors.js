@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import { getCardDetail } from '../cardDetailSelectors'
+import { makeGetChecklistItemsByChecklistId } from '../ChecklistItems/checklistItemsSelectors'
 
 export const getChecklists = createSelector(
   getCardDetail,
@@ -41,3 +42,16 @@ export const makeIsAddingChecklistItem = id => (
     addingChecklistItemId => addingChecklistItemId == id
   )
 )
+
+export const makeGetPercentageComplete = (id) => {
+  const getChecklistItems = makeGetChecklistItemsByChecklistId(id)
+  return createSelector(
+    getChecklistItems,
+    (checklistItems) => {
+      const total = checklistItems.length
+      if (total === 0) return 0
+      const completed = checklistItems.filter(cli => cli.status === 'completed').length
+      return Math.round((completed / total) * 100)
+    }
+  )
+}

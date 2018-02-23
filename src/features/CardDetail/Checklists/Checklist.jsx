@@ -53,7 +53,7 @@ const Checklist = (props) => {
           }
         </Box>
       </Flex>
-      <ChecklistProgress />
+      <ChecklistProgress id={id} />
       { checklistItems.map(id => (
         <ChecklistItem key={id} id={id} />
       ))}
