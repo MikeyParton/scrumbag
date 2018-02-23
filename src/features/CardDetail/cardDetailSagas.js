@@ -8,6 +8,11 @@ import {
   createChecklistItemRequest
 } from './cardDetailRequests'
 
+import {
+  checkItemRequest,
+  uncheckItemRequest,
+} from './ChecklistItems/checklistItemsRequests'
+
 export function* syncUrl({ payload }) {
   const { url } = payload.card
   yield call(history.push, url)
@@ -20,6 +25,8 @@ export default function* rootSaga() {
     createChecklistRequest.saga(),
     updateChecklistRequest.saga(),
     createChecklistItemRequest.saga(),
+    checkItemRequest.saga(),
+    uncheckItemRequest.saga(),
     takeEvery(updateCardRequest.constants.success, syncUrl)
   ])
 }

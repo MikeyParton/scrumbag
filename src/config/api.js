@@ -24,5 +24,8 @@ export const cardUrl = id => `/cards/${id}`
 export const checklistsUrl = id => `${cardUrl(id)}/checklists`
 export const checklistUrl = id => `/checklists/${id}`
 export const checklistItemsUrl = id => `${checklistUrl(id)}/checklist_items`
+export const checklistItemUrl = id => `/checklist_items/${id}`
+export const checkChecklistItemUrl = id => `${checklistItemUrl(id)}/complete`
+export const uncheckChecklistItemUrl = id => `${checklistItemUrl(id)}/undo`
 
 export default api

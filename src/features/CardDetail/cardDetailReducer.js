@@ -3,6 +3,7 @@ import { createReducer } from 'common/utils/reducerUtils'
 import { SHOW_EDIT_TITLE, HIDE_EDIT_TITLE } from './cardDetailConstants'
 import { getCardDetailRequest, updateCardRequest } from './cardDetailRequests'
 import checklists from './Checklists/checklistsReducer'
+import checklistItems from './ChecklistItems/checklistItemsReducer'
 
 const card = createReducer({}, {
   [getCardDetailRequest.constants.request]: () => ({}),
@@ -25,5 +26,6 @@ export default combineReducers({
   card,
   loading,
   editingTitle,
-  checklists
+  checklists,
+  checklistItems
 })
