@@ -16,3 +16,11 @@ export const uncheckItemRequest = new CreateRequest({
     responseSchema: checklistItemsListSchema
   }
 })
+
+export const updateItemRequest = new CreateRequest({
+  constantPrefix: 'CARD_DETAIL/CHECKLIST_ITEMS/UPDATE_ITEM',
+  request: {
+    method: 'put',
+    responseSchema: checklistItemsListSchema
+  }
+})

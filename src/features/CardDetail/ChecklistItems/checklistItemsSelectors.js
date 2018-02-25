@@ -6,6 +6,18 @@ const getChecklistItems = createSelector(
   cardDetail => cardDetail.checklistItems
 )
 
+const getEditingId = createSelector(
+  getChecklistItems,
+  checklistItems => checklistItems.editingId
+)
+
+export const makeIsEditing = id => (
+  createSelector(
+    getEditingId,
+    editingId => editingId == id
+  )
+)
+
 export const makeGetChecklistItemById = id => (
   createSelector(
     getChecklistItems,

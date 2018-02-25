@@ -2,23 +2,34 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Flex, Box } from 'grid-styled'
 import { connect } from 'react-redux'
-import { checkChecklistItemUrl, uncheckChecklistItemUrl } from 'config/api'
+import { checklistItemUrl, checkChecklistItemUrl, uncheckChecklistItemUrl } from 'config/api'
 import { Checkbox } from 'common/components'
-import { makeGetChecklistItemById } from './checklistItemsSelectors'
-import { checkItemRequest, uncheckItemRequest } from './checklistItemsRequests'
+import { makeGetChecklistItemById, makeIsEditing } from './checklistItemsSelectors'
+import { showEditItem, hideEditItem } from './checklistItemsActions'
+import { updateItemRequest, checkItemRequest, uncheckItemRequest } from './checklistItemsRequests'
+import ChecklistItemForm from '../NewChecklistItem/NewChecklistItemForm'
 
 import styled from 'styled-components'
+
+const LabelContainer = styled.div`
+  flex-grow: 1;
+`
+
 const Label = styled.div`
   text-decoration: ${props => props.checked ? 'line-through' : ''};
 `
 
 const mapState = (state, ownProps) => ({
-  checklistItem: makeGetChecklistItemById(ownProps.id)(state)
+  checklistItem: makeGetChecklistItemById(ownProps.id)(state),
+  isEditing: makeIsEditing(ownProps.id)(state)
 })
 
 const actions = {
+  showEditItem,
+  hideEditItem,
   checkItem: checkItemRequest.actions.request,
-  uncheckItem: uncheckItemRequest.actions.request
+  uncheckItem: uncheckItemRequest.actions.request,
+  updateItem: updateItemRequest.actions.request
 }
 
 class ChecklistItem extends React.Component {
@@ -26,6 +37,14 @@ class ChecklistItem extends React.Component {
     const { checklistItem } = this.props
     const { status } = checklistItem
     return status === 'completed'
+  }
+
+  onUpdate = (values) => {
+    const { updateItem, id } = this.props
+    updateItem({
+      ...values,
+      requestUrl: checklistItemUrl(id)
+    })
   }
 
   handleCheck = () => {
@@ -36,7 +55,13 @@ class ChecklistItem extends React.Component {
   }
 
   render() {
-    const { checklistItem } = this.props
+    const {
+      checklistItem,
+      isEditing,
+      showEditItem,
+      hideEditItem,
+      id
+    } = this.props
     const { name } = checklistItem
 
     return (
@@ -48,7 +73,22 @@ class ChecklistItem extends React.Component {
             handleChange={this.handleCheck}
           />
         </Box>
-        <Label checked={this.checked()}>{name}</Label>
+        <LabelContainer>
+          {
+            isEditing
+              ? <ChecklistItemForm
+                  onSubmit={this.onUpdate}
+                  onCancel={hideEditItem}
+                  initialValues={{ name }}
+                />
+              : <Label
+                  onClick={() => showEditItem(id)}
+                  checked={this.checked()}
+                >
+                  {name}
+                </Label>
+          }
+        </LabelContainer>
       </Flex>
     )
   }
@@ -56,6 +96,7 @@ class ChecklistItem extends React.Component {
 
 ChecklistItem.propTypes = {
   id: PropTypes.number.isRequired,
+  isEditing: PropTypes.bool.isRequired,
   checklistItem: PropTypes.shape({
     name: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired
