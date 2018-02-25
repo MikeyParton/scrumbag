@@ -12,6 +12,7 @@ export const PopupContainer = styled.div`
   position: absolute;
   top: 100%;
   left: 0;
+  z-index: 100;
   margin-top: 10px;
 `
 

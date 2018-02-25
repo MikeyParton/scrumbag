@@ -15,6 +15,6 @@ export {
   h1Styles
 } from './text/Headings'
 
+export { default as OptionsMenu } from './OptionsMenu'
 export { default as CashMeOutside } from './CashMeOutside'
-
 export { default as Loading } from './Loading'

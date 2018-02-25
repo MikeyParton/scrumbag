@@ -2,14 +2,27 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Flex, Box } from 'grid-styled'
 import { connect } from 'react-redux'
+import Elipsis from 'react-icons/lib/fa/ellipsis-h'
 import { checklistItemUrl, checkChecklistItemUrl, uncheckChecklistItemUrl } from 'config/api'
-import { Checkbox } from 'common/components'
+import { Checkbox, PopButton } from 'common/components'
 import { makeGetChecklistItemById, makeIsEditing } from './checklistItemsSelectors'
 import { showEditItem, hideEditItem } from './checklistItemsActions'
 import { updateItemRequest, checkItemRequest, uncheckItemRequest } from './checklistItemsRequests'
 import ChecklistItemForm from '../NewChecklistItem/NewChecklistItemForm'
+import ChecklistItemMenu from './ChecklistItemMenu'
 
 import styled from 'styled-components'
+
+const Container = styled.div`
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  border-radius: ${props => props.theme.borderRadius}px;
+
+  &:hover {
+    background-color: ${props => props.theme.colors.cardBackgroundLight};
+  }
+`
 
 const LabelContainer = styled.div`
   flex-grow: 1;
@@ -65,7 +78,7 @@ class ChecklistItem extends React.Component {
     const { name } = checklistItem
 
     return (
-      <Flex mb={2}>
+      <Container>
         <Box mr={2}>
           <Checkbox
             name="complete"
@@ -89,7 +102,11 @@ class ChecklistItem extends React.Component {
                 </Label>
           }
         </LabelContainer>
-      </Flex>
+        <PopButton
+          button={<Elipsis />}
+          content={<ChecklistItemMenu />}
+        />
+      </Container>
     )
   }
 }
