@@ -1,9 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Flex, Box } from 'grid-styled'
 import { connect } from 'react-redux'
 import { checkChecklistItemUrl, uncheckChecklistItemUrl } from 'config/api'
+import { Checkbox } from 'common/components'
 import { makeGetChecklistItemById } from './checklistItemsSelectors'
 import { checkItemRequest, uncheckItemRequest } from './checklistItemsRequests'
+
+import styled from 'styled-components'
+const Label = styled.div`
+  text-decoration: ${props => props.checked ? 'line-through' : ''};
+`
 
 const mapState = (state, ownProps) => ({
   checklistItem: makeGetChecklistItemById(ownProps.id)(state)
@@ -33,14 +40,16 @@ class ChecklistItem extends React.Component {
     const { name } = checklistItem
 
     return (
-      <div>
-        <input
-          type="checkbox"
-          checked={this.checked()}
-          onClick={this.handleCheck}
-        />
-        {name}
-      </div>
+      <Flex mb={2}>
+        <Box mr={2}>
+          <Checkbox
+            name="complete"
+            value={this.checked()}
+            handleChange={this.handleCheck}
+          />
+        </Box>
+        <Label checked={this.checked()}>{name}</Label>
+      </Flex>
     )
   }
 }

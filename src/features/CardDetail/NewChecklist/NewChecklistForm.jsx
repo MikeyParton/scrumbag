@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
+import { Box } from 'grid-styled'
 import { Button, Input } from 'common/components'
 
 class NewChecklistForm extends React.Component {
@@ -17,9 +18,11 @@ class NewChecklistForm extends React.Component {
             autoFocus
             component={Input}
           />
-          <Button wide type="submit" buttonType="success">
-            Add
-          </Button>
+          <Box mt={2}>
+            <Button wide type="submit" buttonType="success">
+              Add
+            </Button>
+          </Box>
         </form>
       </div>
     )

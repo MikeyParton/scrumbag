@@ -6,9 +6,13 @@ const mainColors = {
   success: '#5aac44',
   error: 'red',
   black: 'black',
+  lightBlue: '#5ba4cf',
   white: 'white',
   offwhite: '#f2f2f2',
   listBackground: '#e2e4e6',
+  cardBackground: '#edeff0',
+  cardBackgroundLight: '#e2e4e6',
+  cardBackgroundDark: '#838c91',
   boardBackground: '#127ABD',
   boardBackgroundDark: darken(0.1, '#127ABD')
 }

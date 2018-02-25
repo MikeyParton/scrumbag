@@ -10,7 +10,7 @@ const OuterBar = styled.div`
   width: 100%;
   height: ${outerHeight}px;
   border-radius: ${outerHeight / 2}px;
-  background-color: black;
+  background-color: ${props => props.theme.colors.cardBackgroundLight};
   display: flex;
   align-items: center;
 `
@@ -20,8 +20,8 @@ const InnerBar = styled.div`
   width: ${props => props.width || 0}%;
   height: ${innerHeight}px;
   border-radius: ${innerHeight / 2}px;
-  background-color: blue;
-  transition: width 0.5s;
+  background-color: ${props => props.width === 100 ? props.theme.colors.success : props.theme.colors.lightBlue};
+  transition: width 0.5s, background-color 0.5s;
 `
 
 const ProgressBar = (props) => {
