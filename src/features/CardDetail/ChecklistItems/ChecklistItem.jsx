@@ -104,7 +104,7 @@ class ChecklistItem extends React.Component {
         </LabelContainer>
         <PopButton
           button={<Elipsis />}
-          content={<ChecklistItemMenu />}
+          content={<ChecklistItemMenu id={id} />}
         />
       </Container>
     )

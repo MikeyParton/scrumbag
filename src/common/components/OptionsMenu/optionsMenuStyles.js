@@ -6,6 +6,7 @@ export const OptionsContainer = styled.div`
   border-radius: ${props => props.theme.borderRadius}px;
   width: 300px;
   padding: ${props => props.theme.grid}px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.15);
 `
 
 export const Header = styled.div`

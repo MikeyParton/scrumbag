@@ -10,6 +10,7 @@ export const PopupParent = styled.div`
 
 export const PopupContainer = styled.div`
   position: absolute;
+  cursor: auto;
   top: 100%;
   left: 0;
   z-index: 100;

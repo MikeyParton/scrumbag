@@ -11,7 +11,8 @@ import {
 import {
   checkItemRequest,
   uncheckItemRequest,
-  updateItemRequest
+  updateItemRequest,
+  deleteItemRequest
 } from './ChecklistItems/checklistItemsRequests'
 
 export function* syncUrl({ payload }) {
@@ -29,6 +30,7 @@ export default function* rootSaga() {
     checkItemRequest.saga(),
     uncheckItemRequest.saga(),
     updateItemRequest.saga(),
+    deleteItemRequest.saga(),
     takeEvery(updateCardRequest.constants.success, syncUrl)
   ])
 }

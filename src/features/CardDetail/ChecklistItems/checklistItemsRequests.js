@@ -24,3 +24,11 @@ export const updateItemRequest = new CreateRequest({
     responseSchema: checklistItemsListSchema
   }
 })
+
+export const deleteItemRequest = new CreateRequest({
+  constantPrefix: 'CARD_DETAIL/CHECKLIST_ITEMS/DELETE_ITEM',
+  request: {
+    method: 'delete',
+    responseSchema: checklistItemsListSchema
+  }
+})
