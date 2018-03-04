@@ -15,6 +15,10 @@ import {
   deleteItemRequest
 } from './ChecklistItems/checklistItemsRequests'
 
+import {
+  getUsersRequest,
+} from './AddMember/addMemberRequests'
+
 export function* syncUrl({ payload }) {
   const { url } = payload.card
   yield call(history.push, url)
@@ -31,6 +35,7 @@ export default function* rootSaga() {
     uncheckItemRequest.saga(),
     updateItemRequest.saga(),
     deleteItemRequest.saga(),
+    getUsersRequest.saga(),
     takeEvery(updateCardRequest.constants.success, syncUrl)
   ])
 }

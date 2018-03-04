@@ -27,7 +27,8 @@ class FormInput extends React.Component {
       placeholder,
       type,
       input,
-      onResize
+      onResize,
+      ...rest
     } = this.props
 
     const Component = type === 'autoTextArea' ? AutoTextArea : Input
@@ -40,6 +41,7 @@ class FormInput extends React.Component {
         type={type}
         onResize={onResize}
         {...input}
+        {...rest}
       />
     )
   }

@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.17.1",
+    "downshift": "^1.28.1",
     "grid-styled": "^3.2.0",
     "history": "^4.7.2",
     "humps": "^2.0.1",

@@ -7,7 +7,7 @@ const IconButton = (props) => {
   const { icon, text, ...buttonProps } = props
   return (
     <Button {...buttonProps}>
-      <Box mr={1}>
+      <Box mr={2}>
         {icon}
       </Box>
       {text}

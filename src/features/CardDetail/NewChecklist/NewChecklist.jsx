@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { CloseButton } from 'common/components'
 
 import { checklistsUrl } from 'config/api'
-import { OptionsContainer, Header, Title, RightAligned } from './OptionsContainer'
+import { OptionsMenu, Option } from 'common/components'
 import NewChecklistForm from './NewChecklistForm'
 import { getCardId } from '../cardDetailSelectors'
 import { createChecklistRequest } from '../cardDetailRequests'
@@ -30,15 +30,12 @@ class NewChecklist extends React.Component {
   render() {
     const { deactivate } = this.props
     return (
-      <OptionsContainer>
-        <Header>
-          <Title>Add a Checklist</Title>
-          <RightAligned>
-            <CloseButton onClick={deactivate} />
-          </RightAligned>
-        </Header>
+      <OptionsMenu
+        title="Add a Checklist"
+        deactivate={deactivate}
+      >
         <NewChecklistForm onSubmit={this.onSubmit} />
-      </OptionsContainer>
+      </OptionsMenu>
     )
   }
 }

@@ -40,6 +40,10 @@ export const Content = styled.div`
 `
 
 export const Actions = styled.div`
-  width: 100px;
+  width: 150px;
   flex-shrink: 0;
+
+  button {
+    margin-bottom: ${props => props.theme.grid}px;
+  }
 `

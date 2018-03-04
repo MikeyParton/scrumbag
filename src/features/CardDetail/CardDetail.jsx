@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 
 import { getBoardUrl } from 'features/BoardDetail/boardDetailSelectors'
 import CheckSquare from 'react-icons/lib/fa/check-square'
+import User from 'react-icons/lib/fa/user'
 
 import { showMenu } from 'features/ContextMenu/contextMenuActions'
 
@@ -19,6 +20,7 @@ import { Container, Modal, Header, CardBody, Actions, Content } from './cardDeta
 
 import Checklists from './Checklists/Checklists'
 import NewChecklist from './NewChecklist/NewChecklist'
+import AddMember from './AddMember/AddMember'
 
 const mapState = state => ({
   boardUrl: getBoardUrl(state),
@@ -70,8 +72,21 @@ class CardDetail extends Component {
                 <IconButton
                   dark
                   block
+                  wide
                   text="Checklist"
                   icon={<CheckSquare />}
+                />
+              }
+            />
+            <PopButton
+              content={<AddMember />}
+              button={
+                <IconButton
+                  dark
+                  block
+                  wide
+                  text="Member"
+                  icon={<User />}
                 />
               }
             />
