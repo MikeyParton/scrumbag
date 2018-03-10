@@ -1,33 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { Option } from 'common/components'
-import { makeGetUserById } from 'features/Users/usersSelectors'
+import withUser from 'features/Users/withUser'
+import { Option, Avatar } from 'common/components'
 import styled from 'styled-components'
 import Check from 'react-icons/lib/md/check'
 
 import { Flex, Box } from 'grid-styled'
 
-const Avatar = styled.div`
-  font-size: 12px;
-  font-weight: 550;
-  color: black !important;
-  height: 30px;
-  width: 30px;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${props => props.theme.colors.cardBackgroundLight};
-`
-
 const Tick = styled(Check)`
   font-size: 20px;
 `
-
-const mapState = (state, ownProps) => ({
-  user: makeGetUserById(ownProps.id)(state)
-})
 
 const UserOption = (props) => {
   const { user, handleSelect, selected } = props
@@ -37,9 +19,7 @@ const UserOption = (props) => {
     <Option onClick={() => handleSelect(user)}>
       <Flex align="center">
         <Box mr={2}>
-          <Avatar>
-            MP
-          </Avatar>
+          <Avatar {...user} />
         </Box>
         <Box width={1}>
           {`${firstName} ${lastName}`}
@@ -61,4 +41,4 @@ UserOption.propTypes = {
   }).isRequired
 }
 
-export default connect(mapState, null)(UserOption)
+export default withUser(UserOption)

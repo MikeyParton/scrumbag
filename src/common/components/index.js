@@ -19,3 +19,6 @@ export { default as OptionsMenu } from './OptionsMenu/OptionsMenu'
 export { default as Option } from './OptionsMenu/Option'
 export { default as CashMeOutside } from './CashMeOutside'
 export { default as Loading } from './Loading'
+
+export { default as Icon } from './Icon'
+export { default as Avatar } from './Avatar'

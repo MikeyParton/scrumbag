@@ -1,9 +1,9 @@
+import React from 'react'
 import styled from 'styled-components'
 import { darken } from 'polished'
-import { Close } from '../icons'
+import { Icon } from 'common/components'
 
-const CloseButton = styled(Close)`
-  font-size: 20px;
+const Wrapper = styled.span`
   cursor: pointer;
   color: #9c9d9e;
   flex-shrink: 0;
@@ -12,5 +12,11 @@ const CloseButton = styled(Close)`
     color: ${darken(0.2, '#9c9d9e')};
   }
 `
+
+const CloseButton = ({ onClick }) => (
+  <Wrapper onClick={onClick}>
+    <Icon icon='close' />
+  </Wrapper>
+)
 
 export default CloseButton
