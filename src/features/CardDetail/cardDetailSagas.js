@@ -17,7 +17,10 @@ import {
   deleteItemRequest
 } from './ChecklistItems/checklistItemsRequests'
 
-import { addUserRequest } from './AddMember/addMemberRequests'
+import {
+  addUserRequest,
+  removeUserRequest
+} from './AddMember/addMemberRequests'
 
 export function* syncUrl({ payload }) {
   const currentCardId = yield select(getCardId)
@@ -37,6 +40,7 @@ export default function* rootSaga() {
     updateItemRequest.saga(),
     deleteItemRequest.saga(),
     addUserRequest.saga(),
+    removeUserRequest.saga(),
     takeEvery(updateCardRequest.constants.success, syncUrl)
   ])
 }

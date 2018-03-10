@@ -1,5 +1,6 @@
 import { createReducer, oneLevelDeepMerge } from 'common/utils/reducerUtils'
 import { getBoardDetailRequest } from 'features/BoardDetail/boardDetailRequests'
+import { addUserRequest, removeUserRequest } from 'features/CardDetail/AddMember/addMemberRequests'
 import { getCardDetailRequest, createCardRequest, updateCardRequest } from '../cardsRequests'
 
 export const loadCards = (state, payload) => {
@@ -14,5 +15,7 @@ export default createReducer({}, {
   [getBoardDetailRequest.constants.success]: loadCards,
   [updateCardRequest.constants.success]: loadCards,
   [createCardRequest.constants.success]: loadCards,
-  [getCardDetailRequest.constants.success]: loadCards
+  [getCardDetailRequest.constants.success]: loadCards,
+  [addUserRequest.constants.success]: loadCards,
+  [removeUserRequest.constants.success]: loadCards
 })

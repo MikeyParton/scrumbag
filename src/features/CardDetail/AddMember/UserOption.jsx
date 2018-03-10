@@ -30,11 +30,12 @@ const mapState = (state, ownProps) => ({
 })
 
 const UserOption = (props) => {
-  const { user, getItemProps, selected } = props
+  const { user, handleSelect, selected } = props
   const { firstName, lastName } = user
+
   return (
-    <Option {...getItemProps({ item: user })}>
-      <Flex alignItems="center">
+    <Option onClick={() => handleSelect(user)}>
+      <Flex align="center">
         <Box mr={2}>
           <Avatar>
             MP
@@ -52,7 +53,7 @@ const UserOption = (props) => {
 UserOption.propTypes = {
   id: PropTypes.number.isRequired,
   selected: PropTypes.bool.isRequired,
-  getItemProps: PropTypes.func.isRequired,
+  handleSelect: PropTypes.func.isRequired,
   user: PropTypes.shape({
     id: PropTypes.number.isRequired,
     firstName: PropTypes.string.isRequired,

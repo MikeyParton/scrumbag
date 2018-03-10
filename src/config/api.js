@@ -13,18 +13,29 @@ const api = axios.create({
   ]
 })
 
+// Auth
 export const loginUrl = () => '/auth/login'
 export const signupUrl = () => '/auth/signup'
+
+// Boards
 export const boardsUrl = () => '/boards'
 export const boardDetailUrl = id => `/boards/${id}`
+
+// Lists
 export const listsUrl = boardId => `${boardDetailUrl(boardId)}/lists`
 export const listUrl = id => `/lists/${id}`
+
+// Cards
 export const cardsUrl = boardId => `${boardDetailUrl(boardId)}/cards`
 export const cardUrl = id => `/cards/${id}`
 export const cardAddUserUrl = id => `${cardUrl(id)}/add_user`
-export const cardUsersUrl = id => `${cardUrl(id)}/users`
+export const cardRemoveUserUrl = id => `${cardUrl(id)}/remove_user`
+
+// Checklists
 export const checklistsUrl = id => `${cardUrl(id)}/checklists`
 export const checklistUrl = id => `/checklists/${id}`
+
+// Checklist Items
 export const checklistItemsUrl = id => `${checklistUrl(id)}/checklist_items`
 export const checklistItemUrl = id => `/checklist_items/${id}`
 export const checkChecklistItemUrl = id => `${checklistItemUrl(id)}/complete`
