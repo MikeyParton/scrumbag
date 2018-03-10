@@ -1,6 +1,5 @@
 import { schema } from 'normalizr'
-
-export const cardSchema = new schema.Entity('cards')
+import { cardSchema } from 'features/Cards/cardsSchema'
 export const userSchema = new schema.Entity('users')
 export const listSchema = new schema.Entity('lists', { cards: [cardSchema] })
 export const boardSchema = new schema.Entity('board', { lists: [listSchema], users: [userSchema] })

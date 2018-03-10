@@ -2,6 +2,8 @@ import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
 
 import boards from 'features/Boards/boardsReducer'
+import cards from 'features/Cards/cardsReducer'
+import users from 'features/Users/usersReducer'
 import login from 'features/Login/loginReducer'
 import modalManager from 'features/ModalManager/modalManagerReducer'
 import boardForm from 'features/BoardForm/boardFormReducer'
@@ -13,6 +15,8 @@ export default combineReducers({
   form,
   login,
   boards,
+  cards,
+  users,
   boardDetail,
   modalManager,
   boardForm,

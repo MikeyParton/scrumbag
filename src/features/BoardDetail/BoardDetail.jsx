@@ -15,7 +15,7 @@ import { OuterContainer, BoardArea } from './boardStyledComponents'
 
 import { getBoardDetailRequest } from './boardDetailRequests'
 import { getLoading } from './boardDetailSelectors'
-import { moveCard } from './Cards/cardsActions'
+import { moveCard } from 'features/Cards/cardsActions'
 import { moveList } from './Lists/listsActions'
 import { getListIds } from './Lists/listsSelectors'
 

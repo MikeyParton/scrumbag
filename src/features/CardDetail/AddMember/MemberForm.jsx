@@ -2,10 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import Downshift from 'downshift'
-import { Input, Option } from 'common/components'
+import { Box } from 'grid-styled'
+import { cardAddUserUrl } from 'config/api'
+import { Input } from 'common/components'
 import { getCardId } from 'features/CardDetail/cardDetailSelectors'
 import { getAddMemberFilter, getFilteredUsers } from './addMemberSelectors'
-import { getUsersRequest } from './addMemberRequests'
+import { addUserRequest } from './addMemberRequests'
+import UserOption from './UserOption'
 
 const mapState = state => ({
   id: getCardId(state),
@@ -13,13 +16,22 @@ const mapState = state => ({
   filter: getAddMemberFilter(state)
 })
 
-const actions = {}
+const actions = {
+  addUser: addUserRequest.actions.request
+}
 
 class MemberForm extends React.Component {
-  handleSelect = (selectedItem) => {}
+  handleSelect = (selectedItem) => {
+    const { addUser, id } = this.props
+
+    addUser({
+      userId: selectedItem.id,
+      requestUrl: cardAddUserUrl(id)
+    })
+  }
 
   render() {
-    const { id, users, filter } = this.props
+    const { id, users, filter, selectedUsers } = this.props
     return (
       <form>
         <Downshift
@@ -34,21 +46,24 @@ class MemberForm extends React.Component {
             highlightedIndex,
           }) => (
             <div>
-              <Field
-                name="filter"
-                autoFocus
-                component={Input}
-                {...getInputProps({
-                  placeholder: 'Favorite fruit ?',
-                })}
-              />
-              {users.map(item => (
-                <Option
-                  key={item.id}
-                  {...getItemProps({ item })}
-                >
-                  {`${item.firstName} ${item.lastName} ${item.selected ? ' - Yes' : ''}`}
-                </Option>
+              <Box mb={2}>
+                <Field
+                  name="filter"
+                  autoFocus
+                  component={Input}
+                  {...getInputProps({
+                    placeholder: 'Find a User',
+                  })}
+                />
+              </Box>
+              {users.map(id => (
+                <UserOption {
+                  ...{
+                    selected: selectedUsers.includes(id),
+                    id,
+                    getItemProps
+                  }
+                } />
               ))}
             </div>
           )}

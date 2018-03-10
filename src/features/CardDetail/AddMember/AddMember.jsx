@@ -4,13 +4,13 @@ import { OptionsMenu } from 'common/components'
 import MemberForm from './MemberForm'
 
 const AddMember = (props) => {
-  const { deactivate } = props
+  const { deactivate, selectedUsers } = props
   return (
     <OptionsMenu
       title="Add a Member"
       deactivate={deactivate}
     >
-      <MemberForm />
+      <MemberForm selectedUsers={selectedUsers} />
     </OptionsMenu>
   )
 }

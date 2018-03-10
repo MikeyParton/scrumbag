@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { cardsUrl } from 'config/api'
+import { createCardRequest } from 'features/Cards/cardsRequests'
 import NewCardForm from './NewCardForm'
-import newCardRequest from './newCardRequest'
 
 const actions = {
-  createCard: newCardRequest.actions.request
+  createCard: createCardRequest.actions.request
 }
 
 class NewCardFormContainer extends React.Component {

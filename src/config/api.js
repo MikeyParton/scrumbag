@@ -21,6 +21,7 @@ export const listsUrl = boardId => `${boardDetailUrl(boardId)}/lists`
 export const listUrl = id => `/lists/${id}`
 export const cardsUrl = boardId => `${boardDetailUrl(boardId)}/cards`
 export const cardUrl = id => `/cards/${id}`
+export const cardAddUserUrl = id => `${cardUrl(id)}/add_user`
 export const cardUsersUrl = id => `${cardUrl(id)}/users`
 export const checklistsUrl = id => `${cardUrl(id)}/checklists`
 export const checklistUrl = id => `/checklists/${id}`

@@ -1,10 +1,11 @@
 import { createSelector } from 'reselect'
+import { getCards } from 'features/Cards/cardsSelectors'
 
 export const getCardDetail = state => state.cardDetail
 
-export const getCard = createSelector(
+export const getCardId = createSelector(
   getCardDetail,
-  cardDetail => cardDetail.card
+  cardDetail => cardDetail.id
 )
 
 export const getLoading = createSelector(
@@ -17,9 +18,11 @@ export const getEditingTitle = createSelector(
   cardDetail => cardDetail.editingTitle
 )
 
-export const getCardId = createSelector(
-  getCard,
-  card => card.id
+
+export const getCard = createSelector(
+  getCardId,
+  getCards,
+  (id, cards) => cards.byId[id]
 )
 
 export const getName = createSelector(

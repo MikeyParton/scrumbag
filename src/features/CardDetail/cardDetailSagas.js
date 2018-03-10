@@ -1,8 +1,10 @@
-import { call, all, takeEvery } from 'redux-saga/effects'
+import { call, all, takeEvery, select } from 'redux-saga/effects'
 import history from 'app/Routes/history'
+
+import { updateCardRequest } from 'features/Cards/cardsRequests'
+import { getCardId } from './cardDetailSelectors'
+
 import {
-  getCardDetailRequest,
-  updateCardRequest,
   createChecklistRequest,
   updateChecklistRequest,
   createChecklistItemRequest
@@ -15,19 +17,18 @@ import {
   deleteItemRequest
 } from './ChecklistItems/checklistItemsRequests'
 
-import {
-  getUsersRequest,
-} from './AddMember/addMemberRequests'
+import { addUserRequest } from './AddMember/addMemberRequests'
 
 export function* syncUrl({ payload }) {
-  const { url } = payload.card
-  yield call(history.push, url)
+  const currentCardId = yield select(getCardId)
+  const { url, id } = Object.values(payload.cards)[0]
+  if (currentCardId === id) {
+    yield call(history.push, url)
+  }
 }
 
 export default function* rootSaga() {
   yield all([
-    getCardDetailRequest.saga(),
-    updateCardRequest.saga(),
     createChecklistRequest.saga(),
     updateChecklistRequest.saga(),
     createChecklistItemRequest.saga(),
@@ -35,7 +36,7 @@ export default function* rootSaga() {
     uncheckItemRequest.saga(),
     updateItemRequest.saga(),
     deleteItemRequest.saga(),
-    getUsersRequest.saga(),
+    addUserRequest.saga(),
     takeEvery(updateCardRequest.constants.success, syncUrl)
   ])
 }

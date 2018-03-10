@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Draggable } from 'react-beautiful-dnd'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { makeGetCardById } from 'features/Cards/cardsSelectors'
 import { Container, CardWrapper } from './cardStyledComponents'
-import { makeGetCardById } from './cardsSelectors'
 
 const mapState = (state, ownProps) => {
   const getCardById = makeGetCardById(ownProps.id)
@@ -16,6 +16,9 @@ const mapState = (state, ownProps) => {
 class Card extends React.Component {
   render() {
     const { id, index, card } = this.props
+
+    if (!card) return null
+
     const { name, url } = card
 
     return (

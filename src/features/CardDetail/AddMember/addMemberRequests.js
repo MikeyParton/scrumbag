@@ -1,18 +1,18 @@
 import CreateRequest from 'common/utils/CreateRequest'
-import { cardSchema } from 'features/CardDetail/cardDetailSchema'
+import { cardsSchema } from 'features/Cards/cardsSchema'
 
-export const assingUserRequest = new CreateRequest({
+export const addUserRequest = new CreateRequest({
   constantPrefix: 'CARD_DETAIL/ADD_MEMBER/ADD_USER',
   request: {
     method: 'post',
-    responseSchema: cardSchema
-  },
+    responseSchema: cardsSchema
+  }
 })
 
 export const removeUserRequest = new CreateRequest({
   constantPrefix: 'CARD_DETAIL/ADD_MEMBER/REMOVE_USER',
   request: {
     method: 'post',
-    responseSchema: cardSchema
+    // responseSchema: cardSchema
   },
 })

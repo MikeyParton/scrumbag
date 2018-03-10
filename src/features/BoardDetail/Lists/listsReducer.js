@@ -3,10 +3,10 @@ import { createReducer } from 'common/utils/reducerUtils'
 
 import { removeFromList, addToList } from './listUtils'
 import { MOVE_LIST } from './listsConstants'
-import { MOVE_CARD } from '../Cards/cardsConstants'
+import { MOVE_CARD } from 'features/Cards/cardsConstants'
 
 import { createListRequest } from '../NewList/newListRequest'
-import createCardRequest from '../NewCard/newCardRequest'
+import { createCardRequest } from 'features/Cards/cardsRequests'
 
 import {
   getBoardDetailRequest,
@@ -64,7 +64,7 @@ const byIdCreateList = (state, payload) => ({
 })
 
 const byIdCreateCard = (state, payload) => {
-  const { id, listId } = payload.card
+  const { id, listId } = Object.values(payload.cards)[0]
   const oldList = state[listId]
 
   const newList = {

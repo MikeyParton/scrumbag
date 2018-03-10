@@ -1,5 +1,5 @@
 import { formValueSelector } from 'redux-form'
-import { getAllUsers } from 'features/BoardDetail/Users/usersSelectors'
+import { getAllUsers } from 'features/Users/usersSelectors'
 import { createSelector } from 'reselect'
 
 export const getAddMemberFilter = state => (
@@ -10,9 +10,14 @@ export const getFilteredUsers = createSelector(
   getAddMemberFilter,
   getAllUsers,
   (filter, users) => {
-    if (filter === undefined) return users
-    return users.filter(user => (
-      `${user.firstName} ${user.lastName}`.toLowerCase().includes(filter.toLowerCase())
-    ))
+    let results = users
+
+    if (filter !== undefined) {
+      results = results.filter(user => (
+        `${user.firstName} ${user.lastName}`.toLowerCase().includes(filter.toLowerCase())
+      ))
+    }
+
+    return results.map(user => user.id)
   }
 )

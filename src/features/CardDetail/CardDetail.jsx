@@ -9,11 +9,11 @@ import CheckSquare from 'react-icons/lib/fa/check-square'
 import User from 'react-icons/lib/fa/user'
 
 import { showMenu } from 'features/ContextMenu/contextMenuActions'
+import { getCardDetailRequest } from 'features/Cards/cardsRequests'
 
 import { CashMeOutside, CloseButton, Loading, PopButton, IconButton } from 'common/components'
 import { cardUrl } from 'config/api'
 import CardTitle from './Title/Title'
-import { getCardDetailRequest } from './cardDetailRequests'
 
 import { getCard, getLoading } from './cardDetailSelectors'
 import { Container, Modal, Header, CardBody, Actions, Content } from './cardDetailStyles'
@@ -52,7 +52,7 @@ class CardDetail extends Component {
 
   innerContent = () => {
     const { card } = this.props
-    const { id } = card
+    const { id, users: selectedUsers } = card
 
     return (
       <div>
@@ -79,7 +79,7 @@ class CardDetail extends Component {
               }
             />
             <PopButton
-              content={<AddMember />}
+              content={<AddMember selectedUsers={selectedUsers} />}
               button={
                 <IconButton
                   dark
@@ -97,7 +97,7 @@ class CardDetail extends Component {
   }
 
   content = () => {
-    const { loading } = this.props
+    const { loading, card } = this.props
 
     return (
       <Container>
@@ -105,7 +105,7 @@ class CardDetail extends Component {
           onClickOutside={this.close}
           render={provided => (
             <Modal innerRef={provided}>
-              { loading
+              { (loading || !card)
                 ? <Loading />
                 : this.innerContent() }
             </Modal>

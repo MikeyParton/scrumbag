@@ -1,5 +1,6 @@
 import { createReducer } from 'common/utils/reducerUtils'
-import { getCardDetailRequest, createChecklistRequest } from 'features/CardDetail/cardDetailRequests'
+import { getCardDetailRequest } from 'features/Cards/cardsRequests'
+import { createChecklistRequest } from 'features/CardDetail/cardDetailRequests'
 
 const reloadChecklists = (state, payload) => {
   if (!payload.checklists) return []

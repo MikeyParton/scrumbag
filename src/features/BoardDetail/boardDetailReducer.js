@@ -2,12 +2,9 @@ import { createReducer } from 'common/utils/reducerUtils'
 import { combineReducers } from 'redux'
 
 import { getBoardDetailRequest } from './boardDetailRequests'
-
-import cards from './Cards/cardsReducer'
 import lists from './Lists/listsReducer'
 import newList from './NewList/newListReducer'
 import newCard from './NewCard/newCardReducer'
-import users from './Users/usersReducer'
 
 const initialState = {
   board: {},
@@ -26,9 +23,7 @@ const board = createReducer(initialState, {
 
 export default combineReducers({
   board,
-  cards,
   lists,
-  users,
   newList,
   newCard
 })

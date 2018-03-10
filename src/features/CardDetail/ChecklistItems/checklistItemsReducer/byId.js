@@ -1,5 +1,6 @@
 import { createReducer } from 'common/utils/reducerUtils'
-import { getCardDetailRequest, createChecklistItemRequest } from 'features/CardDetail/cardDetailRequests'
+import { getCardDetailRequest } from 'features/Cards/cardsRequests'
+import { createChecklistItemRequest } from 'features/CardDetail/cardDetailRequests'
 import {
   updateItemRequest,
   checkItemRequest,

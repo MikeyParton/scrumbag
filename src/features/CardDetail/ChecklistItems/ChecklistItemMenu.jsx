@@ -19,6 +19,7 @@ const ChecklistItemMenu = (props) => {
       deactivate={deactivate}
     >
       <Option
+        bold
         onClick={() => deleteItem({ requestUrl })}
       >
         Delete
