@@ -9,7 +9,6 @@ import { Flex, Box } from 'grid-styled'
 import { getBoardUrl } from 'features/BoardDetail/boardDetailSelectors'
 import CheckSquare from 'react-icons/lib/fa/check-square'
 import UserIcon from 'react-icons/lib/fa/user'
-import PlusIcon from 'react-icons/lib/md/add'
 
 import { showMenu } from 'features/ContextMenu/contextMenuActions'
 import { getCardDetailRequest } from 'features/Cards/cardsRequests'
@@ -24,6 +23,7 @@ import { Container, Modal, Header, CardBody, Actions, Content } from './cardDeta
 import Checklists from './Checklists/Checklists'
 import NewChecklist from './NewChecklist/NewChecklist'
 import AddMember from './AddMember/AddMember'
+import AddLabel from './AddLabel/AddLabel'
 import Members from './Members/Members'
 
 const mapState = state => ({
@@ -56,7 +56,11 @@ class CardDetail extends Component {
 
   innerContent = () => {
     const { card } = this.props
-    const { id, users: selectedUsers } = card
+    const {
+      id,
+      users: selectedUsers,
+      labels: selectedLabels
+    } = card
 
     return (
       <div>
@@ -91,6 +95,18 @@ class CardDetail extends Component {
                   block
                   wide
                   text="Member"
+                  icon={<UserIcon />}
+                />
+              }
+            />
+            <PopButton
+              content={<AddLabel selectedLabels={selectedLabels} />}
+              button={
+                <IconButton
+                  dark
+                  block
+                  wide
+                  text="Label"
                   icon={<UserIcon />}
                 />
               }

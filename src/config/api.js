@@ -30,6 +30,8 @@ export const cardsUrl = boardId => `${boardDetailUrl(boardId)}/cards`
 export const cardUrl = id => `/cards/${id}`
 export const cardAddUserUrl = id => `${cardUrl(id)}/add_user`
 export const cardRemoveUserUrl = id => `${cardUrl(id)}/remove_user`
+export const cardAddLabelUrl = id => `${cardUrl(id)}/add_label`
+export const cardRemoveLabelUrl = id => `${cardUrl(id)}/remove_label`
 
 // Checklists
 export const checklistsUrl = id => `${cardUrl(id)}/checklists`

@@ -40,16 +40,18 @@ const PopButton = (props) => {
   const { content, button } = props
 
   return (
-    <Toggle
-      render={(active, activate, deactivate) => (
-        <PopupParent>
-          <div onClick={activate}>
-            {button}
-          </div>
-          <Popup {...{ content, active, deactivate }} />
-        </PopupParent>
-      )}
-    />
+    <div className="pop-button">
+      <Toggle
+        render={(active, activate, deactivate) => (
+          <PopupParent>
+            <div onClick={activate}>
+              {button}
+            </div>
+            <Popup {...{ content, active, deactivate }} />
+          </PopupParent>
+        )}
+      />
+    </div>
   )
 }
 

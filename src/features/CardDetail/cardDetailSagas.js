@@ -22,6 +22,11 @@ import {
   removeUserRequest
 } from './AddMember/addMemberRequests'
 
+import {
+  addLabelRequest,
+  removeLabelRequest
+} from './AddLabel/addLabelRequests'
+
 export function* syncUrl({ payload }) {
   const currentCardId = yield select(getCardId)
   const { url, id } = Object.values(payload.cards)[0]
@@ -41,6 +46,8 @@ export default function* rootSaga() {
     deleteItemRequest.saga(),
     addUserRequest.saga(),
     removeUserRequest.saga(),
+    addLabelRequest.saga(),
+    removeLabelRequest.saga(),
     takeEvery(updateCardRequest.constants.success, syncUrl)
   ])
 }
