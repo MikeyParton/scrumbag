@@ -13,7 +13,7 @@ import UserIcon from 'react-icons/lib/fa/user'
 import { showMenu } from 'features/ContextMenu/contextMenuActions'
 import { getCardDetailRequest } from 'features/Cards/cardsRequests'
 
-import { Button, CashMeOutside, CloseButton, Loading, PopButton, IconButton } from 'common/components'
+import { CashMeOutside, CloseButton, Loading, PopButton, IconButton } from 'common/components'
 import { cardUrl } from 'config/api'
 import CardTitle from './Title/Title'
 
@@ -25,6 +25,7 @@ import NewChecklist from './NewChecklist/NewChecklist'
 import AddMember from './AddMember/AddMember'
 import AddLabel from './AddLabel/AddLabel'
 import Members from './Members/Members'
+import Labels from './Labels/Labels'
 
 const mapState = state => ({
   boardUrl: getBoardUrl(state),
@@ -71,6 +72,7 @@ class CardDetail extends Component {
         <CardBody>
           <Content>
             <Members userIds={selectedUsers} />
+            <Labels labelIds={selectedLabels} />
             <Checklists />
           </Content>
           <Actions>
