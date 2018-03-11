@@ -17,6 +17,6 @@ BoardDetailRoutes.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string
   }).isRequired
-}
+} 
 
 export default BoardDetailRoutes
