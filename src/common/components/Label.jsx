@@ -5,23 +5,25 @@ import withLabel from 'features/Labels/withLabel'
 const OptionWrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 30px;
   color: white;
   min-width: 34px;
   background-color: ${props => props.color};
-  padding: 0px ${props => props.theme.grid}px;
   border-radius: ${props => props.theme.borderRadius}px;
+
+  height: ${props => props.small ? 20 : 30}px;
+  font-size ${props => props.small ? 10 : 14}px;
+  padding: 0px ${props => props.theme.grid}px;
 `
 
-const LabelOption = (props) => {
-  const { label } = props
+const Label = (props) => {
+  const { label, small } = props
   const { color, name } = label
 
   return (
-    <OptionWrapper color={color}>
+    <OptionWrapper color={color} small={small}>
       {name}
     </OptionWrapper>
   )
 }
 
-export default withLabel(LabelOption)
+export default withLabel(Label)

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withUser from 'features/Users/withUser'
-import { Option, Avatar } from 'common/components'
+import { Option, BaseAvatar } from 'common/components'
 import styled from 'styled-components'
 import Check from 'react-icons/lib/md/check'
 
@@ -19,7 +19,7 @@ const UserOption = (props) => {
     <Option onClick={() => handleSelect(user)}>
       <Flex align="center">
         <Box mr={2}>
-          <Avatar {...user} />
+          <BaseAvatar user={user} />
         </Box>
         <Box width={1}>
           {`${firstName} ${lastName}`}

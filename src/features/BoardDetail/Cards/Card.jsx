@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import { Draggable } from 'react-beautiful-dnd'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import { Label, Avatar } from 'common/components'
+import { Flex, Box } from 'grid-styled'
 import { makeGetCardById } from 'features/Cards/cardsSelectors'
 import { Container, CardWrapper } from './cardStyledComponents'
 
 const mapState = (state, ownProps) => {
-  const getCardById = makeGetCardById(ownProps.id)
   return {
-    card: getCardById(state)
+    card: makeGetCardById(ownProps.id)(state)
   }
 }
 
@@ -19,7 +20,12 @@ class Card extends React.Component {
 
     if (!card) return null
 
-    const { name, url } = card
+    const {
+      name,
+      url,
+      labels: labelIds,
+      users: userIds
+    } = card
 
     return (
       <Draggable
@@ -34,7 +40,21 @@ class Card extends React.Component {
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
               >
-                <div>{name}</div>
+                <Flex wrap>
+                  {labelIds.map(labelId => (
+                    <Box mb={2} mr={2}>
+                      <Label small key={labelId} id={labelId} />
+                    </Box>
+                  ))}
+                </Flex>
+                <Box mb={2}>{name}</Box>
+                <Flex justify="flex-end">
+                  {userIds.map(userId => (
+                    <Box mr={2}>
+                      <Avatar small key={userId} id={userId} />
+                    </Box>
+                  ))}
+                </Flex>
               </CardWrapper>
               {provided.placeholder}
             </Link>
