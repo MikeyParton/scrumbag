@@ -20,7 +20,7 @@ const Tick = styled(Check)`
 
 
 const LabelOption = props => {
-  const { label, handleSelect, selected } = props
+  const { label, handleSelect, selected, setEditingId } = props
   const { id, color, name } = label
 
   return (
@@ -42,7 +42,7 @@ const LabelOption = props => {
           </Flex>
         </OptionWrapper>
       </Box>
-      <Button>
+      <Button onClick={() => setEditingId(id)}>
         <Icon icon="edit" />
       </Button>
     </Flex>

@@ -3,11 +3,13 @@ import styled from 'styled-components'
 import close from 'react-icons/lib/md/close'
 import plus from 'react-icons/lib/md/add'
 import edit from 'react-icons/lib/md/edit'
+import back from 'react-icons/lib/md/arrow-back'
 
 const icons = {
   close,
   plus,
-  edit
+  edit,
+  back
 }
 
 const IconWrapper = styled.span`
@@ -15,10 +17,10 @@ const IconWrapper = styled.span`
 `
 
 const Icon = (props) => {
-  const { icon } = props
+  const { icon, ...rest } = props
   const IconComponent = icons[icon]
   return (
-    <IconWrapper>
+    <IconWrapper {...rest} >
       {IconComponent && <IconComponent />}
     </IconWrapper>
   )

@@ -43,7 +43,8 @@ class MemberForm extends React.Component {
   }
 
   render() {
-    const { labelIds } = this.props
+    const { labelIds, setEditingId } = this.props
+
     return (
       <form>
         <Box mb={2}>
@@ -57,6 +58,7 @@ class MemberForm extends React.Component {
         {labelIds.map(id => (
           <LabelOption
             id={id}
+            setEditingId={setEditingId}
             selected={this.isSelected(id)}
             handleSelect={this.handleSelect}
           />
@@ -68,6 +70,7 @@ class MemberForm extends React.Component {
 
 MemberForm.propTypes = {
   id: PropTypes.number.isRequired,
+  setEditingId: PropTypes.func.isRequired,
   labelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   addLabel: PropTypes.func.isRequired,
   removeLabel: PropTypes.func.isRequired,

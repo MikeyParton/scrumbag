@@ -43,4 +43,7 @@ export const checklistItemUrl = id => `/checklist_items/${id}`
 export const checkChecklistItemUrl = id => `${checklistItemUrl(id)}/complete`
 export const uncheckChecklistItemUrl = id => `${checklistItemUrl(id)}/undo`
 
+// Labels
+export const labelUrl = id => `/labels/${id}`
+
 export default api
