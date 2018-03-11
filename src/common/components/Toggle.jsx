@@ -11,7 +11,6 @@ class Toggle extends React.Component {
   }
 
   deactivate = () => {
-    console.log('what')
     this.setState({ active: false })
   }
 

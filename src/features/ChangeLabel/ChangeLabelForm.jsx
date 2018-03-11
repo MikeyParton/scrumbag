@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { reduxForm, Field } from 'redux-form'
-import { Box } from 'grid-styled'
+import { Flex, Box } from 'grid-styled'
 import { Button, Input } from 'common/components'
 import withLabel from 'features/Labels/withLabel'
+import ColorOption from './ColorOption'
 
 class ChangeLabelForm extends React.Component {
   render() {
-    const { setEditingId, handleSubmit } = this.props
+    const { handleSubmit, colors } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -20,6 +21,19 @@ class ChangeLabelForm extends React.Component {
             placeholder="Enter a name"
           />
         </Box>
+        <Flex wrap mr={-1} ml={-1}>
+          {colors.map(color => (
+            <Box
+              key={color.color}
+              width={1 / 5}
+              pl={1}
+              pr={1}
+              mb={2}
+            >
+              <ColorOption {...color} />
+            </Box>
+          ))}
+        </Flex>
         <Button type="submit" wide buttonType="success">
           Save
         </Button>
@@ -30,8 +44,7 @@ class ChangeLabelForm extends React.Component {
 
 ChangeLabelForm.propTypes = {
   id: PropTypes.number.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  setEditingId: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 }
 
 export default withLabel(reduxForm({

@@ -6,6 +6,8 @@ import boardDetailSagas from 'features/BoardDetail/boardDetailSagas'
 import labelSagas from 'features/Labels/labelsSagas'
 import newListSagas from 'features/BoardDetail/NewList/newListSagas'
 import cardDetailSagas from 'features/CardDetail/cardDetailSagas'
+import optionsSagas from 'features/Options/optionsSagas'
+
 
 export default function* rootSaga() {
   yield all([
@@ -15,6 +17,7 @@ export default function* rootSaga() {
     fork(boardDetailSagas),
     fork(labelSagas),
     fork(newListSagas),
-    fork(cardDetailSagas)
+    fork(cardDetailSagas),
+    fork(optionsSagas)
   ])
 }

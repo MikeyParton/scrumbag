@@ -11,6 +11,7 @@ import boardForm from 'features/BoardForm/boardFormReducer'
 import boardDetail from 'features/BoardDetail/boardDetailReducer'
 import contextMenu from 'features/ContextMenu/contextMenuReducer'
 import cardDetail from 'features/CardDetail/cardDetailReducer'
+import options from 'features/Options/optionsReducer'
 
 export default combineReducers({
   form,
@@ -23,5 +24,6 @@ export default combineReducers({
   modalManager,
   boardForm,
   contextMenu,
-  cardDetail
+  cardDetail,
+  options
 })

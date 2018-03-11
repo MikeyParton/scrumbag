@@ -9,7 +9,7 @@ const OptionWrapper = styled.div`
   height: 34px;
   cursor: pointer;
   color: white;
-  background-color: ${props => props.color};
+  background-color: ${props => props.code};
   padding: ${props => props.theme.grid}px;
   border-radius: ${props => props.theme.borderRadius}px;
 `
@@ -21,7 +21,9 @@ const Tick = styled(Check)`
 
 const LabelOption = props => {
   const { label, handleSelect, selected, setEditingId } = props
-  const { id, color, name } = label
+  const { id, code, name } = label
+
+  console.log(code)
 
   return (
     <Flex
@@ -33,7 +35,7 @@ const LabelOption = props => {
         width={1}
       >
         <OptionWrapper
-          color={color}
+          code={code}
           onClick={() => handleSelect(id)}
         >
           <Flex>

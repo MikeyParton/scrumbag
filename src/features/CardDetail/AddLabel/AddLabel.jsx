@@ -22,6 +22,7 @@ class AddLabel extends React.Component {
         <ChangeLabel
           id={editingId}
           setEditingId={this.setEditingId}
+          deactivate={deactivate}
           onBack={() => this.setEditingId(null)}
         />
       )

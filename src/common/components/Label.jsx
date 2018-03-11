@@ -7,7 +7,7 @@ const OptionWrapper = styled.div`
   align-items: center;
   color: white;
   min-width: 34px;
-  background-color: ${props => props.color};
+  background-color: ${props => props.code};
   border-radius: ${props => props.theme.borderRadius}px;
 
   height: ${props => props.small ? 20 : 30}px;
@@ -17,10 +17,10 @@ const OptionWrapper = styled.div`
 
 const Label = (props) => {
   const { label, small } = props
-  const { color, name } = label
+  const { code, name } = label
 
   return (
-    <OptionWrapper color={color} small={small}>
+    <OptionWrapper code={code} small={small}>
       {name}
     </OptionWrapper>
   )
