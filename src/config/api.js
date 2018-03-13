@@ -44,6 +44,7 @@ export const checkChecklistItemUrl = id => `${checklistItemUrl(id)}/complete`
 export const uncheckChecklistItemUrl = id => `${checklistItemUrl(id)}/undo`
 
 // Labels
+export const labelsUrl = boardId => `${boardDetailUrl(boardId)}/labels`
 export const labelUrl = id => `/labels/${id}`
 
 // Options

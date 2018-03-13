@@ -6,24 +6,28 @@ import ChangeLabel from 'features/ChangeLabel/ChangeLabel'
 
 class AddLabel extends React.Component {
   state = {
+    showForm: false,
     editingId: null
   }
 
-  setEditingId = (editingId) => {
-    this.setState({ editingId })
+  showForm = (editingId) => {
+    this.setState({ showForm: true, editingId })
+  }
+
+  hideForm = () => {
+    this.setState({ showForm: false, editingId: null })
   }
 
   render() {
-    const { editingId } = this.state
+    const { showForm, editingId } = this.state
     const { deactivate, selectedLabels } = this.props
 
-    if (editingId) {
+    if (showForm) {
       return (
         <ChangeLabel
           id={editingId}
-          setEditingId={this.setEditingId}
           deactivate={deactivate}
-          onBack={() => this.setEditingId(null)}
+          onBack={this.hideForm}
         />
       )
     }
@@ -35,7 +39,7 @@ class AddLabel extends React.Component {
       >
         <LabelForm
           selectedLabels={selectedLabels}
-          setEditingId={this.setEditingId}
+          showForm={this.showForm}
         />
       </OptionsMenu>
     )

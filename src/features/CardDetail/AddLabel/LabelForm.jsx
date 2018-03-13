@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import { Box } from 'grid-styled'
 import { cardAddLabelUrl, cardRemoveLabelUrl } from 'config/api'
-import { Input } from 'common/components'
+import { Input, HoverBlockButton } from 'common/components'
 import { getCardId } from 'features/CardDetail/cardDetailSelectors'
 import { getAllLabelIds } from 'features/Labels/labelsSelectors'
 import LabelOption from './LabelOption'
@@ -43,7 +43,7 @@ class MemberForm extends React.Component {
   }
 
   render() {
-    const { labelIds, setEditingId } = this.props
+    const { labelIds, showForm } = this.props
 
     return (
       <form>
@@ -58,11 +58,17 @@ class MemberForm extends React.Component {
         {labelIds.map(id => (
           <LabelOption
             id={id}
-            setEditingId={setEditingId}
+            handleEdit={() => showForm(id)}
             selected={this.isSelected(id)}
             handleSelect={this.handleSelect}
           />
         ))}
+        <HoverBlockButton
+          background="white"
+          handleClick={() => showForm(null)}
+        >
+          Create new Label
+        </HoverBlockButton>
       </form>
     )
   }
@@ -70,7 +76,7 @@ class MemberForm extends React.Component {
 
 MemberForm.propTypes = {
   id: PropTypes.number.isRequired,
-  setEditingId: PropTypes.func.isRequired,
+  showForm: PropTypes.func.isRequired,
   labelIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   addLabel: PropTypes.func.isRequired,
   removeLabel: PropTypes.func.isRequired,

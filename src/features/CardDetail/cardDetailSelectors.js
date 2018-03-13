@@ -18,7 +18,6 @@ export const getEditingTitle = createSelector(
   cardDetail => cardDetail.editingTitle
 )
 
-
 export const getCard = createSelector(
   getCardId,
   getCards,
@@ -28,4 +27,9 @@ export const getCard = createSelector(
 export const getName = createSelector(
   getCard,
   card => card.name
+)
+
+export const getBoardId = createSelector(
+  getCard,
+  card => card.boardSlug
 )

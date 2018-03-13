@@ -7,6 +7,7 @@ import withLabel from 'features/Labels/withLabel'
 import ColorOption from './ColorOption'
 
 class ChangeLabelForm extends React.Component {
+
   render() {
     const { handleSubmit, colors } = this.props
 
