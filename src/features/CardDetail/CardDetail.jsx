@@ -20,6 +20,7 @@ import CardTitle from './Title/Title'
 import { getCard, getLoading } from './cardDetailSelectors'
 import { Container, Modal, Header, CardBody, Actions, Content } from './cardDetailStyles'
 
+import TimerHeader from './TimerHeader/TimerHeader'
 import Checklists from './Checklists/Checklists'
 import NewChecklist from './NewChecklist/NewChecklist'
 import AddMember from './AddMember/AddMember'
@@ -60,11 +61,13 @@ class CardDetail extends Component {
     const {
       id,
       users: selectedUsers,
-      labels: selectedLabels
+      labels: selectedLabels,
+      currentTimer
     } = card
 
     return (
       <div>
+        <TimerHeader cardId={id} id={currentTimer} />
         <Header>
           <CardTitle id={id} />
           <CloseButton onClick={this.close} />

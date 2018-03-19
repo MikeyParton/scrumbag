@@ -7,6 +7,7 @@ import labelSagas from 'features/Labels/labelsSagas'
 import newListSagas from 'features/BoardDetail/NewList/newListSagas'
 import cardDetailSagas from 'features/CardDetail/cardDetailSagas'
 import optionsSagas from 'features/Options/optionsSagas'
+import timersSagas from 'features/Timers/timersSagas'
 
 
 export default function* rootSaga() {
@@ -18,6 +19,7 @@ export default function* rootSaga() {
     fork(labelSagas),
     fork(newListSagas),
     fork(cardDetailSagas),
-    fork(optionsSagas)
+    fork(optionsSagas),
+    fork(timersSagas)
   ])
 }

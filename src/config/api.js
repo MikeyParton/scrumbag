@@ -47,6 +47,12 @@ export const uncheckChecklistItemUrl = id => `${checklistItemUrl(id)}/undo`
 export const labelsUrl = boardId => `${boardDetailUrl(boardId)}/labels`
 export const labelUrl = id => `/labels/${id}`
 
+// Timers
+export const timersUrl = cardId => `${cardUrl(cardId)}/timers`
+export const timerUrl = id => `/timers/${id}`
+export const startTimerUrl = id => `${timerUrl(id)}/start`
+export const stopTimerUrl = id => `${timerUrl(id)}/stop`
+
 // Options
 export const colorOptionsUrl = () => '/options/colors'
 

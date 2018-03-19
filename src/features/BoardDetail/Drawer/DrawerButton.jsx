@@ -8,7 +8,7 @@ import CircleIcon from 'react-icons/lib/fa/circle-o'
 import { pulseAnimation1, pulseAnimation2, rotateAnimation } from 'common/components/animation'
 
 const CorrectedPlayIcon = styled(PlayIcon)`
-  margin-left: 1px;
+  margin-left: 2px;
 `
 
 const SmallWrapper = styled.div`
@@ -52,19 +52,52 @@ class DrawerButton extends React.Component {
     active: false
   }
 
+  isActive = () => {
+    const { active: stateActive } = this.state
+    const { active: propsActive } = this.props
+    const active = propsActive === null ? stateActive : propsActive
+    return active
+  }
+
   toggleActive = () => {
-    const { animation, active } = this.state
+    const { animation } = this.state
+
+    if (this.isActive()) {
+      this.deactivate()
+    } else {
+      this.activate()
+    }
+
+    this.setState({ animation: (animation + 1) % 1, })
+  }
+
+  activate = () => {
+    const { onActivate } = this.props
+
     this.setState({
-      animation: animation === 0 ? 1 : 0,
-      active: !active,
-      wasActive: active
+      active: true,
+      wasActive: false
     })
+
+    onActivate()
+  }
+
+  deactivate = () => {
+    const { onDeactivate } = this.props
+
+    this.setState({
+      active: false,
+      wasActive: true
+    })
+
+    onDeactivate()
   }
 
   render() {
-    const OuterIcon = this.state.active ? SpinningCircle : CircleIcon
-    const InnerIcon = this.state.active ? PauseIcon : CorrectedPlayIcon
-    const { active, animation, wasActive } = this.state
+    const { animation, wasActive } = this.state
+    const active = this.isActive()
+    const OuterIcon = active ? SpinningCircle : CircleIcon
+    const InnerIcon = active ? PauseIcon : CorrectedPlayIcon
 
     return (
       <div>
@@ -82,6 +115,11 @@ class DrawerButton extends React.Component {
       </div>
     )
   }
+}
+
+DrawerButton.defaultProps = {
+  onDeactivate: () => {},
+  onActivate: () => {}
 }
 
 export default DrawerButton

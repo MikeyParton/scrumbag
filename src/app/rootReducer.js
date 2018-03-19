@@ -4,6 +4,7 @@ import { reducer as form } from 'redux-form'
 import boards from 'features/Boards/boardsReducer'
 import cards from 'features/Cards/cardsReducer'
 import users from 'features/Users/usersReducer'
+import timers from 'features/Timers/timersReducer'
 import labels from 'features/Labels/labelsReducer'
 import login from 'features/Login/loginReducer'
 import modalManager from 'features/ModalManager/modalManagerReducer'
@@ -19,6 +20,7 @@ export default combineReducers({
   boards,
   cards,
   users,
+  timers,
   labels,
   boardDetail,
   modalManager,
