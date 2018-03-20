@@ -1,10 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { startTimerUrl, stopTimerUrl } from 'config/api'
 import { makeGetTimerById } from './timersSelectors'
+
+import {
+  timerUrl,
+  startTimerUrl,
+  stopTimerUrl
+} from 'config/api'
+
 import {
   startTimerRequest,
-  stopTimerRequest
+  stopTimerRequest,
+  deleteTimerRequest
 } from './timersRequests'
 
 const withTimer = (Component) => {
@@ -21,6 +28,11 @@ const withTimer = (Component) => {
     stopTimer: () => {
       dispatch(stopTimerRequest.actions.request({
         requestUrl: stopTimerUrl(ownProps.id)
+      }))
+    },
+    deleteTimer: () => {
+      dispatch(deleteTimerRequest.actions.request({
+        requestUrl: timerUrl(ownProps.id)
       }))
     }
   })

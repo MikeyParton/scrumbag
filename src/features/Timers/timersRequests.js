@@ -24,3 +24,10 @@ export const stopTimerRequest = new CreateRequest({
     responseSchema: timersSchema
   }
 })
+
+export const deleteTimerRequest = new CreateRequest({
+  constantPrefix: 'TIMERS/DELETE_TIMER',
+  request: {
+    method: 'delete'
+  }
+})

@@ -74,7 +74,7 @@ class Timer extends React.Component {
 
   render() {
     const { display } = this.state
-    const { timer } = this.props
+    const { timer, deleteTimer } = this.props
     const { startedAt, seconds, status } = timer
 
     return (
@@ -85,6 +85,7 @@ class Timer extends React.Component {
           onDeactivate={this.stop}
         />
         <div>{display}</div>
+        <button onClick={deleteTimer}>Delete</button>
       </Flex>
     )
   }
